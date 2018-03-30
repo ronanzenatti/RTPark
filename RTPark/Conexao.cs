@@ -32,7 +32,7 @@ namespace RTPark
             {
                 conn.Close();
             }
-            string connStr = String.Format("server={0};port={1};user id={2}; password={3}; database={4}; pooling=false", server, port, user, password, database);
+            string connStr = String.Format("server={0};port={1};user id={2}; password={3}; database={4}; pooling=false; convert zero datetime=True", server, port, user, password, database);
             try
             {
                 conn = new MySqlConnection(connStr);
@@ -40,7 +40,10 @@ namespace RTPark
             }
             catch (MySqlException ex)
             {
+                Application.Exit();
                 MessageBox.Show("Não foi possivel estabelecer conexão!!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                System.Diagnostics.Process.GetCurrentProcess().Close();
             }
         }
 
@@ -57,7 +60,8 @@ namespace RTPark
         public void ExecutarComandoSQL(string comandoSql)
         {
             MySqlCommand comando = new MySqlCommand(comandoSql, conn);
-            comando.ExecuteScalar();
+
+            comando.ExecuteNonQuery();
             conn.Close();
         }
 
@@ -67,6 +71,19 @@ namespace RTPark
             mysqlDA = new MySqlDataAdapter(sql, conn);
             mysqlDA.Fill(dataTable);
             return dataTable;
+        }
+
+        public IDataReader RetDataReader(string sql)
+        {
+            MySqlDataReader reader;
+            using (var cmd = new MySqlCommand(sql, conn))
+            {
+
+                reader = cmd.ExecuteReader();
+                var dt = new DataTable();
+                dt.Load(reader);
+                return dt.CreateDataReader();
+            }
         }
     }
 }

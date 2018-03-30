@@ -12,7 +12,7 @@ namespace RTPark.Entidades
         private String nome;
         private String cpf;
         private String rg;
-        private DateTime dt_nasc;
+        private String dt_nasc;
         private String rua;
         private String numero;
         private String bairro;
@@ -25,13 +25,13 @@ namespace RTPark.Entidades
         private String usuario;
         private String senha;
         private char tipo;
-        private byte ativo;
+        private int ativo;
 
         public int Idfuncionario { get => idfuncionario; set => idfuncionario = value; }
         public string Nome { get => nome; set => nome = value; }
         public string Cpf { get => cpf; set => cpf = value; }
         public string Rg { get => rg; set => rg = value; }
-        public DateTime Dt_nasc { get => dt_nasc; set => dt_nasc = value; }
+        public string Dt_nasc { get => dt_nasc; set => dt_nasc = value; }
         public string Rua { get => rua; set => rua = value; }
         public string Numero { get => numero; set => numero = value; }
         public string Bairro { get => bairro; set => bairro = value; }
@@ -44,6 +44,6 @@ namespace RTPark.Entidades
         public string Usuario { get => usuario; set => usuario = value; }
         public string Senha { get => senha; set => senha = value; }
         public char Tipo { get => tipo; set => tipo = value; }
-        public byte Ativo { get => ativo; set => ativo = value; }       
+        public int Ativo { get => ativo; set => ativo = value; }
     }
 }

@@ -12,16 +12,16 @@ using RTPark.DAO;
 
 namespace RTPark
 {
-    public partial class ListaFuncionarios : Form
+    public partial class ListaClientes : Form
     {
-        FuncionarioDAO fDAO = new FuncionarioDAO();
+        ClienteDAO fDAO = new ClienteDAO();
 
-        public ListaFuncionarios()
+        public ListaClientes()
         {
             InitializeComponent();
         }
 
-        private void ListaFuncionarios_Load(object sender, EventArgs e)
+        private void ListaClientes_Load(object sender, EventArgs e)
         {
             cboCriterio.SelectedIndex = 0;
             CarregaGrid();
@@ -36,14 +36,14 @@ namespace RTPark
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            FuncionarioDAO fDAO = new FuncionarioDAO();
+            ClienteDAO fDAO = new ClienteDAO();
             String campo = cboCriterio.SelectedItem.ToString();
             String busca = txtPesquisa.Text;
 
             if (campo != null && !busca.Equals(""))
             {
                 if (campo == "Código")
-                    campo = "idfuncionario";
+                    campo = "idcliente";
 
                 if (campo == "Endereço")
                     campo = "endereco";
@@ -77,7 +77,7 @@ namespace RTPark
             if (dgvDados.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value.ToString());
-                IUFuncionario tela = new IUFuncionario(id, this);
+                IUCliente tela = new IUCliente(id, this);
                 tela.Show();
                 this.Hide();
 
@@ -90,7 +90,7 @@ namespace RTPark
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            IUFuncionario tela = new IUFuncionario(0, this);
+            IUCliente tela = new IUCliente(0, this);
             tela.Show();
             this.Hide();
         }
@@ -101,12 +101,12 @@ namespace RTPark
             //dgvDados.Columns[0].ReadOnly = true;
         }
 
-        private void ListaFuncionarios_Shown(object sender, EventArgs e)
+        private void ListaClientes_Shown(object sender, EventArgs e)
         {
             CarregaGrid();
         }
 
-        private void ListaFuncionarios_Activated(object sender, EventArgs e)
+        private void ListaClientes_Activated(object sender, EventArgs e)
         {
             CarregaGrid();
         }
@@ -114,7 +114,7 @@ namespace RTPark
         private void dgvDados_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int id = Convert.ToInt32(dgvDados.Rows[e.RowIndex].Cells[0].Value.ToString());
-            IUFuncionario tela = new IUFuncionario(id, this);
+            IUCliente tela = new IUCliente(id, this);
             tela.Show();
             this.Hide();
 

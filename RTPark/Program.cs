@@ -16,7 +16,7 @@ namespace RTPark
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new IUFuncionario(0));
+            Application.Run(new TelaPrincipal());
         }
     }
 }

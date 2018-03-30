@@ -71,6 +71,7 @@
             resources.ApplyResources(this.btnEntrar, "btnEntrar");
             this.btnEntrar.Name = "btnEntrar";
             this.btnEntrar.UseVisualStyleBackColor = true;
+            this.btnEntrar.Click += new System.EventHandler(this.btnEntrar_Click);
             // 
             // btnSair
             // 
@@ -82,6 +83,7 @@
             // pictureBox1
             // 
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::RTPark.Properties.Resources.Logo_RTPark;
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
@@ -100,6 +102,7 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.Load += new System.EventHandler(this.Login_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Login_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Login_KeyUp);

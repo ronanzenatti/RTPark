@@ -11,18 +11,18 @@ using System.Security.Cryptography;
 
 namespace RTPark.DAO
 {
-    class FuncionarioDAO
+    class ClienteDAO
     {
         Conexao con;
 
-        public int Inserir(Funcionarios obj)
+        public int Inserir(Clientes obj)
         {
             try
             {
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "INSERT INTO funcionarios (nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, senha, tipo, ativo) VALUES(";
+                String sql = "INSERT INTO clientes (nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, senha, tipo, ativo) VALUES(";
                 sql += "'" + obj.Nome.Replace("'", "''") + "', ";
                 sql += "'" + obj.Cpf.Replace("'", "''") + "', ";
                 sql += "'" + obj.Rg.Replace("'", "''") + "', ";
@@ -59,13 +59,13 @@ namespace RTPark.DAO
         }
 
 
-        public void Alterar(Funcionarios obj)
+        public void Alterar(Clientes obj)
         {
             try
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "UPDATE funcionarios SET";
+                String sql = "UPDATE clientes SET";
                 sql += " nome = '" + obj.Nome.Replace("'", "''") + "', ";
                 sql += " cpf = '" + obj.Cpf.Replace("'", "''") + "', ";
                 sql += " rg = '" + obj.Rg.Replace("'", "''") + "', ";
@@ -83,7 +83,7 @@ namespace RTPark.DAO
                 sql += " usuario = '" + Encode64.Base64Encode(Encode64.Base64Encode(obj.Senha.Replace("'", "''"))) + "', ";
                 sql += " tipo = '" + obj.Tipo + "', ";
                 sql += " ativo = '" + obj.Ativo + "'";
-                sql += " WHERE idfuncionario = " + obj.Idfuncionario + ";";
+                sql += " WHERE idcliente = " + obj.Idcliente + ";";
                 sql = sql.Replace("''", "NULL");
                 con.ExecutarComandoSQL(sql);
             }
@@ -103,7 +103,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "DELETE FROM funcionarios WHERE idfuncionario = " + id + ";";
+                String sql = "DELETE FROM clientes WHERE idcliente = " + id + ";";
                 con.ExecutarComandoSQL(sql);
             }
             catch (Exception ex)
@@ -124,9 +124,9 @@ namespace RTPark.DAO
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "SELECT idfuncionario AS ID, nome AS Nome, cpf AS CPF, rg AS RG, dt_nasc AS Nascimento, rua AS Rua, numero AS `Num`, " +
+                String sql = "SELECT idcliente AS ID, nome AS Nome, cpf AS CPF, rg AS RG, dt_nasc AS Nascimento, rua AS Rua, numero AS `Num`, " +
                     "bairro AS Bairro, cidade AS Cidade, estado AS UF, cep AS CEP, telefones AS Telefones, email AS `E-mail`, salario AS Salario, " +
-                    "usuario AS Usuario, tipo AS Tipo, ativo AS Ativo FROM funcionarios";
+                    "usuario AS Usuario, tipo AS Tipo, ativo AS Ativo FROM clientes";
                 dt = con.RetDataTable(sql);
             }
             catch (Exception ex)
@@ -144,7 +144,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idfuncionario, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, tipo, ativo FROM funcionarios";
+                String sql = "SELECT idcliente, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, tipo, ativo FROM clientes";
                 sql += " WHERE " + campo + " LIKE '%" + busca + "%';";
                 dt = con.RetDataTable(sql);
             }
@@ -156,21 +156,21 @@ namespace RTPark.DAO
             return dt;
         }
 
-        public Funcionarios GetById(int id)
+        public Clientes GetById(int id)
         {
-            Funcionarios obj = new Funcionarios();
+            Clientes obj = new Clientes();
             try
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idfuncionario, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, senha, tipo, ativo FROM funcionarios";
-                sql += " WHERE idfuncionario = " + id;
+                String sql = "SELECT idcliente, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, senha, tipo, ativo FROM clientes";
+                sql += " WHERE idcliente = " + id;
 
                 var dados = con.RetDataReader(sql);
 
                 dados.Read();
 
-                obj.Idfuncionario = Convert.ToInt32(dados["idfuncionario"].ToString());
+                obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
                 obj.Nome = dados["nome"].ToString();
                 obj.Cpf = dados["cpf"].ToString();
                 obj.Rg = dados["rg"].ToString();
@@ -203,22 +203,22 @@ namespace RTPark.DAO
             return obj;
         }
 
-        public Funcionarios Login(String usr, String senha)
+        public Clientes Login(String usr, String senha)
         {
-            Funcionarios obj = new Funcionarios();
+            Clientes obj = new Clientes();
             try
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idfuncionario, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email," +
-                    " salario, usuario, senha, tipo, ativo FROM funcionarios";
+                String sql = "SELECT idcliente, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email," +
+                    " salario, usuario, senha, tipo, ativo FROM clientes";
                 sql += " WHERE usuario = '" + usr + "' AND senha = '" + senha + "';";
 
                 var dados = con.RetDataReader(sql);
 
                 if (dados.Read())
                 {
-                    obj.Idfuncionario = Convert.ToInt32(dados["idfuncionario"].ToString());
+                    obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
                     obj.Nome = dados["nome"].ToString();
                     obj.Cpf = dados["cpf"].ToString();
                     obj.Rg = dados["rg"].ToString();

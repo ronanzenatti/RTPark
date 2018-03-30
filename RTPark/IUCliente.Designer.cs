@@ -1,6 +1,6 @@
 ﻿namespace RTPark
 {
-    partial class IUFuncionario
+    partial class IUCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.lblTitulo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtIdFuncionario = new System.Windows.Forms.TextBox();
+            this.txtIdCliente = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,7 +71,7 @@
             // 
             // lblTitulo
             // 
-            this.lblTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.Blue;
@@ -91,18 +91,18 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Código:";
             // 
-            // txtIdFuncionario
+            // txtIdCliente
             // 
-            this.txtIdFuncionario.BackColor = System.Drawing.Color.White;
-            this.txtIdFuncionario.Enabled = false;
-            this.txtIdFuncionario.ForeColor = System.Drawing.Color.Blue;
-            this.txtIdFuncionario.Location = new System.Drawing.Point(119, 90);
-            this.txtIdFuncionario.Name = "txtIdFuncionario";
-            this.txtIdFuncionario.ReadOnly = true;
-            this.txtIdFuncionario.Size = new System.Drawing.Size(122, 26);
-            this.txtIdFuncionario.TabIndex = 2;
-            this.txtIdFuncionario.TabStop = false;
-            this.txtIdFuncionario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtIdCliente.BackColor = System.Drawing.Color.White;
+            this.txtIdCliente.Enabled = false;
+            this.txtIdCliente.ForeColor = System.Drawing.Color.Blue;
+            this.txtIdCliente.Location = new System.Drawing.Point(119, 90);
+            this.txtIdCliente.Name = "txtIdCliente";
+            this.txtIdCliente.ReadOnly = true;
+            this.txtIdCliente.Size = new System.Drawing.Size(122, 26);
+            this.txtIdCliente.TabIndex = 2;
+            this.txtIdCliente.TabStop = false;
+            this.txtIdCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -465,7 +465,7 @@
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
-            // IUFuncionario
+            // IUCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -506,7 +506,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtIdFuncionario);
+            this.Controls.Add(this.txtIdCliente);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitulo);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -515,13 +515,13 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(839, 565);
             this.MinimumSize = new System.Drawing.Size(839, 565);
-            this.Name = "IUFuncionario";
+            this.Name = "IUCliente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cadastro de Funcionario";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IUFuncionario_FormClosing);
-            this.Load += new System.EventHandler(this.IUFuncionario_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IUFuncionario_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.IUFuncionario_KeyUp);
+            this.Text = "Cadastro de Cliente";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IUCliente_FormClosing);
+            this.Load += new System.EventHandler(this.IUCliente_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IUCliente_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.IUCliente_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -531,7 +531,7 @@
 
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtIdFuncionario;
+        private System.Windows.Forms.TextBox txtIdCliente;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Label label3;

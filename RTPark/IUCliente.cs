@@ -13,18 +13,18 @@ using System.Globalization;
 
 namespace RTPark
 {
-    public partial class IUFuncionario : Form
+    public partial class IUCliente : Form
     {
-        FuncionarioDAO fDAO;
-        Funcionarios obj;
+        ClienteDAO fDAO;
+        Clientes obj;
         Form lista;
         Boolean salvo = false;
 
-        public IUFuncionario(int id, Form lista)
+        public IUCliente(int id, Form lista)
         {
             InitializeComponent();
-            fDAO = new FuncionarioDAO();
-            obj = new Funcionarios();
+            fDAO = new ClienteDAO();
+            obj = new Clientes();
             this.lista = lista;
 
             cboUF.SelectedIndex = 0;
@@ -34,7 +34,7 @@ namespace RTPark
             {
                 obj = fDAO.GetById(id);
 
-                txtIdFuncionario.Text = obj.Idfuncionario.ToString();
+                txtIdCliente.Text = obj.Idcliente.ToString();
                 txtNome.Text = obj.Nome;
                 txtCpf.Text = obj.Cpf;
                 txtRg.Text = obj.Rg;
@@ -114,7 +114,7 @@ namespace RTPark
             FormataMoeda(ref txtSalario);
         }
 
-        private void IUFuncionario_Load(object sender, EventArgs e)
+        private void IUCliente_Load(object sender, EventArgs e)
         {
             if (!dtpNasci.Checked)
             {
@@ -124,7 +124,7 @@ namespace RTPark
             }
         }
 
-        private void IUFuncionario_KeyUp(object sender, KeyEventArgs e)
+        private void IUCliente_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -132,7 +132,7 @@ namespace RTPark
             }
         }
 
-        private void IUFuncionario_KeyDown(object sender, KeyEventArgs e)
+        private void IUCliente_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 e.SuppressKeyPress = true;
@@ -145,7 +145,7 @@ namespace RTPark
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
-            txtIdFuncionario = null;
+            txtIdCliente = null;
             txtNome.Text = null;
             txtCpf.Text = null;
             txtRg.Text = null;
@@ -174,7 +174,7 @@ namespace RTPark
                 if (validaCampos() && (confirm == DialogResult.Yes))
                 {
                     if (obj == null)
-                        obj = new Funcionarios();
+                        obj = new Clientes();
 
                     obj.Ativo = (chkAtivo.Checked == true) ? Convert.ToInt32(1) : Convert.ToInt32(0);
                     obj.Nome = txtNome.Text;
@@ -209,7 +209,7 @@ namespace RTPark
 
                     if (validaCampos())
                     {
-                        if (obj.Idfuncionario == 0)
+                        if (obj.Idcliente == 0)
                             fDAO.Inserir(obj);
                         else
                             fDAO.Alterar(obj);
@@ -295,7 +295,7 @@ namespace RTPark
             }
         }
 
-        private void IUFuncionario_FormClosing(object sender, FormClosingEventArgs e)
+        private void IUCliente_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!salvo)
             {

@@ -33,9 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySQL.Data.EntityFrameworkCore, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySQL.Data.EntityFrameworkCore.Design, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -54,22 +51,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexao.cs" />
+    <Compile Include="DAO\EstabelecimentoDAO.cs" />
+    <Compile Include="DAO\ClienteDAO .cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
+    <Compile Include="Encode64.cs" />
     <Compile Include="Entidades\Clientes.cs" />
     <Compile Include="Entidades\Contratos.cs" />
     <Compile Include="Entidades\Financeiro.cs" />
     <Compile Include="Entidades\FormaPagamento.cs" />
     <Compile Include="Entidades\ConfigMovimento.cs" />
-    <Compile Include="Entidades\Empresa.cs" />
+    <Compile Include="Entidades\Estabelecimentos.cs" />
     <Compile Include="Entidades\Funcionarios.cs" />
     <Compile Include="Entidades\Movimentos.cs" />
     <Compile Include="Entidades\Servicos.cs" />
     <Compile Include="Entidades\VeiculosClientes.cs" />
+    <Compile Include="IUEstabelecimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUEstabelecimento.Designer.cs">
+      <DependentUpon>IUEstabelecimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="IUFuncionario.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="IUFuncionario.Designer.cs">
       <DependentUpon>IUFuncionario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaClientes.Designer.cs">
+      <DependentUpon>ListaClientes.cs</DependentUpon>
     </Compile>
     <Compile Include="ListaFuncionarios.cs">
       <SubType>Form</SubType>
@@ -85,6 +97,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TelaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TelaPrincipal.Designer.cs">
+      <DependentUpon>TelaPrincipal.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="IUEstabelecimento.resx">
+      <DependentUpon>IUEstabelecimento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IUFuncionario.resx">
       <DependentUpon>IUFuncionario.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,7 +126,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TelaPrincipal.resx">
+      <DependentUpon>TelaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -119,6 +144,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="IMG\Logo RTPark.png" />
+    <None Include="Resources\Logo RTPark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
