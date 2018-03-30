@@ -101,5 +101,17 @@ namespace RTPark
             lblMotosD.Text = est.Vagas_moto.ToString().PadLeft(3, '0');
             lblOutrosD.Text = est.Vagas_outros.ToString().PadLeft(3, '0');
         }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            ListaClientes tela = new ListaClientes();
+            tela.Show();
+        }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaClientes tela = new ListaClientes();
+            tela.Show();
+        }
     }
 }

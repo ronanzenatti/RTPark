@@ -22,10 +22,11 @@ namespace RTPark.DAO
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "INSERT INTO clientes (nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, senha, tipo, ativo) VALUES(";
+                String sql = "INSERT INTO clientes (nome, tipo_pessoa, doc_fed, doc_est, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email) VALUES(";
                 sql += "'" + obj.Nome.Replace("'", "''") + "', ";
-                sql += "'" + obj.Cpf.Replace("'", "''") + "', ";
-                sql += "'" + obj.Rg.Replace("'", "''") + "', ";
+                sql += "'" + obj.Tipo_pessoa + "', ";
+                sql += "'" + obj.Doc_fed.Replace("'", "''") + "', ";
+                sql += "'" + obj.Doc_est.Replace("'", "''") + "', ";
                 sql += "'" + obj.Dt_nasc.Replace("'", "''") + "', ";
                 sql += "'" + obj.Rua.Replace("'", "''") + "', ";
                 sql += "'" + obj.Numero.Replace("'", "''") + "', ";
@@ -34,12 +35,7 @@ namespace RTPark.DAO
                 sql += "'" + obj.Estado + "', ";
                 sql += "'" + obj.Cep.Replace("'", "''") + "', ";
                 sql += "'" + obj.Telefones.Replace("'", "''") + "', ";
-                sql += "'" + obj.Email.Replace("'", "''") + "', ";
-                sql += "'" + obj.Salario.ToString(new CultureInfo("en-US")) + "', ";
-                sql += "'" + obj.Usuario.Replace("'", "''") + "', ";
-                sql += "'" + Encode64.Base64Encode(Encode64.Base64Encode(obj.Senha.Replace("'", "''"))) + "', ";
-                sql += "'" + obj.Tipo + "', ";
-                sql += "'" + obj.Ativo + "');";
+                sql += "'" + obj.Email.Replace("'", "''") + "'); "; 
                 sql += "SELECT LAST_INSERT_ID();";
                 sql = sql.Replace("''", "NULL");
                 System.Console.WriteLine(sql);
@@ -49,7 +45,7 @@ namespace RTPark.DAO
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao cadastrar Funcionário !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao cadastrar Cliente !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
             finally
@@ -67,8 +63,9 @@ namespace RTPark.DAO
                 con.Conectar();
                 String sql = "UPDATE clientes SET";
                 sql += " nome = '" + obj.Nome.Replace("'", "''") + "', ";
-                sql += " cpf = '" + obj.Cpf.Replace("'", "''") + "', ";
-                sql += " rg = '" + obj.Rg.Replace("'", "''") + "', ";
+                sql += " tipo_pessoa = '" + obj.Tipo_pessoa + "', ";
+                sql += " doc_fed = '" + obj.Doc_fed.Replace("'", "''") + "', ";
+                sql += " doc_est = '" + obj.Doc_est.Replace("'", "''") + "', ";
                 sql += " dt_nasc = '" + obj.Dt_nasc.Replace("'", "''") + "', ";
                 sql += " rua = '" + obj.Rua.Replace("'", "''") + "', ";
                 sql += " numero = '" + obj.Numero.Replace("'", "''") + "', ";
@@ -77,19 +74,14 @@ namespace RTPark.DAO
                 sql += " estado = '" + obj.Estado + "', ";
                 sql += " cep = '" + obj.Cep.Replace("'", "''") + "', ";
                 sql += " telefones = '" + obj.Telefones.Replace("'", "''") + "', ";
-                sql += " email = '" + obj.Email.Replace("'", "''") + "', ";
-                sql += " salario = '" + obj.Salario + "', ";
-                sql += " usuario = '" + obj.Usuario.Replace("'", "''") + "', ";
-                sql += " usuario = '" + Encode64.Base64Encode(Encode64.Base64Encode(obj.Senha.Replace("'", "''"))) + "', ";
-                sql += " tipo = '" + obj.Tipo + "', ";
-                sql += " ativo = '" + obj.Ativo + "'";
+                sql += " email = '" + obj.Email.Replace("'", "''") + "' ";                
                 sql += " WHERE idcliente = " + obj.Idcliente + ";";
                 sql = sql.Replace("''", "NULL");
                 con.ExecutarComandoSQL(sql);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao atualizar o Funcionário !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao atualizar o Cliente !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -108,7 +100,7 @@ namespace RTPark.DAO
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao excluir o Funcionário !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao excluir o Cliente !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -124,9 +116,8 @@ namespace RTPark.DAO
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "SELECT idcliente AS ID, nome AS Nome, cpf AS CPF, rg AS RG, dt_nasc AS Nascimento, rua AS Rua, numero AS `Num`, " +
-                    "bairro AS Bairro, cidade AS Cidade, estado AS UF, cep AS CEP, telefones AS Telefones, email AS `E-mail`, salario AS Salario, " +
-                    "usuario AS Usuario, tipo AS Tipo, ativo AS Ativo FROM clientes";
+                String sql = "SELECT idcliente AS ID, tipo_pessoa AS Tipo, nome AS Nome, doc_fed AS `CPF/CNPJ`, doc_est AS `RG/IE`, dt_nasc AS Nascimento, rua AS Rua, numero AS `Num`, " +
+                    "bairro AS Bairro, cidade AS Cidade, estado AS UF, cep AS CEP, telefones AS Telefones, email AS `E-mail` FROM clientes";
                 dt = con.RetDataTable(sql);
             }
             catch (Exception ex)
@@ -144,7 +135,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idcliente, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, tipo, ativo FROM clientes";
+                String sql = "SELECT idcliente, nome, tipo_pessoa, doc_fed, doc_est, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email FROM clientes";
                 sql += " WHERE " + campo + " LIKE '%" + busca + "%';";
                 dt = con.RetDataTable(sql);
             }
@@ -163,7 +154,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idcliente, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email, salario, usuario, senha, tipo, ativo FROM clientes";
+                String sql = "SELECT idcliente, nome, tipo_pessoa, doc_fed, doc_est, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email FROM clientes";
                 sql += " WHERE idcliente = " + id;
 
                 var dados = con.RetDataReader(sql);
@@ -172,8 +163,9 @@ namespace RTPark.DAO
 
                 obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
                 obj.Nome = dados["nome"].ToString();
-                obj.Cpf = dados["cpf"].ToString();
-                obj.Rg = dados["rg"].ToString();
+                obj.Tipo_pessoa = dados["nome"].ToString()[0];
+                obj.Doc_fed = dados["doc_fed"].ToString();
+                obj.Doc_est = dados["doc_est"].ToString();
                 obj.Dt_nasc = dados["dt_nasc"].ToString();
                 obj.Rua = dados["rua"].ToString();
                 obj.Numero = dados["numero"].ToString();
@@ -183,12 +175,6 @@ namespace RTPark.DAO
                 obj.Cep = dados["cep"].ToString();
                 obj.Telefones = dados["telefones"].ToString();
                 obj.Email = dados["email"].ToString();
-                obj.Salario = Convert.ToDecimal(dados["salario"].ToString(), new CultureInfo("en-US"));
-                obj.Usuario = dados["usuario"].ToString();
-                obj.Senha = dados["senha"].ToString();
-                obj.Tipo = Convert.ToChar(dados["tipo"].ToString());
-                obj.Ativo = Convert.ToInt32(dados["ativo"]);
-
             }
             catch (FormatException e)
             {
@@ -202,58 +188,5 @@ namespace RTPark.DAO
             con = null;
             return obj;
         }
-
-        public Clientes Login(String usr, String senha)
-        {
-            Clientes obj = new Clientes();
-            try
-            {
-                con = new Conexao();
-                con.Conectar();
-                String sql = "SELECT idcliente, nome, cpf, rg, dt_nasc, rua, numero, bairro, cidade, estado, cep, telefones, email," +
-                    " salario, usuario, senha, tipo, ativo FROM clientes";
-                sql += " WHERE usuario = '" + usr + "' AND senha = '" + senha + "';";
-
-                var dados = con.RetDataReader(sql);
-
-                if (dados.Read())
-                {
-                    obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
-                    obj.Nome = dados["nome"].ToString();
-                    obj.Cpf = dados["cpf"].ToString();
-                    obj.Rg = dados["rg"].ToString();
-                    obj.Dt_nasc = dados["dt_nasc"].ToString();
-                    obj.Rua = dados["rua"].ToString();
-                    obj.Numero = dados["numero"].ToString();
-                    obj.Bairro = dados["bairro"].ToString();
-                    obj.Cidade = dados["cidade"].ToString();
-                    obj.Estado = dados["estado"].ToString();
-                    obj.Cep = dados["cep"].ToString();
-                    obj.Telefones = dados["telefones"].ToString();
-                    obj.Email = dados["email"].ToString();
-                    obj.Salario = Convert.ToDecimal(dados["salario"].ToString(), new CultureInfo("en-US"));
-                    obj.Usuario = dados["usuario"].ToString();
-                    obj.Senha = dados["senha"].ToString();
-                    obj.Tipo = Convert.ToChar(dados["tipo"].ToString());
-                    obj.Ativo = Convert.ToInt32(dados["ativo"]);
-                }
-                else
-                {
-                    obj = null;
-                }
-            }
-            catch (FormatException e)
-            {
-                MessageBox.Show("Erro ao converter !!! \n" + e.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao buscar os registros (LOGIN) !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            con = null;
-            return obj;
-        }
-
     }
 }

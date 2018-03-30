@@ -65,6 +65,12 @@
     <Compile Include="Entidades\Movimentos.cs" />
     <Compile Include="Entidades\Servicos.cs" />
     <Compile Include="Entidades\VeiculosClientes.cs" />
+    <Compile Include="IUCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUCliente.Designer.cs">
+      <DependentUpon>IUCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="IUEstabelecimento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     <Compile Include="TelaPrincipal.Designer.cs">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="IUCliente.resx">
+      <DependentUpon>IUCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IUEstabelecimento.resx">
       <DependentUpon>IUEstabelecimento.cs</DependentUpon>
     </EmbeddedResource>

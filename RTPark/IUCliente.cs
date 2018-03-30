@@ -15,15 +15,15 @@ namespace RTPark
 {
     public partial class IUCliente : Form
     {
-        ClienteDAO fDAO;
+        ClienteDAO oDAO;
         Clientes obj;
-        Form lista;
+        ListaClientes lista;
         Boolean salvo = false;
 
-        public IUCliente(int id, Form lista)
+        public IUCliente(int id, ListaClientes lista)
         {
             InitializeComponent();
-            fDAO = new ClienteDAO();
+            oDAO = new ClienteDAO();
             obj = new Clientes();
             this.lista = lista;
 
@@ -32,12 +32,12 @@ namespace RTPark
 
             if (id != 0)
             {
-                obj = fDAO.GetById(id);
+                obj = oDAO.GetById(id);
 
                 txtIdCliente.Text = obj.Idcliente.ToString();
                 txtNome.Text = obj.Nome;
-                txtCpf.Text = obj.Cpf;
-                txtRg.Text = obj.Rg;
+                txtDoc_fed.Text = obj.Doc_fed;
+                txtDoc_est.Text = obj.Doc_est;
                 txtRua.Text = obj.Rua;
                 txtNumero.Text = obj.Numero;
                 txtBairro.Text = obj.Bairro;
@@ -45,9 +45,6 @@ namespace RTPark
                 txtCep.Text = obj.Cep;
                 txtTelefones.Text = obj.Telefones;
                 txtEmail.Text = obj.Email;
-                txtSalario.Text = obj.Salario.ToString();
-                txtUsuario.Text = obj.Usuario;
-                chkAtivo.Checked = (obj.Ativo == 1) ? true : false;
 
                 dtpNasci.Checked = (obj.Dt_nasc.Equals("")) ? false : true;
 
@@ -58,7 +55,7 @@ namespace RTPark
 
                 cboUF.SelectedIndex = cboUF.Items.IndexOf(obj.Estado);
 
-                if (obj.Tipo == 'A')
+                if (obj.Tipo_pessoa == 'F')
                 {
                     cboTipo.SelectedIndex = 0;
                 }
@@ -68,50 +65,6 @@ namespace RTPark
                 }
                 btnLimpar.Enabled = false;
             }
-        }
-
-        public static void FormataMoeda(ref TextBox txt)
-        {
-            string n = string.Empty;
-            double v = 0;
-
-            try
-            {
-                n = txt.Text.Replace(",", "").Replace(".", "");
-                if (n.Equals(""))
-                {
-                    n = "";
-                }
-                n = n.PadLeft(3, '0');
-                if (n.Length > 3 & n.Substring(0, 1) == "0")
-                {
-                    n = n.Substring(1, n.Length - 1);
-                }
-
-                if (n.Substring(n.Length - 1, 1) == "-")
-                {
-                    n = n.Substring(0, n.Length - 1);
-                    v = Convert.ToDouble(n) / 100;
-                    v = v * -1;
-                }
-                else
-                {
-                    v = Convert.ToDouble(n) / 100;
-                }
-
-                txt.Text = string.Format("{0:N}", v);
-                txt.SelectionStart = txt.Text.Length;
-            }
-            catch (Exception)
-            {
-
-            }
-
-        }
-
-        private void txtSalario_TextChanged(object sender, EventArgs e)
-        {
-            FormataMoeda(ref txtSalario);
         }
 
         private void IUCliente_Load(object sender, EventArgs e)
@@ -147,8 +100,8 @@ namespace RTPark
         {
             txtIdCliente = null;
             txtNome.Text = null;
-            txtCpf.Text = null;
-            txtRg.Text = null;
+            txtDoc_fed.Text = null;
+            txtDoc_est.Text = null;
             txtRua.Text = null;
             txtNumero.Text = null;
             txtBairro.Text = null;
@@ -156,10 +109,6 @@ namespace RTPark
             txtCep.Text = null;
             txtTelefones.Text = null;
             txtEmail.Text = null;
-            txtUsuario.Text = null;
-            txtSenha.Text = null;
-            txtSalario.Text = null;
-            chkAtivo.Checked = true;
             dtpNasci.Value = DateTime.Now;
             cboTipo.SelectedIndex = 0;
             cboUF.SelectedIndex = 0;
@@ -176,13 +125,12 @@ namespace RTPark
                     if (obj == null)
                         obj = new Clientes();
 
-                    obj.Ativo = (chkAtivo.Checked == true) ? Convert.ToInt32(1) : Convert.ToInt32(0);
                     obj.Nome = txtNome.Text;
-                    txtCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                    if (txtCpf.Text.Length > 0)
-                        txtCpf.TextMaskFormat = MaskFormat.IncludeLiterals;
-                    obj.Cpf = txtCpf.Text;
-                    obj.Rg = txtRg.Text;
+                    txtDoc_fed.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+                    if (txtDoc_fed.Text.Length > 0)
+                        txtDoc_fed.TextMaskFormat = MaskFormat.IncludeLiterals;
+                    obj.Doc_fed = txtDoc_fed.Text;
+                    obj.Doc_est = txtDoc_est.Text;
                     obj.Dt_nasc = (dtpNasci.Checked != false) ? dtpNasci.Value.ToString("yyyy-MM-dd") : "";
                     obj.Rua = txtRua.Text;
                     obj.Numero = txtNumero.Text;
@@ -196,31 +144,20 @@ namespace RTPark
                     obj.Cep = txtCep.Text;
                     obj.Telefones = txtTelefones.Text;
                     obj.Email = txtEmail.Text;
-                    obj.Tipo = Convert.ToChar(cboTipo.SelectedItem.ToString()[0]);
-                    obj.Usuario = txtUsuario.Text;
-                    obj.Senha = txtSenha.Text;
-                    String sal = txtSalario.Text.Replace(".", "").Replace(",", ".");
-
-                    if (sal.Length > 0)
-                    {
-                        obj.Salario = Convert.ToDecimal(sal, new CultureInfo("en-US"));
-
-                    }
+                    obj.Tipo_pessoa = Convert.ToChar(cboTipo.SelectedItem.ToString()[0]);
 
                     if (validaCampos())
                     {
                         if (obj.Idcliente == 0)
-                            fDAO.Inserir(obj);
+                            oDAO.Inserir(obj);
                         else
-                            fDAO.Alterar(obj);
+                            oDAO.Alterar(obj);
                         MessageBox.Show("Salvo com Sucesso !!!");
                         salvo = true;
                         this.Close();
                     }
                 }
-
             }
-
         }
 
         private Boolean validaCampos()
@@ -232,13 +169,13 @@ namespace RTPark
                 return false;
             }
 
-            txtCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            if (txtCpf.Text.Length < 11 && txtCpf.Text.Length > 0)
+            txtDoc_fed.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            if (txtDoc_fed.Text.Length < 11 && txtDoc_fed.Text.Length > 0)
             {
                 MessageBox.Show("O campo [ CPF ] é inválido!");
                 return false;
             }
-            txtCpf.TextMaskFormat = MaskFormat.IncludeLiterals;
+            txtDoc_fed.TextMaskFormat = MaskFormat.IncludeLiterals;
 
             txtCep.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             if (txtCep.Text.Length < 8 && txtCep.Text.Length > 0)
@@ -260,17 +197,6 @@ namespace RTPark
                 return false;
             }
 
-            if (txtUsuario.TextLength == 0)
-            {
-                MessageBox.Show("O campo [ Usuário ] é obrigatório!");
-                return false;
-            }
-
-            if (txtSenha.TextLength == 0)
-            {
-                MessageBox.Show("O campo [ Senha ] é obrigatório!");
-                return false;
-            }
             return true;
         }
 
@@ -313,7 +239,35 @@ namespace RTPark
             {
                 lista.Show();
             }
+        }
 
+        private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String fed = txtDoc_fed.Text;
+            String est = txtDoc_est.Text;
+            String tipo = cboTipo.SelectedItem.ToString();
+
+            txtDoc_fed.Text = null;
+            txtDoc_est.Text = null;
+
+            if (cboTipo.SelectedItem.ToString() == "Fisica")
+            {
+                lblFed.Text = "CPF:";
+                lblEst.Text = "RG:";
+                txtDoc_fed.Mask = "999,999,999-99";
+            }
+            else
+            {
+                lblFed.Text = "CNPJ:";
+                lblEst.Text = "IE:";
+                txtDoc_fed.Mask = "99,999,999/9999-99";
+            }
+
+            if (cboTipo.SelectedItem.ToString() == tipo)
+            {
+                txtDoc_fed.Text = fed;
+                txtDoc_est.Text = est;
+            }
         }
     }
 }

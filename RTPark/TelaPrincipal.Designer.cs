@@ -35,6 +35,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.funcionarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.estabelecimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvDados = new System.Windows.Forms.DataGridView();
             this.lblNomeEstacionamento = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -55,7 +56,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.estabelecimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnClientes = new System.Windows.Forms.Button();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).BeginInit();
@@ -67,6 +69,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.btnClientes);
             this.groupBox1.Controls.Add(this.btnEntrada);
             this.groupBox1.Controls.Add(this.btnSair);
             this.groupBox1.Location = new System.Drawing.Point(12, 32);
@@ -113,7 +116,8 @@
             // 
             this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.funcionarioToolStripMenuItem,
-            this.estabelecimentoToolStripMenuItem});
+            this.estabelecimentoToolStripMenuItem,
+            this.clientesToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
             this.cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -122,8 +126,15 @@
             // 
             this.funcionarioToolStripMenuItem.Name = "funcionarioToolStripMenuItem";
             this.funcionarioToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
-            this.funcionarioToolStripMenuItem.Text = "Funcionarios";
+            this.funcionarioToolStripMenuItem.Text = "&Funcionarios";
             this.funcionarioToolStripMenuItem.Click += new System.EventHandler(this.funcionarioToolStripMenuItem_Click);
+            // 
+            // estabelecimentoToolStripMenuItem
+            // 
+            this.estabelecimentoToolStripMenuItem.Name = "estabelecimentoToolStripMenuItem";
+            this.estabelecimentoToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.estabelecimentoToolStripMenuItem.Text = "&Estabelecimento";
+            this.estabelecimentoToolStripMenuItem.Click += new System.EventHandler(this.estabelecimentoToolStripMenuItem_Click);
             // 
             // dgvDados
             // 
@@ -351,12 +362,24 @@
             this.label2.Text = "Usuário:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // estabelecimentoToolStripMenuItem
+            // btnClientes
             // 
-            this.estabelecimentoToolStripMenuItem.Name = "estabelecimentoToolStripMenuItem";
-            this.estabelecimentoToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
-            this.estabelecimentoToolStripMenuItem.Text = "Estabelecimento";
-            this.estabelecimentoToolStripMenuItem.Click += new System.EventHandler(this.estabelecimentoToolStripMenuItem_Click);
+            this.btnClientes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClientes.Location = new System.Drawing.Point(10, 79);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(180, 40);
+            this.btnClientes.TabIndex = 4;
+            this.btnClientes.Text = "&Clientes (F3)";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.clientesToolStripMenuItem.Text = "&Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
             // TelaPrincipal
             // 
@@ -423,5 +446,7 @@
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem estabelecimentoToolStripMenuItem;
+        private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
     }
 }
