@@ -1,6 +1,6 @@
 ﻿namespace RTPark
 {
-    partial class ListaClientes
+    partial class ListaContratos
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -55,7 +55,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(630, 37);
             this.label1.TabIndex = 0;
-            this.label1.Text = "LISTA DE CLIENTES";
+            this.label1.Text = "LISTA DE CONTRATOS";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cboCriterio
@@ -190,7 +190,7 @@
             this.dgvDados.TabIndex = 8;
             this.dgvDados.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDados_CellMouseDoubleClick);
             // 
-            // ListaClientes
+            // ListaContratos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -203,11 +203,11 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "ListaClientes";
+            this.Name = "ListaContratos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lista de Funcionários";
-            this.Activated += new System.EventHandler(this.ListaClientes_Activated);
-            this.Load += new System.EventHandler(this.ListaClientes_Load);
+            this.Text = "Lista de Contratos";
+            this.Activated += new System.EventHandler(this.ListaContratos_Activated);
+            this.Load += new System.EventHandler(this.ListaContratos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).EndInit();

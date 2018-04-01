@@ -32,13 +32,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesome.Sharp, Version=4.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.4.7.1\lib\net40\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,9 +54,20 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuscaServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscaServico.Designer.cs">
+      <DependentUpon>BuscaServico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Conexao.cs" />
+    <Compile Include="DAO\ConfigMovimentoDAO.cs" />
+    <Compile Include="DAO\ContratoDAO.cs" />
+    <Compile Include="DAO\ServicoDAO.cs" />
+    <Compile Include="DAO\VeiculosClienteDAO.cs" />
     <Compile Include="DAO\EstabelecimentoDAO.cs" />
     <Compile Include="DAO\ClienteDAO .cs" />
     <Compile Include="DAO\FuncionarioDAO.cs" />
@@ -71,6 +88,18 @@
     <Compile Include="IUCliente.Designer.cs">
       <DependentUpon>IUCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="IUConfigMovimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUConfigMovimento.Designer.cs">
+      <DependentUpon>IUConfigMovimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IUContrato.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUContrato.Designer.cs">
+      <DependentUpon>IUContrato.cs</DependentUpon>
+    </Compile>
     <Compile Include="IUEstabelecimento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,17 +112,41 @@
     <Compile Include="IUFuncionario.Designer.cs">
       <DependentUpon>IUFuncionario.cs</DependentUpon>
     </Compile>
+    <Compile Include="IUServico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUServico.Designer.cs">
+      <DependentUpon>IUServico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IUVeiculoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUVeiculoCliente.Designer.cs">
+      <DependentUpon>IUVeiculoCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListaClientes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListaClientes.Designer.cs">
       <DependentUpon>ListaClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListaContratos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaContratos.Designer.cs">
+      <DependentUpon>ListaContratos.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListaFuncionarios.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListaFuncionarios.Designer.cs">
       <DependentUpon>ListaFuncionarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaServicos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaServicos.Designer.cs">
+      <DependentUpon>ListaServicos.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -109,8 +162,17 @@
     <Compile Include="TelaPrincipal.Designer.cs">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BuscaServico.resx">
+      <DependentUpon>BuscaServico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IUCliente.resx">
       <DependentUpon>IUCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IUConfigMovimento.resx">
+      <DependentUpon>IUConfigMovimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IUContrato.resx">
+      <DependentUpon>IUContrato.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IUEstabelecimento.resx">
       <DependentUpon>IUEstabelecimento.cs</DependentUpon>
@@ -118,8 +180,23 @@
     <EmbeddedResource Include="IUFuncionario.resx">
       <DependentUpon>IUFuncionario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IUServico.resx">
+      <DependentUpon>IUServico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IUVeiculoCliente.resx">
+      <DependentUpon>IUVeiculoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaClientes.resx">
+      <DependentUpon>ListaClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaContratos.resx">
+      <DependentUpon>ListaContratos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListaFuncionarios.resx">
       <DependentUpon>ListaFuncionarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaServicos.resx">
+      <DependentUpon>ListaServicos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.pt-BR.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -140,6 +217,7 @@
     <EmbeddedResource Include="TelaPrincipal.resx">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace RTPark.Entidades
 {
-    class Estabelecimentos
+    public class Estabelecimentos
     {
-        int idestabelecimento;
-        String nome;
-        String cnpj;
-        String rua;
-        String numero;
-        String complemento;
-        String bairro;
-        String cidade;
-        String estado;
-        String cep;
-        String telefones;
-        String email;
-        int vagas_carro; 
-        int vagas_moto; 
-        int vagas_outros;
+        private int idestabelecimento;
+        private String nome;
+        private String cnpj;
+        private String rua;
+        private String numero;
+        private String complemento;
+        private String bairro;
+        private String cidade;
+        private String estado;
+        private String cep;
+        private String telefones;
+        private String email;
+        private int vagas_carro;
+        private int vagas_moto;
+        private int vagas_outros;
 
         public int Idestabelecimento { get => idestabelecimento; set => idestabelecimento = value; }
         public string Nome { get => nome; set => nome = value; }

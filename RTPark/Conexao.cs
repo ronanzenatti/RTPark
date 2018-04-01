@@ -32,7 +32,7 @@ namespace RTPark
             {
                 conn.Close();
             }
-            string connStr = String.Format("server={0};port={1};user id={2}; password={3}; database={4}; pooling=false; convert zero datetime=True", server, port, user, password, database);
+            string connStr = String.Format("server={0};port={1};user id={2}; password={3}; database={4}; pooling=false; CharSet=utf8;   convert zero datetime=True", server, port, user, password, database);
             try
             {
                 conn = new MySqlConnection(connStr);

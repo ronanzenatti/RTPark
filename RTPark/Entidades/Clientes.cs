@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RTPark.Entidades
 {
-    class Clientes
+    public class Clientes
     {
         private int idcliente;       
         private String nome;

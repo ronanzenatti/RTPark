@@ -78,7 +78,7 @@ namespace RTPark.DAO
                 sql += " cep = '" + obj.Cep.Replace("'", "''") + "', ";
                 sql += " telefones = '" + obj.Telefones.Replace("'", "''") + "', ";
                 sql += " email = '" + obj.Email.Replace("'", "''") + "', ";
-                sql += " salario = '" + obj.Salario + "', ";
+                sql += " salario = '" + obj.Salario.ToString(new CultureInfo("en-US")) + "', ";
                 sql += " usuario = '" + obj.Usuario.Replace("'", "''") + "', ";
                 sql += " usuario = '" + Encode64.Base64Encode(Encode64.Base64Encode(obj.Senha.Replace("'", "''"))) + "', ";
                 sql += " tipo = '" + obj.Tipo + "', ";

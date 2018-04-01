@@ -115,6 +115,7 @@
             // 
             // txtNome
             // 
+            this.txtNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNome.Location = new System.Drawing.Point(119, 133);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(663, 26);
@@ -140,6 +141,7 @@
             // 
             // txtRg
             // 
+            this.txtRg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRg.Location = new System.Drawing.Point(334, 175);
             this.txtRg.Name = "txtRg";
             this.txtRg.Size = new System.Drawing.Size(155, 26);
@@ -186,6 +188,7 @@
             // 
             // txtRua
             // 
+            this.txtRua.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRua.Location = new System.Drawing.Point(119, 217);
             this.txtRua.Name = "txtRua";
             this.txtRua.Size = new System.Drawing.Size(487, 26);
@@ -194,6 +197,7 @@
             // txtNumero
             // 
             this.txtNumero.BackColor = System.Drawing.Color.White;
+            this.txtNumero.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNumero.Location = new System.Drawing.Point(660, 217);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(122, 26);
@@ -219,6 +223,7 @@
             // 
             // txtBairro
             // 
+            this.txtBairro.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBairro.Location = new System.Drawing.Point(119, 259);
             this.txtBairro.Name = "txtBairro";
             this.txtBairro.Size = new System.Drawing.Size(220, 26);
@@ -226,11 +231,12 @@
             // 
             // txtCidade
             // 
+            this.txtCidade.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCidade.Location = new System.Drawing.Point(425, 259);
             this.txtCidade.Name = "txtCidade";
             this.txtCidade.Size = new System.Drawing.Size(220, 26);
             this.txtCidade.TabIndex = 18;
-            this.txtCidade.Text = "Bauru";
+            this.txtCidade.Text = "BAURU";
             // 
             // label9
             // 
@@ -291,6 +297,7 @@
             // 
             // txtTelefones
             // 
+            this.txtTelefones.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefones.Location = new System.Drawing.Point(356, 304);
             this.txtTelefones.Name = "txtTelefones";
             this.txtTelefones.Size = new System.Drawing.Size(425, 26);
@@ -325,6 +332,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtEmail.Location = new System.Drawing.Point(119, 346);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(438, 26);
@@ -363,6 +371,7 @@
             // 
             // txtUsuario
             // 
+            this.txtUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtUsuario.Location = new System.Drawing.Point(119, 390);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(170, 26);

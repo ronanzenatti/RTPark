@@ -64,6 +64,8 @@ namespace RTPark
                     cboTipo.SelectedIndex = 1;
                 }
                 btnLimpar.Enabled = false;
+                gbVeiculos.Enabled = true;
+                CarregaVeiculos();
             }
         }
 
@@ -149,12 +151,19 @@ namespace RTPark
                     if (validaCampos())
                     {
                         if (obj.Idcliente == 0)
-                            oDAO.Inserir(obj);
+                        {
+                            obj.Idcliente = oDAO.Inserir(obj);
+                            txtIdCliente.Text = obj.Idcliente.ToString();
+                            gbVeiculos.Enabled = true;
+                            btnLimpar.Enabled = false;
+                        }
                         else
+                        {
                             oDAO.Alterar(obj);
+                        }
                         MessageBox.Show("Salvo com Sucesso !!!");
                         salvo = true;
-                        this.Close();
+                        CarregaVeiculos();
                     }
                 }
             }
@@ -228,7 +237,8 @@ namespace RTPark
                 DialogResult dr = MessageBox.Show("Tem Certeza que deseja sair ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {
-                    lista.Show();
+                    if (lista != null)
+                        lista.Show();
                 }
                 else
                 {
@@ -237,16 +247,13 @@ namespace RTPark
             }
             else
             {
-                lista.Show();
+                if (lista != null)
+                    lista.Show();
             }
         }
 
         private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            String fed = txtDoc_fed.Text;
-            String est = txtDoc_est.Text;
-            String tipo = cboTipo.SelectedItem.ToString();
-
             txtDoc_fed.Text = null;
             txtDoc_est.Text = null;
 
@@ -262,12 +269,54 @@ namespace RTPark
                 lblEst.Text = "IE:";
                 txtDoc_fed.Mask = "99,999,999/9999-99";
             }
+        }
 
-            if (cboTipo.SelectedItem.ToString() == tipo)
+        private void btnAddV_Click(object sender, EventArgs e)
+        {
+            IUVeiculoCliente tela = new IUVeiculoCliente(0, obj);
+            tela.ShowDialog();
+            CarregaVeiculos();
+
+        }
+
+        private void btnEditV_Click(object sender, EventArgs e)
+        {
+            if (dgvDados.SelectedRows.Count == 1)
             {
-                txtDoc_fed.Text = fed;
-                txtDoc_est.Text = est;
+                int id = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value.ToString());
+                IUVeiculoCliente tela = new IUVeiculoCliente(id, obj);
+                tela.ShowDialog();
+                CarregaVeiculos();
             }
+            else
+            {
+                MessageBox.Show("Selecione apenas um Registro!!!");
+            }
+        }
+
+        private void btnDelV_Click(object sender, EventArgs e)
+        {
+            if (dgvDados.SelectedRows.Count == 1)
+            {
+                int id = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value.ToString());
+                DialogResult dr = MessageBox.Show("Deseja realmente EXCLUIR ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (dr == DialogResult.Yes)
+                {
+                    VeiculosClienteDAO vDAO = new VeiculosClienteDAO();
+                    vDAO.Excluir(id);
+                    CarregaVeiculos();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione apenas um Registro!!!");
+            }
+        }
+
+        private void CarregaVeiculos()
+        {
+            VeiculosClienteDAO vDAO = new VeiculosClienteDAO();
+            dgvDados.DataSource = vDAO.listarTodos(obj.Idcliente);
         }
     }
 }

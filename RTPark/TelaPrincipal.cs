@@ -16,6 +16,7 @@ namespace RTPark
     {
         private Funcionarios usr;
         private Estabelecimentos est;
+        private ConfigMovimento config;
 
         public TelaPrincipal()
         {
@@ -60,16 +61,28 @@ namespace RTPark
                 BuscaEstabelecimento();
             }
 
+            while (config == null && usr.Idfuncionario != 0)
+            {
+                IUConfigMovimento tela = new IUConfigMovimento(est);
+                tela.ShowDialog();
+                BuscaConfiguracao();
+            }
+
         }
 
-        public void SetUsr(Object obj)
+        public void SetUsr(Funcionarios obj)
         {
             usr = (Funcionarios)obj;
         }
 
-        public void SetEst(Object obj)
+        public void SetEst(Estabelecimentos obj)
         {
             est = (Estabelecimentos)obj;
+        }
+
+        public void SetConfig(ConfigMovimento obj)
+        {
+            config = (ConfigMovimento)obj;
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -95,6 +108,12 @@ namespace RTPark
             }
         }
 
+        private void BuscaConfiguracao()
+        {
+            ConfigMovimentoDAO oDAO = new ConfigMovimentoDAO();
+            config = oDAO.GetLast(est.Idestabelecimento);
+        }
+
         private void CalculaVagas()
         {
             lblCarrosD.Text = est.Vagas_carro.ToString().PadLeft(3, '0');
@@ -111,6 +130,18 @@ namespace RTPark
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListaClientes tela = new ListaClientes();
+            tela.Show();
+        }
+
+        private void serviçosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaServicos tela = new ListaServicos();
+            tela.Show();
+        }
+
+        private void contratosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaContratos tela = new ListaContratos();
             tela.Show();
         }
     }

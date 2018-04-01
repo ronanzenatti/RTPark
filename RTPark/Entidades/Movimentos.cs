@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RTPark.Entidades
 {
-    class Movimentos
+    public class Movimentos
     {
     }
 }

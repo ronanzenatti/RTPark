@@ -163,7 +163,7 @@ namespace RTPark.DAO
 
                 obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
                 obj.Nome = dados["nome"].ToString();
-                obj.Tipo_pessoa = dados["nome"].ToString()[0];
+                obj.Tipo_pessoa = dados["tipo_pessoa"].ToString()[0];
                 obj.Doc_fed = dados["doc_fed"].ToString();
                 obj.Doc_est = dados["doc_est"].ToString();
                 obj.Dt_nasc = dados["dt_nasc"].ToString();
