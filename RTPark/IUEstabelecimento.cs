@@ -151,7 +151,7 @@ namespace RTPark
                 return false;
             }
             txtCnpj.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            if (txtCnpj.Text.Length < 18 && txtCnpj.Text.Length > 0)
+            if (txtCnpj.Text.Length < 14 && txtCnpj.Text.Length > 0)
             {
                 MessageBox.Show("O campo [ CNPJ ] é inválido!");
                 return false;

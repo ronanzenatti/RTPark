@@ -66,6 +66,7 @@
     <Compile Include="Conexao.cs" />
     <Compile Include="DAO\ConfigMovimentoDAO.cs" />
     <Compile Include="DAO\ContratoDAO.cs" />
+    <Compile Include="DAO\MovimentoDAO.cs" />
     <Compile Include="DAO\ServicoDAO.cs" />
     <Compile Include="DAO\VeiculosClienteDAO.cs" />
     <Compile Include="DAO\EstabelecimentoDAO.cs" />
@@ -82,6 +83,12 @@
     <Compile Include="Entidades\Movimentos.cs" />
     <Compile Include="Entidades\Servicos.cs" />
     <Compile Include="Entidades\VeiculosClientes.cs" />
+    <Compile Include="EntradaMovimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntradaMovimento.Designer.cs">
+      <DependentUpon>EntradaMovimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="IUCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,8 +169,14 @@
     <Compile Include="TelaPrincipal.Designer.cs">
       <DependentUpon>TelaPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\ImprimeCupom.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="BuscaServico.resx">
       <DependentUpon>BuscaServico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntradaMovimento.resx">
+      <DependentUpon>EntradaMovimento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IUCliente.resx">
       <DependentUpon>IUCliente.cs</DependentUpon>

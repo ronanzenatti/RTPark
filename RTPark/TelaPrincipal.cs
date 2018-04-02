@@ -23,6 +23,7 @@ namespace RTPark
             InitializeComponent();
             lblDataHora.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             BuscaEstabelecimento();
+            BuscaConfiguracao();
         }
 
         private void funcionarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -143,6 +144,26 @@ namespace RTPark
         {
             ListaContratos tela = new ListaContratos();
             tela.Show();
+        }
+
+        private void btnEntrada_Click(object sender, EventArgs e)
+        {
+            EntradaMovimento tela = new EntradaMovimento(est, config, usr);
+            tela.ShowDialog();
+        }
+
+        private void estabelecimentoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            IUEstabelecimento tela = new IUEstabelecimento(est.Idestabelecimento, this);
+            tela.ShowDialog();
+            BuscaEstabelecimento();
+        }
+
+        private void configuraçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IUConfigMovimento tela = new IUConfigMovimento(est);
+            tela.ShowDialog();
+            BuscaConfiguracao();
         }
     }
 }

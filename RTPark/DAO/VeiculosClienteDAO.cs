@@ -168,5 +168,44 @@ namespace RTPark.DAO
             con = null;
             return obj;
         }
+
+        public VeiculosClientes GetByPlaca(String placa)
+        {
+            VeiculosClientes obj = new VeiculosClientes();
+            try
+            {
+                con = new Conexao();
+                con.Conectar();
+                String sql = "SELECT idvc, idcliente, placa, veiculo, tipo, ativo FROM veiculos_clientes";
+                sql += " WHERE placa = '" + placa + "';";
+
+                var dados = con.RetDataReader(sql);
+
+                if (dados.Read())
+                {
+                    obj.Idvc = Convert.ToInt32(dados["idvc"].ToString());
+                    obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
+                    obj.Placa = dados["placa"].ToString();
+                    obj.Veiculo = dados["veiculo"].ToString();
+                    obj.Tipo = dados["tipo"].ToString()[0];
+                    obj.Ativo = Convert.ToInt32(dados["ativo"]);
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            catch (FormatException e)
+            {
+                MessageBox.Show("Erro ao converter !!! \n" + e.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar os registros (PLACA) !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            con = null;
+            return obj;
+        }
     }
 }

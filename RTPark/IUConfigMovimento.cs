@@ -24,6 +24,42 @@ namespace RTPark
             this.est = est;
             lblEmpresa.Text = est.Nome;
             oDAO = new ConfigMovimentoDAO();
+            obj = oDAO.GetLast(est.Idestabelecimento);
+
+            if (obj.Idconfig != 0)
+            {
+                chkCnpj.Checked = Convert.ToBoolean(obj.ImprimeCnpj);
+                chkTelefones.Checked = Convert.ToBoolean(obj.ImprimeTelefones);
+                chkEndereco.Checked = Convert.ToBoolean(obj.ImprimeEnd);
+
+                switch (obj.ImprimeEntrada)
+                {
+                    case 'P':
+                        rbPergE.Checked = true;
+                        break;
+                    case 'S':
+                        rbSimE.Checked = true;
+                        break;
+                    case 'N':
+                        rbNaoE.Checked = true;
+                        break;
+                }
+
+                switch (obj.ImprimeSaida)
+                {
+                    case 'P':
+                        rbPergS.Checked = true;
+                        break;
+                    case 'S':
+                        rbSimS.Checked = true;
+                        break;
+                    case 'N':
+                        rbNaoS.Checked = true;
+                        break;
+                }
+
+                CarregaServico(obj.CobrancaPadrao);
+            }
         }
 
         private void btnBuscaServico_Click(object sender, EventArgs e)

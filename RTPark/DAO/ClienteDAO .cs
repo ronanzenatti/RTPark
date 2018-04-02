@@ -35,7 +35,7 @@ namespace RTPark.DAO
                 sql += "'" + obj.Estado + "', ";
                 sql += "'" + obj.Cep.Replace("'", "''") + "', ";
                 sql += "'" + obj.Telefones.Replace("'", "''") + "', ";
-                sql += "'" + obj.Email.Replace("'", "''") + "'); "; 
+                sql += "'" + obj.Email.Replace("'", "''") + "'); ";
                 sql += "SELECT LAST_INSERT_ID();";
                 sql = sql.Replace("''", "NULL");
                 System.Console.WriteLine(sql);
@@ -74,7 +74,7 @@ namespace RTPark.DAO
                 sql += " estado = '" + obj.Estado + "', ";
                 sql += " cep = '" + obj.Cep.Replace("'", "''") + "', ";
                 sql += " telefones = '" + obj.Telefones.Replace("'", "''") + "', ";
-                sql += " email = '" + obj.Email.Replace("'", "''") + "' ";                
+                sql += " email = '" + obj.Email.Replace("'", "''") + "' ";
                 sql += " WHERE idcliente = " + obj.Idcliente + ";";
                 sql = sql.Replace("''", "NULL");
                 con.ExecutarComandoSQL(sql);
@@ -159,22 +159,28 @@ namespace RTPark.DAO
 
                 var dados = con.RetDataReader(sql);
 
-                dados.Read();
+                if (dados.Read())
+                {
 
-                obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
-                obj.Nome = dados["nome"].ToString();
-                obj.Tipo_pessoa = dados["tipo_pessoa"].ToString()[0];
-                obj.Doc_fed = dados["doc_fed"].ToString();
-                obj.Doc_est = dados["doc_est"].ToString();
-                obj.Dt_nasc = dados["dt_nasc"].ToString();
-                obj.Rua = dados["rua"].ToString();
-                obj.Numero = dados["numero"].ToString();
-                obj.Bairro = dados["bairro"].ToString();
-                obj.Cidade = dados["cidade"].ToString();
-                obj.Estado = dados["estado"].ToString();
-                obj.Cep = dados["cep"].ToString();
-                obj.Telefones = dados["telefones"].ToString();
-                obj.Email = dados["email"].ToString();
+                    obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
+                    obj.Nome = dados["nome"].ToString();
+                    obj.Tipo_pessoa = dados["tipo_pessoa"].ToString()[0];
+                    obj.Doc_fed = dados["doc_fed"].ToString();
+                    obj.Doc_est = dados["doc_est"].ToString();
+                    obj.Dt_nasc = dados["dt_nasc"].ToString();
+                    obj.Rua = dados["rua"].ToString();
+                    obj.Numero = dados["numero"].ToString();
+                    obj.Bairro = dados["bairro"].ToString();
+                    obj.Cidade = dados["cidade"].ToString();
+                    obj.Estado = dados["estado"].ToString();
+                    obj.Cep = dados["cep"].ToString();
+                    obj.Telefones = dados["telefones"].ToString();
+                    obj.Email = dados["email"].ToString();
+                }
+                else
+                {
+                    obj = null;
+                }
             }
             catch (FormatException e)
             {

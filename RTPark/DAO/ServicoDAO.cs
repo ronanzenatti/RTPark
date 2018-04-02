@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RTPark.Entidades;
 using System.Windows.Forms;
 using System.Data;
@@ -31,7 +27,6 @@ namespace RTPark.DAO
                 sql += "'" + obj.Ativo + "');";
                 sql += "SELECT LAST_INSERT_ID();";
                 sql = sql.Replace("''", "NULL");
-                System.Console.WriteLine(sql);
                 int id = Convert.ToInt32(con.ExecutarComandoSQLRetorno(sql));
 
                 return id;
@@ -103,7 +98,7 @@ namespace RTPark.DAO
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "SELECT idservico AS ID, descricao AS Descrição, tipo_cobranca AS Tipo, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, " +
+                String sql = "SELECT idservico AS ID, descricao AS `Descrição`, tipo_cobranca AS Tipo, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, " +
                     "ativo AS Ativo FROM servicos";
                 dt = con.RetDataTable(sql);
             }
@@ -122,9 +117,10 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idservico AS ID, descricao AS Descrição, tipo_cobranca AS Tipo, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, ativo AS Ativo FROM servicos";
+                String sql = "SELECT idservico AS ID, descricao AS `Descrição`, tipo_cobranca AS Tipo, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, ativo AS Ativo FROM servicos";
                 sql += " WHERE " + campo + " LIKE '%" + busca + "%';";
                 dt = con.RetDataTable(sql);
+                Console.WriteLine(sql);
             }
             catch (Exception ex)
             {
