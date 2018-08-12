@@ -115,12 +115,13 @@
             // btnSalvar
             // 
             this.btnSalvar.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnSalvar.Enabled = false;
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnSalvar.Location = new System.Drawing.Point(643, 11);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(129, 39);
-            this.btnSalvar.TabIndex = 17;
+            this.btnSalvar.TabIndex = 4;
             this.btnSalvar.Text = "&Salvar";
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -157,7 +158,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 166);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(456, 59);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Contrato:";
             // 
@@ -179,6 +180,7 @@
             this.btnRemContrato.TabIndex = 48;
             this.btnRemContrato.TabStop = false;
             this.btnRemContrato.UseVisualStyleBackColor = false;
+            this.btnRemContrato.Click += new System.EventHandler(this.btnRemContrato_Click);
             // 
             // btnBuscaContrato
             // 
@@ -197,6 +199,7 @@
             this.btnBuscaContrato.Size = new System.Drawing.Size(28, 26);
             this.btnBuscaContrato.TabIndex = 3;
             this.btnBuscaContrato.UseVisualStyleBackColor = false;
+            this.btnBuscaContrato.Click += new System.EventHandler(this.btnBuscaContrato_Click);
             // 
             // txtNomeContrato
             // 
@@ -305,7 +308,7 @@
             this.groupBox6.Location = new System.Drawing.Point(13, 361);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(456, 59);
-            this.groupBox6.TabIndex = 12;
+            this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Veiculo:";
             // 
@@ -316,7 +319,7 @@
             this.txtVeiculo.Location = new System.Drawing.Point(6, 25);
             this.txtVeiculo.Name = "txtVeiculo";
             this.txtVeiculo.Size = new System.Drawing.Size(444, 26);
-            this.txtVeiculo.TabIndex = 13;
+            this.txtVeiculo.TabIndex = 1;
             this.txtVeiculo.Leave += new System.EventHandler(this.txtVeiculo_Leave);
             // 
             // groupBox7
@@ -326,7 +329,7 @@
             this.groupBox7.Location = new System.Drawing.Point(12, 426);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(456, 59);
-            this.groupBox7.TabIndex = 14;
+            this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "CPF / CNPJ do Cliente:";
             // 
@@ -354,6 +357,7 @@
             this.cboTipoPessoa.TabIndex = 0;
             this.cboTipoPessoa.Text = "Física";
             this.cboTipoPessoa.SelectedIndexChanged += new System.EventHandler(this.cboTipoPessoa_SelectedIndexChanged);
+            this.cboTipoPessoa.Leave += new System.EventHandler(this.cboTipoPessoa_Leave);
             // 
             // timerEntrada
             // 
@@ -436,7 +440,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entrada de Veiculo";
-            this.Load += new System.EventHandler(this.EntradaMovimento_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

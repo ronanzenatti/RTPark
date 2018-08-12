@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSaida = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnEntrada = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
@@ -37,9 +38,12 @@
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.funcionarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estabelecimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.estabelecimentoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviçosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contratosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formasDePagamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvDados = new System.Windows.Forms.DataGridView();
             this.lblNomeEstacionamento = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -60,8 +64,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.estabelecimentoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.configuraçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).BeginInit();
@@ -73,6 +75,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox1.Controls.Add(this.btnSaida);
             this.groupBox1.Controls.Add(this.btnClientes);
             this.groupBox1.Controls.Add(this.btnEntrada);
             this.groupBox1.Controls.Add(this.btnSair);
@@ -82,15 +85,27 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // btnSaida
+            // 
+            this.btnSaida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaida.Location = new System.Drawing.Point(10, 81);
+            this.btnSaida.Name = "btnSaida";
+            this.btnSaida.Size = new System.Drawing.Size(180, 40);
+            this.btnSaida.TabIndex = 5;
+            this.btnSaida.Text = "&Saida (F3)";
+            this.btnSaida.UseVisualStyleBackColor = true;
+            this.btnSaida.Click += new System.EventHandler(this.btnSaida_Click);
+            // 
             // btnClientes
             // 
             this.btnClientes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClientes.Location = new System.Drawing.Point(10, 79);
+            this.btnClientes.Location = new System.Drawing.Point(10, 135);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(180, 40);
             this.btnClientes.TabIndex = 4;
-            this.btnClientes.Text = "&Clientes (F3)";
+            this.btnClientes.Text = "&Clientes (F4)";
             this.btnClientes.UseVisualStyleBackColor = true;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
@@ -136,7 +151,8 @@
             this.estabelecimentoToolStripMenuItem,
             this.clientesToolStripMenuItem,
             this.serviçosToolStripMenuItem,
-            this.contratosToolStripMenuItem});
+            this.contratosToolStripMenuItem,
+            this.formasDePagamentosToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
             this.cadastrosToolStripMenuItem.Text = "Cadastros";
@@ -144,7 +160,7 @@
             // funcionarioToolStripMenuItem
             // 
             this.funcionarioToolStripMenuItem.Name = "funcionarioToolStripMenuItem";
-            this.funcionarioToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.funcionarioToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             this.funcionarioToolStripMenuItem.Text = "&Funcionarios";
             this.funcionarioToolStripMenuItem.Click += new System.EventHandler(this.funcionarioToolStripMenuItem_Click);
             // 
@@ -154,41 +170,70 @@
             this.estabelecimentoToolStripMenuItem1,
             this.configuraçãoToolStripMenuItem});
             this.estabelecimentoToolStripMenuItem.Name = "estabelecimentoToolStripMenuItem";
-            this.estabelecimentoToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.estabelecimentoToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             this.estabelecimentoToolStripMenuItem.Text = "&Estabelecimento";
             this.estabelecimentoToolStripMenuItem.Click += new System.EventHandler(this.estabelecimentoToolStripMenuItem_Click);
+            // 
+            // estabelecimentoToolStripMenuItem1
+            // 
+            this.estabelecimentoToolStripMenuItem1.Name = "estabelecimentoToolStripMenuItem1";
+            this.estabelecimentoToolStripMenuItem1.Size = new System.Drawing.Size(207, 26);
+            this.estabelecimentoToolStripMenuItem1.Text = "Estabelecimento";
+            this.estabelecimentoToolStripMenuItem1.Click += new System.EventHandler(this.estabelecimentoToolStripMenuItem1_Click);
+            // 
+            // configuraçãoToolStripMenuItem
+            // 
+            this.configuraçãoToolStripMenuItem.Name = "configuraçãoToolStripMenuItem";
+            this.configuraçãoToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.configuraçãoToolStripMenuItem.Text = "Configuração";
+            this.configuraçãoToolStripMenuItem.Click += new System.EventHandler(this.configuraçãoToolStripMenuItem_Click);
             // 
             // clientesToolStripMenuItem
             // 
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             this.clientesToolStripMenuItem.Text = "&Clientes";
             this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
             // serviçosToolStripMenuItem
             // 
             this.serviçosToolStripMenuItem.Name = "serviçosToolStripMenuItem";
-            this.serviçosToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.serviçosToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             this.serviçosToolStripMenuItem.Text = "&Serviços";
             this.serviçosToolStripMenuItem.Click += new System.EventHandler(this.serviçosToolStripMenuItem_Click);
             // 
             // contratosToolStripMenuItem
             // 
             this.contratosToolStripMenuItem.Name = "contratosToolStripMenuItem";
-            this.contratosToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.contratosToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             this.contratosToolStripMenuItem.Text = "Contratos";
             this.contratosToolStripMenuItem.Click += new System.EventHandler(this.contratosToolStripMenuItem_Click);
             // 
+            // formasDePagamentosToolStripMenuItem
+            // 
+            this.formasDePagamentosToolStripMenuItem.Name = "formasDePagamentosToolStripMenuItem";
+            this.formasDePagamentosToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            this.formasDePagamentosToolStripMenuItem.Text = "Formas de &Pagamentos";
+            this.formasDePagamentosToolStripMenuItem.Click += new System.EventHandler(this.formasDePagamentosToolStripMenuItem_Click);
+            // 
             // dgvDados
             // 
+            this.dgvDados.AllowUserToAddRows = false;
+            this.dgvDados.AllowUserToDeleteRows = false;
             this.dgvDados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDados.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvDados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDados.Location = new System.Drawing.Point(218, 200);
+            this.dgvDados.MultiSelect = false;
             this.dgvDados.Name = "dgvDados";
+            this.dgvDados.ReadOnly = true;
+            this.dgvDados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDados.Size = new System.Drawing.Size(778, 517);
             this.dgvDados.TabIndex = 2;
+            this.dgvDados.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDados_CellContentDoubleClick);
             // 
             // lblNomeEstacionamento
             // 
@@ -405,20 +450,6 @@
             this.label2.Text = "Usuário:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // estabelecimentoToolStripMenuItem1
-            // 
-            this.estabelecimentoToolStripMenuItem1.Name = "estabelecimentoToolStripMenuItem1";
-            this.estabelecimentoToolStripMenuItem1.Size = new System.Drawing.Size(207, 26);
-            this.estabelecimentoToolStripMenuItem1.Text = "Estabelecimento";
-            this.estabelecimentoToolStripMenuItem1.Click += new System.EventHandler(this.estabelecimentoToolStripMenuItem1_Click);
-            // 
-            // configuraçãoToolStripMenuItem
-            // 
-            this.configuraçãoToolStripMenuItem.Name = "configuraçãoToolStripMenuItem";
-            this.configuraçãoToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
-            this.configuraçãoToolStripMenuItem.Text = "Configuração";
-            this.configuraçãoToolStripMenuItem.Click += new System.EventHandler(this.configuraçãoToolStripMenuItem_Click);
-            // 
             // TelaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
@@ -490,5 +521,7 @@
         private System.Windows.Forms.ToolStripMenuItem contratosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem estabelecimentoToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem configuraçãoToolStripMenuItem;
+        private System.Windows.Forms.Button btnSaida;
+        private System.Windows.Forms.ToolStripMenuItem formasDePagamentosToolStripMenuItem;
     }
 }

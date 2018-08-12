@@ -35,11 +35,9 @@ namespace RTPark
                 conn.Open();
             }
             catch (MySqlException ex)
-            {
-                Application.Exit();
+            {                
                 MessageBox.Show("Não foi possivel estabelecer conexão!!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                System.Diagnostics.Process.GetCurrentProcess().Close();
+                Environment.Exit(0);
             }
         }
 

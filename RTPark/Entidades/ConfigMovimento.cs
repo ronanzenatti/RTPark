@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace RTPark.Entidades
+﻿namespace RTPark.Entidades
 {
     public class ConfigMovimento
     {
         private int idconfig;
         private int idestabelecimento;
         private int cobrancaPadrao;
+        private char faturaExcedente;
         private char imprimeEntrada;
         private char imprimeSaida;
         private int imprimeEnd;
@@ -25,5 +20,6 @@ namespace RTPark.Entidades
         public int ImprimeEnd { get => imprimeEnd; set => imprimeEnd = value; }
         public int ImprimeTelefones { get => imprimeTelefones; set => imprimeTelefones = value; }
         public int ImprimeCnpj { get => imprimeCnpj; set => imprimeCnpj = value; }
+        public char FaturaExcedente { get => faturaExcedente; set => faturaExcedente = value; }
     }
 }

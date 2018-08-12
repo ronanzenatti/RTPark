@@ -148,9 +148,9 @@ namespace RTPark.DAO
                 obj.Descricao = dados["descricao"].ToString();
                 obj.TipoCobranca = dados["tipo_cobranca"].ToString()[0];
                 obj.Quantidade = Convert.ToInt32(dados["quantidade"]);
-                obj.ValorCarro = Convert.ToDecimal(dados["valor_carro"].ToString(), new CultureInfo("en-US"));
-                obj.ValorMoto = Convert.ToDecimal(dados["valor_moto"].ToString(), new CultureInfo("en-US"));
-                obj.ValorOutros = Convert.ToDecimal(dados["valor_outros"].ToString(), new CultureInfo("en-US"));
+                obj.ValorCarro = Convert.ToDecimal(dados["valor_carro"].ToString());
+                obj.ValorMoto = Convert.ToDecimal(dados["valor_moto"].ToString());
+                obj.ValorOutros = Convert.ToDecimal(dados["valor_outros"].ToString());
                 obj.Ativo = Convert.ToInt32(dados["ativo"]);
             }
             catch (FormatException e)

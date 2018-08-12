@@ -58,6 +58,22 @@ namespace RTPark
                         break;
                 }
 
+                switch (obj.FaturaExcedente)
+                {
+                    case 'I':
+                        rbInteiro.Checked = true;
+                        break;
+                    case 'P':
+                        rbProporcional.Checked = true;
+                        break;
+                    case 'Z':
+                        rbZero.Checked = true;
+                        break;
+                    case 'M':
+                        rbManual.Checked = true;
+                        break;
+                }
+
                 CarregaServico(obj.CobrancaPadrao);
             }
         }
@@ -158,6 +174,7 @@ namespace RTPark
                     obj.ImprimeTelefones = (chkTelefones.Checked) ? 1 : 0;
                     obj.ImprimeEntrada = gbEntrada.Controls.OfType<RadioButton>().SingleOrDefault(rad => rad.Checked == true).Text[0];
                     obj.ImprimeSaida = gbSaida.Controls.OfType<RadioButton>().SingleOrDefault(rad => rad.Checked == true).Text[0];
+                    obj.FaturaExcedente = gbExcedente.Controls.OfType<RadioButton>().SingleOrDefault(rad => rad.Checked == true).Text[0];
 
                     if (obj.Idconfig == 0)
                         obj.Idconfig = oDAO.Inserir(obj);

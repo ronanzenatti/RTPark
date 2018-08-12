@@ -12,15 +12,23 @@ namespace RTPark
         Contratos obj;
         Form lista;
         Boolean salvo = false;
+        BuscaContratos fmrBusca;
 
-        public IUContrato(int id, Form lista)
+        public IUContrato(int id, Form lista, Form busca)
         {
             InitializeComponent();
             CarregaClientes();
 
             oDAO = new ContratoDAO();
             obj = new Contratos();
-            this.lista = lista;
+            if (lista != null)
+            {
+                this.lista = lista;
+            }
+            if (busca != null)
+            {
+                this.fmrBusca = (BuscaContratos)busca;
+            }
 
             if (id != 0)
             {
@@ -188,7 +196,11 @@ namespace RTPark
                 DialogResult dr = MessageBox.Show("Tem Certeza que deseja sair ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {
-                    lista.Show();
+                    if (lista != null)
+                        lista.Show();
+
+                    if (fmrBusca != null)
+                        fmrBusca.Show();
                 }
                 else
                 {

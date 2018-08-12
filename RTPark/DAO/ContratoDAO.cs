@@ -177,5 +177,46 @@ namespace RTPark.DAO
             con = null;
             return obj;
         }
+
+        public Contratos GetByCliente(int id)
+        {
+            Contratos obj = new Contratos();
+            try
+            {
+                con = new Conexao();
+                con.Conectar();
+                String sql = "SELECT idcontrato, descricao, idcliente, idservico, vencimento, dt_inicio, dt_fim FROM contratos";
+                sql += " WHERE idcliente = " + id + " AND (dt_inicio <= '" + DateTime.Now.ToString("yyyy-MM-dd") + "' AND dt_fim >= '" + DateTime.Now.ToString("yyyy-MM-dd") + "') OR ";
+                sql += "dt_inicio <= '" + DateTime.Now.ToString("yyyy-MM-dd") + "' AND dt_fim IS NULL";
+                Console.WriteLine(sql);
+                var dados = con.RetDataReader(sql);
+
+                if (dados.Read())
+                {
+                    obj.Idcontrato = Convert.ToInt32(dados["idcontrato"].ToString());
+                    obj.Descricao = dados["descricao"].ToString();
+                    obj.Idcliente = Convert.ToInt32(dados["idcliente"].ToString());
+                    obj.Idservico = Convert.ToInt32(dados["idservico"].ToString());
+                    obj.Vencimento = Convert.ToInt32(dados["vencimento"].ToString());
+                    obj.DtInicio = dados["dt_inicio"].ToString();
+                    obj.DtTermino = dados["dt_fim"].ToString();
+                }
+                else
+                {
+                    obj = null;
+                }
+            }
+            catch (FormatException e)
+            {
+                MessageBox.Show("Erro ao converter !!! \n" + e.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar os registros (BY ID) !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            con = null;
+            return obj;
+        }
     }
 }

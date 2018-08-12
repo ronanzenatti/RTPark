@@ -21,9 +21,10 @@ namespace RTPark.DAO
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "INSERT INTO config_movimento (idestabelecimento, cobranca_padrao, imprime_entrada, imprime_saida, imprime_end, imprime_telefones, imprime_cnpj) VALUES(";
+                String sql = "INSERT INTO config_movimento (idestabelecimento, cobranca_padrao, fatura_excedente, imprime_entrada, imprime_saida, imprime_end, imprime_telefones, imprime_cnpj) VALUES(";
                 sql += "'" + obj.Idestabelecimento + "', ";
                 sql += "'" + obj.CobrancaPadrao + "', ";
+                sql += "'" + obj.FaturaExcedente + "', ";
                 sql += "'" + obj.ImprimeEntrada + "', ";
                 sql += "'" + obj.ImprimeSaida + "', ";
                 sql += "'" + obj.ImprimeEnd + "', ";
@@ -57,6 +58,7 @@ namespace RTPark.DAO
                 String sql = "UPDATE config_movimento SET";
                 sql += " idestabelecimento = '" + obj.Idestabelecimento + "', ";
                 sql += " cobranca_padrao = '" + obj.CobrancaPadrao + "', ";
+                sql += " fatura_excedente = '" + obj.FaturaExcedente + "', ";
                 sql += " imprime_entrada = '" + obj.ImprimeEntrada + "', ";
                 sql += " imprime_saida = '" + obj.ImprimeSaida + "', ";
                 sql += " imprime_end = '" + obj.ImprimeEnd + "', ";
@@ -141,7 +143,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idconfig, idestabelecimento, cobranca_padrao, imprime_entrada, imprime_saida, imprime_end, imprime_telefones, imprime_cnpj  FROM config_movimento";
+                String sql = "SELECT idconfig, idestabelecimento, cobranca_padrao, fatura_excedente, imprime_entrada, imprime_saida, imprime_end, imprime_telefones, imprime_cnpj  FROM config_movimento";
                 sql += " WHERE idconfig = " + id;
 
                 var dados = con.RetDataReader(sql);
@@ -151,6 +153,7 @@ namespace RTPark.DAO
                     obj.Idconfig = Convert.ToInt32(dados["idconfig"].ToString());
                     obj.Idestabelecimento = Convert.ToInt32(dados["idestabelecimento"].ToString());
                     obj.CobrancaPadrao = Convert.ToInt32(dados["cobranca_padrao"].ToString());
+                    obj.FaturaExcedente = dados["fatura_excedente"].ToString()[0];
                     obj.ImprimeEntrada = dados["imprime_entrada"].ToString()[0];
                     obj.ImprimeSaida = dados["imprime_saida"].ToString()[0];
                     obj.ImprimeEnd = Convert.ToInt32(dados["imprime_end"].ToString());
@@ -182,7 +185,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idconfig, idestabelecimento, cobranca_padrao, imprime_entrada, imprime_saida, imprime_end, imprime_telefones, imprime_cnpj  FROM config_movimento";
+                String sql = "SELECT idconfig, idestabelecimento, cobranca_padrao, fatura_excedente, imprime_entrada, imprime_saida, imprime_end, imprime_telefones, imprime_cnpj  FROM config_movimento";
                 sql += " WHERE idestabelecimento = '" + idEst + "' ORDER BY 1 DESC LIMIT 1;";
 
                 var dados = con.RetDataReader(sql);
@@ -192,6 +195,7 @@ namespace RTPark.DAO
                     obj.Idconfig = Convert.ToInt32(dados["idconfig"].ToString());
                     obj.Idestabelecimento = Convert.ToInt32(dados["idestabelecimento"].ToString());
                     obj.CobrancaPadrao = Convert.ToInt32(dados["cobranca_padrao"].ToString());
+                    obj.FaturaExcedente = dados["fatura_excedente"].ToString()[0];
                     obj.ImprimeEntrada = dados["imprime_entrada"].ToString()[0];
                     obj.ImprimeSaida = dados["imprime_saida"].ToString()[0];
                     obj.ImprimeEnd = Convert.ToInt32(dados["imprime_end"].ToString());

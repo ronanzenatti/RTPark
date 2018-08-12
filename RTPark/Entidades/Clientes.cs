@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace RTPark.Entidades
 {
     public class Clientes
     {
-        private int idcliente;       
+        private int idcliente;
         private String nome;
         private char tipo_pessoa;
         private String doc_fed;

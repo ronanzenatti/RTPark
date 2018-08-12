@@ -57,6 +57,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuscaContratos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscaContratos.Designer.cs">
+      <DependentUpon>BuscaContratos.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuscaServico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,7 @@
     <Compile Include="Conexao.cs" />
     <Compile Include="DAO\ConfigMovimentoDAO.cs" />
     <Compile Include="DAO\ContratoDAO.cs" />
+    <Compile Include="DAO\FormaPagamentoDAO.cs" />
     <Compile Include="DAO\MovimentoDAO.cs" />
     <Compile Include="DAO\ServicoDAO.cs" />
     <Compile Include="DAO\VeiculosClienteDAO.cs" />
@@ -83,6 +90,24 @@
     <Compile Include="Entidades\Movimentos.cs" />
     <Compile Include="Entidades\Servicos.cs" />
     <Compile Include="Entidades\VeiculosClientes.cs" />
+    <Compile Include="IUFormaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IUFormaPagamento.Designer.cs">
+      <DependentUpon>IUFormaPagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaFormaPagamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaFormaPagamento.Designer.cs">
+      <DependentUpon>ListaFormaPagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SaidaMovimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaidaMovimento.Designer.cs">
+      <DependentUpon>SaidaMovimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntradaMovimento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,8 +197,20 @@
     <Compile Include="Util\ImprimeCupom.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="BuscaContratos.resx">
+      <DependentUpon>BuscaContratos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuscaServico.resx">
       <DependentUpon>BuscaServico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IUFormaPagamento.resx">
+      <DependentUpon>IUFormaPagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaFormaPagamento.resx">
+      <DependentUpon>ListaFormaPagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaidaMovimento.resx">
+      <DependentUpon>SaidaMovimento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntradaMovimento.resx">
       <DependentUpon>EntradaMovimento.cs</DependentUpon>

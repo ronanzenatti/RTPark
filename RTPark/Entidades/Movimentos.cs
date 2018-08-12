@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RTPark.Entidades
 {
@@ -18,7 +14,7 @@ namespace RTPark.Entidades
         private int idservico;
         private int idfuncionario;
         private int idcontrato;
-        private int permanencia;
+        private long permanencia;
         private int excedente;
         private int periodos;
         private String docFed;
@@ -33,7 +29,7 @@ namespace RTPark.Entidades
         public int Idservico { get => idservico; set => idservico = value; }
         public int Idfuncionario { get => idfuncionario; set => idfuncionario = value; }
         public int Idcontrato { get => idcontrato; set => idcontrato = value; }
-        public int Permanencia { get => permanencia; set => permanencia = value; }
+        public long Permanencia { get => permanencia; set => permanencia = value; }
         public int Excedente { get => excedente; set => excedente = value; }
         public int Periodos { get => periodos; set => periodos = value; }
         public string DocFed { get => docFed; set => docFed = value; }

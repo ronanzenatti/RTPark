@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -39,6 +39,7 @@ namespace RTPark
 
         private void TelaPrincipal_Load(object sender, EventArgs e)
         {
+            btnEntrada.Focus();
             while (usr == null)
             {
                 this.Hide();
@@ -69,6 +70,25 @@ namespace RTPark
                 BuscaConfiguracao();
             }
 
+            CarregaGrid();
+        }
+
+        public void CarregaGrid()
+        {
+            MovimentoDAO mDAO = new MovimentoDAO();
+
+            dgvDados.DataSource = mDAO.listarTodos();
+
+            dgvDados.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvDados.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvDados.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvDados.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvDados.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            //deixa os titulos centralizados.
+            dgvDados.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            CalculaVagas();
         }
 
         public void SetUsr(Funcionarios obj)
@@ -88,7 +108,7 @@ namespace RTPark
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void estabelecimentoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -117,9 +137,44 @@ namespace RTPark
 
         private void CalculaVagas()
         {
-            lblCarrosD.Text = est.Vagas_carro.ToString().PadLeft(3, '0');
-            lblMotosD.Text = est.Vagas_moto.ToString().PadLeft(3, '0');
-            lblOutrosD.Text = est.Vagas_outros.ToString().PadLeft(3, '0');
+            int vC = 0, vM = 0, vO = 0;
+            int vOC = 0, vOM = 0, vOO = 0;
+            int vDC = 0, vDM = 0, vDO = 0;
+
+            MovimentoDAO mDAO = new MovimentoDAO();
+            IDataReader vagas = mDAO.GetVagasOcupadas();
+
+            vC = est.Vagas_carro;
+            vM = est.Vagas_moto;
+            vO = est.Vagas_outros;
+
+            if (vagas.Read())
+            {
+                if (vagas["tipo_veiculo"].ToString().Equals("C"))
+                {
+                    vOC = Convert.ToInt32(vagas["qtde"].ToString());
+                }
+                else if (vagas["tipo_veiculo"].ToString().Equals("M"))
+                {
+                    vOM = Convert.ToInt32(vagas["qtde"].ToString());
+                }
+                else if (vagas["tipo_veiculo"].ToString().Equals("O"))
+                {
+                    vOO = Convert.ToInt32(vagas["qtde"].ToString());
+                }
+            }
+
+            vDC = vC - vOC;
+            vDM = vM - vOM;
+            vDO = vO - vOO;
+
+            lblCarrosD.Text = vDC.ToString().PadLeft(3, '0');
+            lblMotosD.Text = vDM.ToString().PadLeft(3, '0');
+            lblOutrosD.Text = vDO.ToString().PadLeft(3, '0');
+
+            lblCarrosO.Text = vOC.ToString().PadLeft(3, '0');
+            lblMotosO.Text = vOM.ToString().PadLeft(3, '0');
+            lblOutrosO.Text = vOO.ToString().PadLeft(3, '0');
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
@@ -148,7 +203,7 @@ namespace RTPark
 
         private void btnEntrada_Click(object sender, EventArgs e)
         {
-            EntradaMovimento tela = new EntradaMovimento(est, config, usr);
+            EntradaMovimento tela = new EntradaMovimento(est, config, usr, this);
             tela.ShowDialog();
         }
 
@@ -164,6 +219,25 @@ namespace RTPark
             IUConfigMovimento tela = new IUConfigMovimento(est);
             tela.ShowDialog();
             BuscaConfiguracao();
+        }
+
+        private void btnSaida_Click(object sender, EventArgs e)
+        {
+            SaidaMovimento tela = new SaidaMovimento(2, est, config, usr, this);
+            tela.ShowDialog();
+        }
+
+        private void formasDePagamentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaFormaPagamento tela = new ListaFormaPagamento(est.Idestabelecimento);
+            tela.Show();
+        }
+
+        private void dgvDados_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int id = Convert.ToInt32(dgvDados.Rows[e.RowIndex].Cells[0].Value.ToString());
+            SaidaMovimento tela = new SaidaMovimento(id, est, config, usr, this);
+            tela.ShowDialog();
         }
     }
 }

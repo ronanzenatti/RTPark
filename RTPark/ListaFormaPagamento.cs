@@ -12,16 +12,18 @@ using RTPark.DAO;
 
 namespace RTPark
 {
-    public partial class ListaContratos : Form
+    public partial class ListaFormaPagamento : Form
     {
-        ContratoDAO fDAO = new ContratoDAO();
+        FormaPagamentoDAO oDAO = new FormaPagamentoDAO();
+        int idestabelecimento;
 
-        public ListaContratos()
+        public ListaFormaPagamento(int idestabelecimento)
         {
             InitializeComponent();
+            this.idestabelecimento = idestabelecimento;
         }
 
-        private void ListaContratos_Load(object sender, EventArgs e)
+        private void ListaServicos_Load(object sender, EventArgs e)
         {
             cboCriterio.SelectedIndex = 0;
             CarregaGrid();
@@ -36,21 +38,21 @@ namespace RTPark
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            ContratoDAO fDAO = new ContratoDAO();
+            FormaPagamentoDAO oDAO = new FormaPagamentoDAO();
             String campo = cboCriterio.SelectedItem.ToString();
             String busca = txtPesquisa.Text;
 
             if (campo != null && !busca.Equals(""))
             {
                 if (campo == "Código")
-                    campo = "idcontrato";
+                    campo = "idforma";
 
-                if (campo == "Endereço")
-                    campo = "endereco";
+                if (campo == "Descrição")
+                    campo = "descricao";
 
-                dgvDados.DataSource = fDAO.BuscaPorCampo(campo.ToLower(), busca);
-                dgvDados.Columns[0].ReadOnly = true;
+                dgvDados.DataSource = oDAO.BuscaPorCampo(campo.ToLower(), busca);               
             }
+
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -58,10 +60,11 @@ namespace RTPark
             if (dgvDados.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value.ToString());
+                FormaPagamento obj = oDAO.GetById(id);
                 DialogResult dr = MessageBox.Show("Deseja realmente EXCLUIR ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (dr == DialogResult.Yes)
                 {
-                    fDAO.Excluir(id);
+                    oDAO.Excluir(obj);
                     CarregaGrid();
                 }
             }
@@ -76,7 +79,7 @@ namespace RTPark
             if (dgvDados.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(dgvDados.CurrentRow.Cells[0].Value.ToString());
-                IUContrato tela = new IUContrato(id, this, null);
+                IUFormaPagamento tela = new IUFormaPagamento(id, this, idestabelecimento);
                 tela.Show();
                 this.Hide();
 
@@ -89,23 +92,22 @@ namespace RTPark
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-            IUContrato tela = new IUContrato(0, this, null);
+            IUFormaPagamento tela = new IUFormaPagamento(0, this, idestabelecimento);
             tela.Show();
             this.Hide();
         }
 
         private void CarregaGrid()
         {
-            dgvDados.DataSource = fDAO.listarTodos();
-            //dgvDados.Columns[0].ReadOnly = true;
+            dgvDados.DataSource = oDAO.listarTodos();
         }
 
-        private void ListaContratos_Shown(object sender, EventArgs e)
+        private void ListaServicos_Shown(object sender, EventArgs e)
         {
             CarregaGrid();
         }
 
-        private void ListaContratos_Activated(object sender, EventArgs e)
+        private void ListaServicos_Activated(object sender, EventArgs e)
         {
             CarregaGrid();
         }
@@ -113,7 +115,7 @@ namespace RTPark
         private void dgvDados_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int id = Convert.ToInt32(dgvDados.Rows[e.RowIndex].Cells[0].Value.ToString());
-            IUContrato tela = new IUContrato(id, this, null);
+            IUFormaPagamento tela = new IUFormaPagamento(id, this, idestabelecimento);
             tela.Show();
             this.Hide();
 

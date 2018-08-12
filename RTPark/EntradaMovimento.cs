@@ -20,8 +20,10 @@ namespace RTPark
         Contratos contr;
         Funcionarios fun;
         Movimentos obj;
+        TelaPrincipal telaMov;
+        MovimentoDAO oDAO;
 
-        public EntradaMovimento(Estabelecimentos est, ConfigMovimento config, Funcionarios fun)
+        public EntradaMovimento(Estabelecimentos est, ConfigMovimento config, Funcionarios fun, Form tela)
         {
             InitializeComponent();
             txtHoraEntrada.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
@@ -31,11 +33,8 @@ namespace RTPark
             CarregaServico();
             MontaCupom();
             obj = new Movimentos();
-        }
-
-        private void EntradaMovimento_Load(object sender, EventArgs e)
-        {
-
+            oDAO = new MovimentoDAO();
+            telaMov = (TelaPrincipal)tela;
         }
 
         private void timerEntrada_Tick(object sender, EventArgs e)
@@ -45,20 +44,32 @@ namespace RTPark
 
         private void txtPlaca_Leave(object sender, EventArgs e)
         {
+            Movimentos test = oDAO.GetByCampo("placa = '", txtPlaca.Text + "' ", 'S');
             txtPlaca.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            if (txtPlaca.Text.Length < 7)
+            if (txtPlaca.Text.Length == 7)
+            {
+                if (test != null)
+                {
+                    btnSalvar.Enabled = false;
+                    MessageBox.Show("Veiculo Já Estacionado! Placa: " + test.Placa, "RTPark", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPlaca.Focus();
+                }
+                else
+                {
+                    txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
+                    timerEntrada.Enabled = false;
+                    txtHoraEntrada.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                    BuscaPlaca();
+                    btnSalvar.Enabled = true;
+                }
+            }
+            else if (txtPlaca.Text.Length < 7 && txtPlaca.Text.Length > 0)
             {
                 MessageBox.Show("O campo [ PLACA ] está inválido!");
                 txtPlaca.Focus();
+                btnSalvar.Enabled = false;
             }
             txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
-
-            if (txtPlaca.Text.Length == 8)
-            {
-                timerEntrada.Enabled = false;
-                txtHoraEntrada.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-                BuscaPlaca();
-            }
         }
 
         private void cboTipoPessoa_SelectedIndexChanged(object sender, EventArgs e)
@@ -129,14 +140,12 @@ namespace RTPark
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            MovimentoDAO oDAo = new MovimentoDAO();
             MontaCupom();
 
             if (obj == null)
                 obj = new Movimentos();
 
-            obj.DhEntrada = txtHoraEntrada.Text;
-            obj.DhEntrada = " ";
+            obj.DhEntrada = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             obj.Placa = txtPlaca.Text;
             obj.TipoVeiculo = gbTipoVeiculo.Controls.OfType<RadioButton>().SingleOrDefault(rad => rad.Checked == true).Text[0];
             obj.Veiculo = txtVeiculo.Text;
@@ -146,7 +155,7 @@ namespace RTPark
             obj.Idcontrato = (contr != null) ? contr.Idcontrato : 0;
             obj.DocFed = txtDocFed.Text;
 
-            obj.Idmovimento = oDAo.Inserir(obj);
+            obj.Idmovimento = oDAO.Inserir(obj);
 
             MontaCupom();
             if (config.ImprimeEntrada == 'P')
@@ -163,7 +172,8 @@ namespace RTPark
                 Impressao();
             }
 
-
+            telaMov.CarregaGrid();
+            this.Close();
         }
 
         private void btnVoltar_Click(object sender, EventArgs e)
@@ -195,6 +205,24 @@ namespace RTPark
                 }
                 BuscaCLiente();
             }
+            else
+            {
+                txtVeiculo.Text = null;
+                rbCarro.Checked = true;
+
+                txtIdContrato.Text = null;
+                txtNomeContrato.Text = null;
+                cboServico.SelectedValue = config.CobrancaPadrao;
+
+                lblCliente.Text = null;
+                txtDocFed.Text = null;
+                cboTipoPessoa.SelectedIndex = 0;
+
+                vc = null;
+                cli = null;
+                contr = null;
+
+            }
             MontaCupom();
         }
 
@@ -207,9 +235,55 @@ namespace RTPark
                 if (cli != null)
                 {
                     lblCliente.Text = cli.Nome;
+                    if (cli.Tipo_pessoa == 'F')
+                    {
+                        cboTipoPessoa.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        cboTipoPessoa.SelectedIndex = 1;
+                    }
+                    txtDocFed.Text = cli.Doc_fed;
+                    BuscaContrato(0);
+                }
+                else
+                {
+                    lblCliente.Text = null;
+                    txtDocFed.Text = null;
+                    cboTipoPessoa.SelectedIndex = 0;
                 }
             }
             MontaCupom();
+        }
+
+        public void BuscaContrato(int idContrato)
+        {
+            ContratoDAO cDAO = new ContratoDAO();
+            if (idContrato == 0)
+            {
+                contr = cDAO.GetByCliente(cli.Idcliente);
+            }
+            else
+            {
+                contr = cDAO.GetById(idContrato);
+            }
+
+            if (contr != null)
+            {
+                txtIdContrato.Text = contr.Idcontrato.ToString();
+                txtNomeContrato.Text = contr.Descricao;
+
+                ServicoDAO sDAO = new ServicoDAO();
+                cboServico.SelectedValue = contr.Idservico;
+                sv = sDAO.GetById(Convert.ToInt32(cboServico.SelectedValue));
+                AtualizaValor();
+            }
+            else
+            {
+                txtIdContrato.Text = null;
+                txtNomeContrato.Text = null;
+                cboServico.SelectedValue = config.CobrancaPadrao;
+            }
         }
 
         private void CarregaServico()
@@ -250,7 +324,7 @@ namespace RTPark
             }
             catch (Exception ex)
             {
-
+                ex.ToString();
             }
         }
 
@@ -315,11 +389,27 @@ namespace RTPark
 
         private void txtVaga_Leave(object sender, EventArgs e)
         {
+            if (txtVaga.Value != 0)
+            {
+                Movimentos test = oDAO.GetByCampo("vaga = '", txtVaga.Value.ToString() + "' ", 'S');
+                if (test != null)
+                {
+                    btnSalvar.Enabled = false;
+                    MessageBox.Show("Vaga OCUPADA, Placa: " + test.Placa, "RTPark", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtVaga.Focus();
+                }
+                return;
+            }
+            btnSalvar.Enabled = true;
             MontaCupom();
         }
 
         private void cboServico_Leave(object sender, EventArgs e)
         {
+            if (cboServico.SelectedIndex < 0)
+            {
+                cboServico.SelectedValue = sv.Idservico;
+            }
             MontaCupom();
         }
 
@@ -337,6 +427,28 @@ namespace RTPark
         {
             ImprimeCupom print = new ImprimeCupom(txtCupom);
             print.Print();
+        }
+
+        private void btnRemContrato_Click(object sender, EventArgs e)
+        {
+            contr = null;
+            txtIdContrato.Text = null;
+            txtNomeContrato.Text = null;
+            AtualizaValor();
+        }
+
+        private void cboTipoPessoa_Leave(object sender, EventArgs e)
+        {
+            if (cboTipoPessoa.SelectedIndex < 0)
+            {
+                cboTipoPessoa.SelectedIndex = 0;
+            }
+        }
+
+        private void btnBuscaContrato_Click(object sender, EventArgs e)
+        {
+            BuscaContratos tela = new BuscaContratos(this, null);
+            tela.ShowDialog();
         }
     }
 }

@@ -39,7 +39,7 @@ namespace RTPark
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Environment.Exit(0);                    
         }
 
         private void Login_Load(object sender, EventArgs e)

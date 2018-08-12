@@ -1,6 +1,6 @@
 ﻿namespace RTPark
 {
-    partial class ListaContratos
+    partial class ListaFormaPagamento
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -51,11 +51,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(232, 9);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(630, 37);
+            this.label1.Size = new System.Drawing.Size(1063, 37);
             this.label1.TabIndex = 0;
-            this.label1.Text = "LISTA DE CONTRATOS";
+            this.label1.Text = "LISTA DE FORMAS DE PAGAMENTO";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cboCriterio
@@ -65,10 +65,8 @@
             this.cboCriterio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboCriterio.FormattingEnabled = true;
             this.cboCriterio.Items.AddRange(new object[] {
-            "Nome",
             "Código",
-            "Endereço",
-            "CPF"});
+            "Descrição"});
             this.cboCriterio.Location = new System.Drawing.Point(11, 25);
             this.cboCriterio.Name = "cboCriterio";
             this.cboCriterio.Size = new System.Drawing.Size(197, 28);
@@ -190,7 +188,7 @@
             this.dgvDados.TabIndex = 8;
             this.dgvDados.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDados_CellMouseDoubleClick);
             // 
-            // ListaContratos
+            // ListaFormaPagamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -203,11 +201,11 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "ListaContratos";
+            this.Name = "ListaFormaPagamento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Lista de Contratos";
-            this.Activated += new System.EventHandler(this.ListaContratos_Activated);
-            this.Load += new System.EventHandler(this.ListaContratos_Load);
+            this.Text = "Lista de Formas de Pagamento";
+            this.Activated += new System.EventHandler(this.ListaServicos_Activated);
+            this.Load += new System.EventHandler(this.ListaServicos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDados)).EndInit();

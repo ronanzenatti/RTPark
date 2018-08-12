@@ -58,18 +58,24 @@
             this.chkCnpj = new System.Windows.Forms.CheckBox();
             this.chkTelefones = new System.Windows.Forms.CheckBox();
             this.chkEndereco = new System.Windows.Forms.CheckBox();
+            this.gbExcedente = new System.Windows.Forms.GroupBox();
+            this.rbManual = new System.Windows.Forms.RadioButton();
+            this.rbZero = new System.Windows.Forms.RadioButton();
+            this.rbProporcional = new System.Windows.Forms.RadioButton();
+            this.rbInteiro = new System.Windows.Forms.RadioButton();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.gbSaida.SuspendLayout();
             this.gbEntrada.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.gbExcedente.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblEmpresa
             // 
             this.lblEmpresa.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblEmpresa.Location = new System.Drawing.Point(130, 70);
+            this.lblEmpresa.Location = new System.Drawing.Point(99, 69);
             this.lblEmpresa.MaximumSize = new System.Drawing.Size(642, 30);
             this.lblEmpresa.MinimumSize = new System.Drawing.Size(642, 30);
             this.lblEmpresa.Name = "lblEmpresa";
@@ -81,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 75);
+            this.label4.Location = new System.Drawing.Point(12, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 20);
             this.label4.TabIndex = 47;
@@ -91,10 +97,10 @@
             // 
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.Blue;
-            this.lblTitulo.Location = new System.Drawing.Point(43, 9);
+            this.lblTitulo.Location = new System.Drawing.Point(14, 9);
             this.lblTitulo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(729, 50);
+            this.lblTitulo.Size = new System.Drawing.Size(726, 50);
             this.lblTitulo.TabIndex = 43;
             this.lblTitulo.Text = "CONFIGURAÇÕES DE MOVIMENTO";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -104,7 +110,7 @@
             this.btnSalvar.BackColor = System.Drawing.Color.LimeGreen;
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSalvar.Location = new System.Drawing.Point(648, 503);
+            this.btnSalvar.Location = new System.Drawing.Point(591, 512);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(129, 39);
             this.btnSalvar.TabIndex = 55;
@@ -114,15 +120,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.gbExcedente);
             this.groupBox2.Controls.Add(this.btnBuscaServico);
             this.groupBox2.Controls.Add(this.btnAddServico);
             this.groupBox2.Controls.Add(this.txtNomeServico);
             this.groupBox2.Controls.Add(this.txtIdServico);
             this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox2.Location = new System.Drawing.Point(47, 120);
+            this.groupBox2.Location = new System.Drawing.Point(13, 113);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(730, 154);
+            this.groupBox2.Size = new System.Drawing.Size(730, 198);
             this.groupBox2.TabIndex = 57;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "COBRANÇA PADRÃO:";
@@ -137,7 +144,7 @@
             this.btnBuscaServico.IconChar = FontAwesome.Sharp.IconChar.Search;
             this.btnBuscaServico.IconColor = System.Drawing.Color.White;
             this.btnBuscaServico.IconSize = 25;
-            this.btnBuscaServico.Location = new System.Drawing.Point(33, 34);
+            this.btnBuscaServico.Location = new System.Drawing.Point(32, 25);
             this.btnBuscaServico.Name = "btnBuscaServico";
             this.btnBuscaServico.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.btnBuscaServico.Rotation = 0D;
@@ -156,7 +163,7 @@
             this.btnAddServico.IconChar = FontAwesome.Sharp.IconChar.Plus;
             this.btnAddServico.IconColor = System.Drawing.Color.White;
             this.btnAddServico.IconSize = 25;
-            this.btnAddServico.Location = new System.Drawing.Point(668, 34);
+            this.btnAddServico.Location = new System.Drawing.Point(667, 25);
             this.btnAddServico.Name = "btnAddServico";
             this.btnAddServico.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.btnAddServico.Rotation = 0D;
@@ -169,7 +176,7 @@
             // 
             this.txtNomeServico.BackColor = System.Drawing.Color.White;
             this.txtNomeServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNomeServico.Location = new System.Drawing.Point(177, 34);
+            this.txtNomeServico.Location = new System.Drawing.Point(176, 25);
             this.txtNomeServico.Name = "txtNomeServico";
             this.txtNomeServico.ReadOnly = true;
             this.txtNomeServico.Size = new System.Drawing.Size(483, 26);
@@ -180,7 +187,7 @@
             // 
             this.txtIdServico.BackColor = System.Drawing.Color.White;
             this.txtIdServico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtIdServico.Location = new System.Drawing.Point(67, 34);
+            this.txtIdServico.Location = new System.Drawing.Point(66, 25);
             this.txtIdServico.Name = "txtIdServico";
             this.txtIdServico.ReadOnly = true;
             this.txtIdServico.Size = new System.Drawing.Size(104, 26);
@@ -196,7 +203,7 @@
             this.groupBox1.Controls.Add(this.txtVOutros);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.txtVCarro);
-            this.groupBox1.Location = new System.Drawing.Point(33, 66);
+            this.groupBox1.Location = new System.Drawing.Point(33, 57);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(663, 71);
             this.groupBox1.TabIndex = 56;
@@ -275,7 +282,7 @@
             // btnVoltar
             // 
             this.btnVoltar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVoltar.Location = new System.Drawing.Point(47, 503);
+            this.btnVoltar.Location = new System.Drawing.Point(29, 512);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(129, 39);
             this.btnVoltar.TabIndex = 56;
@@ -289,9 +296,9 @@
             this.groupBox3.Controls.Add(this.gbEntrada);
             this.groupBox3.Controls.Add(this.groupBox4);
             this.groupBox3.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox3.Location = new System.Drawing.Point(47, 281);
+            this.groupBox3.Location = new System.Drawing.Point(10, 317);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(730, 203);
+            this.groupBox3.Size = new System.Drawing.Size(730, 181);
             this.groupBox3.TabIndex = 58;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "CONFIGURAÇÃO DE IMPRESSÃO:";
@@ -301,7 +308,7 @@
             this.gbSaida.Controls.Add(this.rbNaoS);
             this.gbSaida.Controls.Add(this.rbSimS);
             this.gbSaida.Controls.Add(this.rbPergS);
-            this.gbSaida.Location = new System.Drawing.Point(427, 116);
+            this.gbSaida.Location = new System.Drawing.Point(427, 102);
             this.gbSaida.Name = "gbSaida";
             this.gbSaida.Size = new System.Drawing.Size(283, 71);
             this.gbSaida.TabIndex = 2;
@@ -348,7 +355,7 @@
             this.gbEntrada.Controls.Add(this.rbNaoE);
             this.gbEntrada.Controls.Add(this.rbSimE);
             this.gbEntrada.Controls.Add(this.rbPergE);
-            this.gbEntrada.Location = new System.Drawing.Point(427, 34);
+            this.gbEntrada.Location = new System.Drawing.Point(427, 25);
             this.gbEntrada.Name = "gbEntrada";
             this.gbEntrada.Size = new System.Drawing.Size(283, 71);
             this.gbEntrada.TabIndex = 1;
@@ -395,9 +402,9 @@
             this.groupBox4.Controls.Add(this.chkCnpj);
             this.groupBox4.Controls.Add(this.chkTelefones);
             this.groupBox4.Controls.Add(this.chkEndereco);
-            this.groupBox4.Location = new System.Drawing.Point(17, 34);
+            this.groupBox4.Location = new System.Drawing.Point(19, 25);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(154, 153);
+            this.groupBox4.Size = new System.Drawing.Size(321, 71);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Imprimir:";
@@ -408,7 +415,7 @@
             this.chkCnpj.Checked = true;
             this.chkCnpj.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCnpj.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkCnpj.Location = new System.Drawing.Point(16, 113);
+            this.chkCnpj.Location = new System.Drawing.Point(240, 33);
             this.chkCnpj.Name = "chkCnpj";
             this.chkCnpj.Size = new System.Drawing.Size(72, 24);
             this.chkCnpj.TabIndex = 2;
@@ -419,7 +426,7 @@
             // 
             this.chkTelefones.AutoSize = true;
             this.chkTelefones.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkTelefones.Location = new System.Drawing.Point(16, 73);
+            this.chkTelefones.Location = new System.Drawing.Point(127, 34);
             this.chkTelefones.Name = "chkTelefones";
             this.chkTelefones.Size = new System.Drawing.Size(107, 24);
             this.chkTelefones.TabIndex = 1;
@@ -439,11 +446,77 @@
             this.chkEndereco.Text = "Endereço";
             this.chkEndereco.UseVisualStyleBackColor = true;
             // 
+            // gbExcedente
+            // 
+            this.gbExcedente.Controls.Add(this.rbManual);
+            this.gbExcedente.Controls.Add(this.rbZero);
+            this.gbExcedente.Controls.Add(this.rbProporcional);
+            this.gbExcedente.Controls.Add(this.rbInteiro);
+            this.gbExcedente.ForeColor = System.Drawing.Color.Blue;
+            this.gbExcedente.Location = new System.Drawing.Point(33, 134);
+            this.gbExcedente.Name = "gbExcedente";
+            this.gbExcedente.Size = new System.Drawing.Size(341, 54);
+            this.gbExcedente.TabIndex = 60;
+            this.gbExcedente.TabStop = false;
+            this.gbExcedente.Text = "Fatura do Excedente:";
+            // 
+            // rbManual
+            // 
+            this.rbManual.AutoSize = true;
+            this.rbManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbManual.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.rbManual.Location = new System.Drawing.Point(259, 23);
+            this.rbManual.Name = "rbManual";
+            this.rbManual.Size = new System.Drawing.Size(76, 20);
+            this.rbManual.TabIndex = 3;
+            this.rbManual.TabStop = true;
+            this.rbManual.Text = "Manual";
+            this.rbManual.UseVisualStyleBackColor = true;
+            // 
+            // rbZero
+            // 
+            this.rbZero.AutoSize = true;
+            this.rbZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbZero.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.rbZero.Location = new System.Drawing.Point(202, 23);
+            this.rbZero.Name = "rbZero";
+            this.rbZero.Size = new System.Drawing.Size(58, 20);
+            this.rbZero.TabIndex = 2;
+            this.rbZero.TabStop = true;
+            this.rbZero.Text = "Zero";
+            this.rbZero.UseVisualStyleBackColor = true;
+            // 
+            // rbProporcional
+            // 
+            this.rbProporcional.AutoSize = true;
+            this.rbProporcional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbProporcional.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.rbProporcional.Location = new System.Drawing.Point(81, 23);
+            this.rbProporcional.Name = "rbProporcional";
+            this.rbProporcional.Size = new System.Drawing.Size(115, 20);
+            this.rbProporcional.TabIndex = 1;
+            this.rbProporcional.TabStop = true;
+            this.rbProporcional.Text = "Proporcional";
+            this.rbProporcional.UseVisualStyleBackColor = true;
+            // 
+            // rbInteiro
+            // 
+            this.rbInteiro.AutoSize = true;
+            this.rbInteiro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbInteiro.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.rbInteiro.Location = new System.Drawing.Point(6, 23);
+            this.rbInteiro.Name = "rbInteiro";
+            this.rbInteiro.Size = new System.Drawing.Size(69, 20);
+            this.rbInteiro.TabIndex = 0;
+            this.rbInteiro.TabStop = true;
+            this.rbInteiro.Text = "Inteiro";
+            this.rbInteiro.UseVisualStyleBackColor = true;
+            // 
             // IUConfigMovimento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 574);
+            this.ClientSize = new System.Drawing.Size(760, 561);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnSalvar);
@@ -454,8 +527,8 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(839, 613);
-            this.MinimumSize = new System.Drawing.Size(839, 613);
+            this.MaximumSize = new System.Drawing.Size(776, 600);
+            this.MinimumSize = new System.Drawing.Size(776, 600);
             this.Name = "IUConfigMovimento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configurações de Movimento";
@@ -470,6 +543,8 @@
             this.gbEntrada.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.gbExcedente.ResumeLayout(false);
+            this.gbExcedente.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -507,5 +582,10 @@
         private System.Windows.Forms.RadioButton rbNaoS;
         private System.Windows.Forms.RadioButton rbSimS;
         private System.Windows.Forms.RadioButton rbPergS;
+        private System.Windows.Forms.GroupBox gbExcedente;
+        private System.Windows.Forms.RadioButton rbManual;
+        private System.Windows.Forms.RadioButton rbZero;
+        private System.Windows.Forms.RadioButton rbProporcional;
+        private System.Windows.Forms.RadioButton rbInteiro;
     }
 }
