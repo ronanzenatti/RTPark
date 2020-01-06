@@ -26,7 +26,7 @@ namespace RTPark
             oDAO = new ConfigMovimentoDAO();
             obj = oDAO.GetLast(est.Idestabelecimento);
 
-            if (obj.Idconfig != 0)
+            if (obj != null)
             {
                 chkCnpj.Checked = Convert.ToBoolean(obj.ImprimeCnpj);
                 chkTelefones.Checked = Convert.ToBoolean(obj.ImprimeTelefones);

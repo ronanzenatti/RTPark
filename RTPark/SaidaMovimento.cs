@@ -172,59 +172,66 @@ namespace RTPark
 
         private void CalcularPagamento(bool leave)//ok
         {
-            if (obj.TipoVeiculo == 'C')
+            if (obj != null)
             {
-                vSubtotal = obj.Periodos * sv.ValorCarro;
-                txtSubTotal.Text = vSubtotal.ToString("0,0.00");
-                vServico = sv.ValorCarro;
-            }
-            else if (obj.TipoVeiculo == 'M')
-            {
-                vSubtotal = obj.Periodos * sv.ValorMoto;
-                txtSubTotal.Text = vSubtotal.ToString();
-                vServico = sv.ValorMoto;
-            }
-            else if (obj.TipoVeiculo == 'O')
-            {
-                vSubtotal = obj.Periodos * sv.ValorOutros;
-                txtSubTotal.Text = vSubtotal.ToString();
-                vServico = sv.ValorOutros;
-            }
-
-            if (rbInteiro.Checked)
-            {
-                vExecedente = vServico;
-                txtExcedente.Text = vExecedente.ToString();
-            }
-            else if (rbProporcional.Checked)
-            {
-                if (sv.TipoCobranca != 'H')
+                if (obj.TipoVeiculo == 'C')
                 {
-                    vExecedente = (vServico * obj.Excedente) / sv.Quantidade;
+                    vSubtotal = obj.Periodos * sv.ValorCarro;
+                    txtSubTotal.Text = vSubtotal.ToString();
+                    vServico = sv.ValorCarro;
                 }
-                else
+                else if (obj.TipoVeiculo == 'M')
                 {
-                    vExecedente = (vServico * obj.Excedente) / (sv.Quantidade * 60);
+                    vSubtotal = obj.Periodos * sv.ValorMoto;
+                    txtSubTotal.Text = vSubtotal.ToString();
+                    vServico = sv.ValorMoto;
                 }
-                txtExcedente.Text = vExecedente.ToString("N2");
-            }
-            else if (rbManual.Checked)
-            {
-                vExecedente = Convert.ToDecimal(txtExcedente.Text);
-            }
-            else if (rbZero.Checked)
-            {
-                vExecedente = 0;
-                txtExcedente.Text = "0";
-            }
+                else if (obj.TipoVeiculo == 'O')
+                {
+                    vSubtotal = obj.Periodos * sv.ValorOutros;
+                    txtSubTotal.Text = vSubtotal.ToString();
+                    vServico = sv.ValorOutros;
+                }
 
-            vDesconto = Convert.ToDecimal(txtDesconto.Text);
+                if (rbInteiro.Checked)
+                {
+                    vExecedente = vServico;
+                    txtExcedente.Text = vExecedente.ToString();
+                }
+                else if (rbProporcional.Checked)
+                {
+                    if (sv.TipoCobranca != 'H')
+                    {
+                        vExecedente = (vServico * obj.Excedente) / sv.Quantidade;
+                    }
+                    else
+                    {
+                        vExecedente = (vServico * obj.Excedente) / (sv.Quantidade * 60);
+                    }
+                    txtExcedente.Text = vExecedente.ToString("N2");
+                }
+                else if (rbManual.Checked)
+                {
+                    vExecedente = Convert.ToDecimal(txtExcedente.Text);
+                }
+                else if (rbZero.Checked)
+                {
+                    if (vTotal > 0)
+                    {
+                        vDesconto = vTotal;
 
-            vTotal = (vSubtotal + vExecedente) - vDesconto;
+                        txtDesconto.Text = vDesconto.ToString("N2");
+                    }
+                }
 
-            txtTotalPagar.Text = vTotal.ToString("N2");
-            if (leave)
-                txtDinheiro.Focus();
+                vDesconto = Convert.ToDecimal(txtDesconto.Text);
+
+                vTotal = (vSubtotal + vExecedente) - vDesconto;
+
+                txtTotalPagar.Text = vTotal.ToString("N2");
+                if (leave)
+                    txtDinheiro.Focus();
+            }
         }
 
         private void CalculaTroco()//ok

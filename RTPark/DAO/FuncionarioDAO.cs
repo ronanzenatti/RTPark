@@ -80,7 +80,7 @@ namespace RTPark.DAO
                 sql += " email = '" + obj.Email.Replace("'", "''") + "', ";
                 sql += " salario = '" + obj.Salario.ToString(new CultureInfo("en-US")) + "', ";
                 sql += " usuario = '" + obj.Usuario.Replace("'", "''") + "', ";
-                sql += " usuario = '" + Encode64.Base64Encode(Encode64.Base64Encode(obj.Senha.Replace("'", "''"))) + "', ";
+                sql += " senha = '" + Encode64.Base64Encode(Encode64.Base64Encode(obj.Senha.Replace("'", "''"))) + "', ";
                 sql += " tipo = '" + obj.Tipo + "', ";
                 sql += " ativo = '" + obj.Ativo + "'";
                 sql += " WHERE idfuncionario = " + obj.Idfuncionario + ";";

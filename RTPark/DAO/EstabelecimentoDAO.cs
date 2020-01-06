@@ -237,7 +237,7 @@ namespace RTPark.DAO
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao buscar os registros (BY ID) !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao buscar os registros (LAST) !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             con = null;

@@ -17,7 +17,7 @@ namespace RTPark
         private MySqlDataAdapter mysqlDA;
 
         private String server = "127.0.0.1";
-        private String port = "3308";
+        private String port = "3306";
         private String user = "root";
         private String password = "";
         private String database = "rtpark";
@@ -35,7 +35,7 @@ namespace RTPark
                 conn.Open();
             }
             catch (MySqlException ex)
-            {                
+            {
                 MessageBox.Show("Não foi possivel estabelecer conexão!!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
             }
@@ -72,7 +72,6 @@ namespace RTPark
             MySqlDataReader reader;
             using (var cmd = new MySqlCommand(sql, conn))
             {
-
                 reader = cmd.ExecuteReader();
                 var dt = new DataTable();
                 dt.Load(reader);

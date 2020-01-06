@@ -23,7 +23,6 @@ namespace RTPark
             InitializeComponent();
             lblDataHora.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             BuscaEstabelecimento();
-            BuscaConfiguracao();
         }
 
         private void funcionarioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -122,9 +121,10 @@ namespace RTPark
         {
             EstabelecimentoDAO oDAO = new EstabelecimentoDAO();
             est = oDAO.GetLast();
-            if (est.Idestabelecimento != 0)
+            if (est != null)
             {
                 lblNomeEstacionamento.Text = est.Nome;
+                BuscaConfiguracao();
                 CalculaVagas();
             }
         }
@@ -239,5 +239,6 @@ namespace RTPark
             SaidaMovimento tela = new SaidaMovimento(id, est, config, usr, this);
             tela.ShowDialog();
         }
+
     }
 }
