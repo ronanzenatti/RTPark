@@ -57,7 +57,7 @@ namespace RTPark
         {
             if (ValidarCampos())
             {
-                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (ValidarCampos() && (confirm == DialogResult.Yes))
                 {
@@ -119,18 +119,49 @@ namespace RTPark
             return true;
         }
 
-        private void IUVeiculoCliente_KeyUp(object sender, KeyEventArgs e)
+        private void txtPlaca_Leave(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            txtPlaca.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            txtPlaca.Text = txtPlaca.Text.Trim().Replace(" ", "");
+            if (txtPlaca.Text.Length < 7 && txtPlaca.Text.Length >= 0)
             {
-                this.SelectNextControl(this.ActiveControl, !e.Shift, true, true, true);
+                MessageBox.Show("O campo [ PLACA ] está inválido!");
+                txtPlaca.Focus();
+                btnSalvar.Enabled = false;
             }
+            else if (txtPlaca.Text.Length == 7)
+            {
+                txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
+                var teste = oDAO.GetByPlaca(txtPlaca.Text, cli.Idcliente);
+                if (teste != null)
+                {
+                    btnSalvar.Enabled = false;
+                    Clientes old_cli = new ClienteDAO().GetById(teste.Idcliente);
+                    MessageBox.Show("Veiculo Já Cadastrado para: \n" + old_cli.Idcliente + " - " + old_cli.Nome, "RTPark", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPlaca.Focus();
+                }
+                else
+                {
+                    txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
+                    btnSalvar.Enabled = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("O campo [ PLACA ] está inválido!");
+                txtPlaca.Focus();
+                btnSalvar.Enabled = false;
+            }
+            txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
         }
 
-        private void IUVeiculoCliente_KeyDown(object sender, KeyEventArgs e)
+        private void IUVeiculoCliente_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-                e.SuppressKeyPress = true;
+            if ((e.KeyChar.CompareTo((char)Keys.Return)) == 0)
+            {
+                e.Handled = true;
+                SendKeys.Send("{TAB}");
+            }
         }
     }
 }

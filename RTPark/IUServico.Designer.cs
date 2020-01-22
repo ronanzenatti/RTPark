@@ -113,8 +113,7 @@
             "Hora",
             "Minuto",
             "Diária",
-            "Mensal",
-            "Contrato"});
+            "Mensal"});
             this.cboTipoCobranca.Location = new System.Drawing.Point(119, 164);
             this.cboTipoCobranca.Name = "cboTipoCobranca";
             this.cboTipoCobranca.Size = new System.Drawing.Size(192, 28);

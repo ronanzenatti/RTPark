@@ -44,6 +44,8 @@
             this.serviçosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contratosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formasDePagamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.financeiroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.faturarContratosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvDados = new System.Windows.Forms.DataGridView();
             this.lblNomeEstacionamento = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -93,7 +95,7 @@
             this.btnSaida.Name = "btnSaida";
             this.btnSaida.Size = new System.Drawing.Size(180, 40);
             this.btnSaida.TabIndex = 5;
-            this.btnSaida.Text = "&Saida (F3)";
+            this.btnSaida.Text = "Saida (F3)";
             this.btnSaida.UseVisualStyleBackColor = true;
             this.btnSaida.Click += new System.EventHandler(this.btnSaida_Click);
             // 
@@ -105,7 +107,7 @@
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(180, 40);
             this.btnClientes.TabIndex = 4;
-            this.btnClientes.Text = "&Clientes (F4)";
+            this.btnClientes.Text = "Clientes (F4)";
             this.btnClientes.UseVisualStyleBackColor = true;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
@@ -117,7 +119,7 @@
             this.btnEntrada.Name = "btnEntrada";
             this.btnEntrada.Size = new System.Drawing.Size(180, 40);
             this.btnEntrada.TabIndex = 3;
-            this.btnEntrada.Text = "&Entrada (F2)";
+            this.btnEntrada.Text = "Entrada (F2)";
             this.btnEntrada.UseVisualStyleBackColor = true;
             this.btnEntrada.Click += new System.EventHandler(this.btnEntrada_Click);
             // 
@@ -137,7 +139,8 @@
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastrosToolStripMenuItem});
+            this.cadastrosToolStripMenuItem,
+            this.financeiroToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1008, 29);
@@ -155,7 +158,7 @@
             this.formasDePagamentosToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
-            this.cadastrosToolStripMenuItem.Text = "Cadastros";
+            this.cadastrosToolStripMenuItem.Text = "&Cadastros";
             // 
             // funcionarioToolStripMenuItem
             // 
@@ -216,6 +219,22 @@
             this.formasDePagamentosToolStripMenuItem.Text = "Formas de &Pagamentos";
             this.formasDePagamentosToolStripMenuItem.Click += new System.EventHandler(this.formasDePagamentosToolStripMenuItem_Click);
             // 
+            // financeiroToolStripMenuItem
+            // 
+            this.financeiroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.faturarContratosToolStripMenuItem});
+            this.financeiroToolStripMenuItem.Name = "financeiroToolStripMenuItem";
+            this.financeiroToolStripMenuItem.Size = new System.Drawing.Size(102, 25);
+            this.financeiroToolStripMenuItem.Text = "&Financeiro";
+            this.financeiroToolStripMenuItem.Visible = false;
+            // 
+            // faturarContratosToolStripMenuItem
+            // 
+            this.faturarContratosToolStripMenuItem.Name = "faturarContratosToolStripMenuItem";
+            this.faturarContratosToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
+            this.faturarContratosToolStripMenuItem.Text = "Faturar Contratos";
+            this.faturarContratosToolStripMenuItem.Click += new System.EventHandler(this.faturarContratosToolStripMenuItem_Click);
+            // 
             // dgvDados
             // 
             this.dgvDados.AllowUserToAddRows = false;
@@ -234,11 +253,13 @@
             this.dgvDados.Size = new System.Drawing.Size(778, 517);
             this.dgvDados.TabIndex = 2;
             this.dgvDados.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDados_CellContentDoubleClick);
+            this.dgvDados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDados_CellDoubleClick);
             // 
             // lblNomeEstacionamento
             // 
             this.lblNomeEstacionamento.AutoSize = true;
             this.lblNomeEstacionamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNomeEstacionamento.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.lblNomeEstacionamento.Location = new System.Drawing.Point(212, 32);
             this.lblNomeEstacionamento.Name = "lblNomeEstacionamento";
             this.lblNomeEstacionamento.Size = new System.Drawing.Size(347, 31);
@@ -429,23 +450,23 @@
             this.lblUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUser.AutoSize = true;
             this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblUser.Location = new System.Drawing.Point(921, 39);
+            this.lblUser.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblUser.Location = new System.Drawing.Point(850, 39);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(75, 24);
+            this.lblUser.Size = new System.Drawing.Size(143, 24);
             this.lblUser.TabIndex = 7;
-            this.lblUser.Text = "ROnan";
+            this.lblUser.Text = "usuariologado";
             this.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(836, 39);
+            this.label2.Location = new System.Drawing.Point(765, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 24);
+            this.label2.Size = new System.Drawing.Size(87, 24);
             this.label2.TabIndex = 8;
             this.label2.Text = "Usuário:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -473,6 +494,7 @@
             this.Text = "Tela Principal";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TelaPrincipal_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TelaPrincipal_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -523,5 +545,7 @@
         private System.Windows.Forms.ToolStripMenuItem configuraçãoToolStripMenuItem;
         private System.Windows.Forms.Button btnSaida;
         private System.Windows.Forms.ToolStripMenuItem formasDePagamentosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem financeiroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem faturarContratosToolStripMenuItem;
     }
 }

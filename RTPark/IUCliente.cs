@@ -79,19 +79,7 @@ namespace RTPark
             }
         }
 
-        private void IUCliente_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                this.SelectNextControl(this.ActiveControl, !e.Shift, true, true, true);
-            }
-        }
-
-        private void IUCliente_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                e.SuppressKeyPress = true;
-        }
+       
 
         private void btnVoltar_Click(object sender, EventArgs e)
         {
@@ -120,7 +108,7 @@ namespace RTPark
         {
             if (validaCampos())
             {
-                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (validaCampos() && (confirm == DialogResult.Yes))
                 {
@@ -257,7 +245,7 @@ namespace RTPark
             txtDoc_fed.Text = null;
             txtDoc_est.Text = null;
 
-            if (cboTipo.SelectedItem.ToString() == "Fisica")
+            if (cboTipo.SelectedItem.ToString() == "Física")
             {
                 lblFed.Text = "CPF:";
                 lblEst.Text = "RG:";
@@ -317,6 +305,15 @@ namespace RTPark
         {
             VeiculosClienteDAO vDAO = new VeiculosClienteDAO();
             dgvDados.DataSource = vDAO.listarTodos(obj.Idcliente);
+        }
+
+        private void IUCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar.CompareTo((char)Keys.Return)) == 0)
+            {
+                e.Handled = true;
+                SendKeys.Send("{TAB}");
+            }
         }
     }
 }

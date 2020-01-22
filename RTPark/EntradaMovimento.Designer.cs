@@ -95,7 +95,7 @@
             this.txtPlaca.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlaca.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.txtPlaca.Location = new System.Drawing.Point(12, 12);
-            this.txtPlaca.Mask = ">?>?>?-9999";
+            this.txtPlaca.Mask = ">?>?>?-9A99";
             this.txtPlaca.Name = "txtPlaca";
             this.txtPlaca.Size = new System.Drawing.Size(249, 63);
             this.txtPlaca.TabIndex = 1;
@@ -110,7 +110,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 499);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(784, 62);
-            this.panel2.TabIndex = 50;
+            this.panel2.TabIndex = 6;
             // 
             // btnSalvar
             // 
@@ -158,7 +158,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 166);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(456, 59);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Contrato:";
             // 
@@ -198,6 +198,7 @@
             this.btnBuscaContrato.Rotation = 0D;
             this.btnBuscaContrato.Size = new System.Drawing.Size(28, 26);
             this.btnBuscaContrato.TabIndex = 3;
+            this.btnBuscaContrato.TabStop = false;
             this.btnBuscaContrato.UseVisualStyleBackColor = false;
             this.btnBuscaContrato.Click += new System.EventHandler(this.btnBuscaContrato_Click);
             // 
@@ -280,6 +281,7 @@
             this.cboServico.Name = "cboServico";
             this.cboServico.Size = new System.Drawing.Size(330, 28);
             this.cboServico.TabIndex = 0;
+            this.cboServico.TabStop = false;
             this.cboServico.SelectedIndexChanged += new System.EventHandler(this.cboServico_SelectedIndexChanged);
             this.cboServico.Leave += new System.EventHandler(this.cboServico_Leave);
             // 
@@ -289,13 +291,18 @@
             this.groupBox5.Location = new System.Drawing.Point(348, 231);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(120, 59);
-            this.groupBox5.TabIndex = 8;
+            this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Vaga:";
             // 
             // txtVaga
             // 
             this.txtVaga.Location = new System.Drawing.Point(17, 25);
+            this.txtVaga.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
             this.txtVaga.Name = "txtVaga";
             this.txtVaga.Size = new System.Drawing.Size(87, 26);
             this.txtVaga.TabIndex = 9;
@@ -308,7 +315,7 @@
             this.groupBox6.Location = new System.Drawing.Point(13, 361);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(456, 59);
-            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Veiculo:";
             // 
@@ -329,7 +336,7 @@
             this.groupBox7.Location = new System.Drawing.Point(12, 426);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(456, 59);
-            this.groupBox7.TabIndex = 3;
+            this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "CPF / CNPJ do Cliente:";
             // 
@@ -373,7 +380,7 @@
             this.gbTipoVeiculo.Location = new System.Drawing.Point(13, 231);
             this.gbTipoVeiculo.Name = "gbTipoVeiculo";
             this.gbTipoVeiculo.Size = new System.Drawing.Size(329, 59);
-            this.gbTipoVeiculo.TabIndex = 51;
+            this.gbTipoVeiculo.TabIndex = 2;
             this.gbTipoVeiculo.TabStop = false;
             this.gbTipoVeiculo.Text = "Tipo de Veiculo:";
             // 
@@ -440,6 +447,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entrada de Veiculo";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EntradaMovimento_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

@@ -117,25 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="txtCupom.Text" xml:space="preserve">
-    <value>ESTACIONAMENTO CENTER PARK
-RUA ANTONIO ALVES DE SOUZA, 13-41
-CNPJ: 46.189.734/0001-61
-(14) 9 8157-5657 / 9 9888-0045
------------------------------------------
-   ****** COMPROVANTE DE SAIDA ******
------------------------------------------
-DOC.....: 0000000000
-PLACA...: DFN-2708
-CLIENTE.: RONAN ADRIEL ZENATTI
-CNPJ/CPF: 355.936.478-79
-CONVENIO: CONVENIO CLIENTES RONAN
-VEICULO.: NISSAN - VERSA - CINZA
-VAGA....: 054
-ENTRADA.: 10/07/2017 11:05
-SAIDA...: 10/07/2017 12:05
-TEMPO...: 15 HORAS E 30 MIN
-TOTAL...: R$ 4,00
------------------------------------------</value>
-  </data>
 </root>

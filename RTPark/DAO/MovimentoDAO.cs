@@ -54,6 +54,40 @@ namespace RTPark.DAO
             }
         }
 
+        public void Alterar(Movimentos obj)
+        {
+            try
+            {
+                con = new Conexao();
+                con.Conectar();
+
+                String sql = "UPDATE movimentos SET";
+                sql += " dh_saida = '" + obj.DhSaida.Replace("'", "''") + "', ";
+                sql += " placa = '" + obj.Placa.Replace("'", "''") + "', ";
+                sql += " tipo_veiculo = '" + obj.TipoVeiculo + "', ";
+                sql += " veiculo = '" + obj.Placa.Replace("'", "''") + "', ";
+                sql += " vaga = '" + obj.Vaga + "', ";
+                sql += " idservico = '" + obj.Idservico + "', ";
+                sql += " idfuncionario = '" + obj.Idfuncionario + "', ";
+                sql += " idcontrato = '" + obj.Idcontrato + "', ";
+                sql += " permanencia = '" + obj.Permanencia + "', ";
+                sql += " excedente = '" + obj.Excedente + "', ";
+                sql += " periodos = '" + obj.Periodos + "', ";
+                sql += " doc_fed = '" + obj.DocFed.Replace("'", "''") + "' ";
+                sql += " WHERE idmovimento = " + obj.Idmovimento + ";";
+                sql = sql.Replace("''", "NULL");
+                con.ExecutarComandoSQL(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao atualizar o Movimento!!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                con = null;
+            }
+        }
+
         public DataTable listarTodos()
         {
             DataTable dt = new DataTable();
@@ -118,7 +152,7 @@ namespace RTPark.DAO
                 if (dados.Read())
                 {
                     obj.Idmovimento = Convert.ToInt32(dados["idmovimento"]);
-                    obj.DhEntrada = Convert.ToDateTime(dados["dh_entrada"]).ToString("dd/MM/yyyy HH:mm");                    
+                    obj.DhEntrada = Convert.ToDateTime(dados["dh_entrada"]).ToString("dd/MM/yyyy HH:mm");
                     obj.Placa = dados["placa"].ToString();
                     obj.TipoVeiculo = dados["tipo_veiculo"].ToString()[0];
                     obj.Veiculo = dados["veiculo"].ToString();
@@ -129,7 +163,7 @@ namespace RTPark.DAO
                     obj.Permanencia = Convert.ToInt32(dados["permanencia"]);
                     obj.Excedente = Convert.ToInt32(dados["excedente"]);
                     obj.Periodos = Convert.ToInt32(dados["periodos"]);
-                    obj.DocFed = dados["doc_fed"].ToString();                   
+                    obj.DocFed = dados["doc_fed"].ToString();
                 }
                 else
                 {

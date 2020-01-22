@@ -68,11 +68,6 @@ namespace RTPark
                             cboTipoCobranca.SelectedIndex = 3;
                             break;
                         }
-                    case 'C':
-                        {
-                            cboTipoCobranca.SelectedIndex = 4;
-                            break;
-                        }
                 }
                 btnLimpar.Enabled = false;
             }
@@ -151,7 +146,7 @@ namespace RTPark
         {
             if (validaCampos())
             {
-                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (validaCampos() && (confirm == DialogResult.Yes))
                 {

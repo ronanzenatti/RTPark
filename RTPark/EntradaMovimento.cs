@@ -6,7 +6,7 @@ using RTPark.Entidades;
 using System.Linq;
 using RTPark.DAO;
 using RTPark.Util;
-
+using System.Drawing;
 
 namespace RTPark
 {
@@ -31,22 +31,30 @@ namespace RTPark
             this.config = config;
             this.fun = fun;
             CarregaServico();
-            MontaCupom();
             obj = new Movimentos();
             oDAO = new MovimentoDAO();
             telaMov = (TelaPrincipal)tela;
+            MontaCupom();
         }
 
         private void timerEntrada_Tick(object sender, EventArgs e)
         {
             txtHoraEntrada.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            MontaCupom();
         }
 
         private void txtPlaca_Leave(object sender, EventArgs e)
         {
             Movimentos test = oDAO.GetByCampo("placa = '", txtPlaca.Text + "' ", 'S');
             txtPlaca.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            if (txtPlaca.Text.Length == 7)
+            txtPlaca.Text = txtPlaca.Text.Trim().Replace(" ", "");
+            if (txtPlaca.Text.Length < 7 && txtPlaca.Text.Length >= 0)
+            {
+                txtPlaca.Focus();
+                btnSalvar.Enabled = false;
+                txtPlaca.Clear();
+            }
+            else if (txtPlaca.Text.Length == 7)
             {
                 if (test != null)
                 {
@@ -57,19 +65,21 @@ namespace RTPark
                 else
                 {
                     txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
-                    timerEntrada.Enabled = false;
-                    txtHoraEntrada.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
                     BuscaPlaca();
                     btnSalvar.Enabled = true;
+                    txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
+                    txtPlaca.TabStop = false;
+                    txtPlaca.ReadOnly = true;
+                    txtPlaca.BackColor = Color.White;
+                    txtPlaca.ForeColor = Color.Blue;
                 }
             }
-            else if (txtPlaca.Text.Length < 7 && txtPlaca.Text.Length > 0)
+            else
             {
                 MessageBox.Show("O campo [ PLACA ] está inválido!");
                 txtPlaca.Focus();
                 btnSalvar.Enabled = false;
             }
-            txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
         }
 
         private void cboTipoPessoa_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,7 +116,7 @@ namespace RTPark
             cupom.Add("  ****** COMPROVANTE DE ENTRADA ******   ");
             cupom.Add("-----------------------------------------");
 
-            cupom.Add("DOC.....: ");
+            cupom.Add("DOC.....: " + (obj != null ? obj.Idmovimento.ToString() : "0"));
             cupom.Add("PLACA...: " + txtPlaca.Text);
 
             if (cli != null)
@@ -134,6 +144,7 @@ namespace RTPark
             cupom.Add(" ");
             cupom.Add(" ");
             cupom.Add(" ");
+            cupom.Add(". ");
 
             txtCupom.Lines = (String[])cupom.ToArray(typeof(string));
         }
@@ -160,7 +171,7 @@ namespace RTPark
             MontaCupom();
             if (config.ImprimeEntrada == 'P')
             {
-                DialogResult dr = MessageBox.Show("Deseja Imprimir o Cupom de Entreda ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dr = MessageBox.Show("Deseja Imprimir o Cupom de Entrada ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dr == DialogResult.Yes)
                 {
@@ -406,7 +417,7 @@ namespace RTPark
 
         private void cboServico_Leave(object sender, EventArgs e)
         {
-            if (cboServico.SelectedIndex < 0)
+            if (Convert.ToInt32(cboServico.SelectedValue) < 0)
             {
                 cboServico.SelectedValue = sv.Idservico;
             }
@@ -434,6 +445,9 @@ namespace RTPark
             contr = null;
             txtIdContrato.Text = null;
             txtNomeContrato.Text = null;
+
+            cboServico.SelectedValue = config.CobrancaPadrao;
+
             AtualizaValor();
         }
 
@@ -449,6 +463,15 @@ namespace RTPark
         {
             BuscaContratos tela = new BuscaContratos(this, null);
             tela.ShowDialog();
+        }
+
+        private void EntradaMovimento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar.CompareTo((char)Keys.Return)) == 0)
+            {
+                e.Handled = true;
+                SendKeys.Send("{TAB}");
+            }
         }
     }
 }

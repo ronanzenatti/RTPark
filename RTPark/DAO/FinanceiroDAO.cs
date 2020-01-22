@@ -6,25 +6,34 @@ using System.Globalization;
 
 namespace RTPark.DAO
 {
-    class ServicoDAO
+    class FinanceiroDAO
     {
         Conexao con;
 
-        public int Inserir(Servicos obj)
+        // idfinanceiro, idestabelecimento, idfuncionario, descricao, idmovimento, idfatura, dh_lancamento, tipo_lancamento, id_forma_pagamento, fat_excedente, numero_recibo, sub_total, excedente, desconto, total, dinheiro, troco, multa, juros, dh_cancelamento, motivo_cancelamento, valor_cancelado
+
+        public int InserirMovimento(Financeiro obj)
         {
             try
             {
                 con = new Conexao();
                 con.Conectar();
 
-                String sql = "INSERT INTO servicos (descricao, tipo_cobranca, quantidade, valor_carro, valor_moto, valor_outros, ativo) VALUES(";
-                sql += "'" + obj.Descricao.Replace("'", "''") + "', ";
-                sql += "'" + obj.TipoCobranca + "', ";
-                sql += "'" + obj.Quantidade + "', ";
-                sql += "'" + obj.ValorCarro.ToString(new CultureInfo("en-US")) + "', ";
-                sql += "'" + obj.ValorMoto.ToString(new CultureInfo("en-US")) + "', ";
-                sql += "'" + obj.ValorOutros.ToString(new CultureInfo("en-US")) + "', ";
-                sql += "'" + obj.Ativo + "');";
+                String sql = "INSERT INTO financeiro (idestabelecimento, idfuncionario, idmovimento, dh_lancamento, tipo_lancamento, " +
+                    "id_forma_pagamento, fat_excedente, sub_total, excedente, desconto, total, dinheiro, troco) VALUES(";
+                sql += "'" + obj.IdEstabelecimento + "', ";
+                sql += "'" + obj.IdFuncionario + "', ";
+                sql += "'" + obj.IdMovimento + "', ";
+                sql += "'" + obj.DhLancamento + "', ";
+                sql += "'" + obj.TipoLancamento + "', ";
+                sql += "'" + obj.IdFormaPagamento + "', ";
+                sql += "'" + obj.FatExcedente + "', ";
+                sql += "'" + obj.Subtotal.ToString(new CultureInfo("en-US")) + "', ";
+                sql += "'" + obj.Excedente.ToString(new CultureInfo("en-US")) + "', ";
+                sql += "'" + obj.Desconto.ToString(new CultureInfo("en-US")) + "', ";
+                sql += "'" + obj.Total.ToString(new CultureInfo("en-US")) + "', ";
+                sql += "'" + obj.Dinheiro.ToString(new CultureInfo("en-US")) + "', ";
+                sql += "'" + obj.Troco.ToString(new CultureInfo("en-US")) + "'); ";
                 sql += "SELECT LAST_INSERT_ID();";
                 sql = sql.Replace("''", "NULL");
                 int id = Convert.ToInt32(con.ExecutarComandoSQLRetorno(sql));
@@ -33,7 +42,7 @@ namespace RTPark.DAO
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao cadastrar Serviço !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao lançar o Financeiro !!! \n" + ex.Message, "ERRO !!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
             finally
@@ -41,15 +50,15 @@ namespace RTPark.DAO
                 con = null;
             }
         }
+        /*
 
-
-        public void Alterar(Servicos obj)
+        public void Alterar(Financeiro obj)
         {
             try
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "UPDATE servicos SET";
+                String sql = "UPDATE financeiro SET";
                 sql += " descricao = '" + obj.Descricao.Replace("'", "''") + "', ";
                 sql += " tipo_cobranca = '" + obj.TipoCobranca + "', ";
                 sql += " quantidade = '" + obj.Quantidade + "', ";
@@ -77,7 +86,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "DELETE FROM servicos WHERE idservico = " + id + ";";
+                String sql = "DELETE FROM financeiro WHERE idservico = " + id + ";";
                 con.ExecutarComandoSQL(sql);
             }
             catch (Exception ex)
@@ -99,7 +108,7 @@ namespace RTPark.DAO
                 con.Conectar();
 
                 String sql = "SELECT idservico AS ID, descricao AS `Descrição`, (case tipo_cobranca when 'D' then 'Diária' when 'H' then 'Hora' when 'I' then 'Minutos' when 'M' then 'Mensal' end) AS TIPO, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, " +
-                    "ativo AS Ativo FROM servicos";
+                    "ativo AS Ativo FROM financeiro";
                 dt = con.RetDataTable(sql);
             }
             catch (Exception ex)
@@ -117,7 +126,7 @@ namespace RTPark.DAO
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idservico AS ID, descricao AS `Descrição`, tipo_cobranca AS Tipo, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, ativo AS Ativo FROM servicos";
+                String sql = "SELECT idservico AS ID, descricao AS `Descrição`, tipo_cobranca AS Tipo, quantidade AS QTDE, valor_carro AS Carro, valor_moto AS Moto, valor_outros AS Outros, ativo AS Ativo FROM financeiro";
                 sql += " WHERE " + campo + " LIKE '%" + busca + "%';";
                 dt = con.RetDataTable(sql);
                 Console.WriteLine(sql);
@@ -130,14 +139,14 @@ namespace RTPark.DAO
             return dt;
         }
 
-        public Servicos GetById(int id)
+        public Financeiro GetById(int id)
         {
-            Servicos obj = new Servicos();
+            Financeiro obj = new Financeiro();
             try
             {
                 con = new Conexao();
                 con.Conectar();
-                String sql = "SELECT idservico, descricao, tipo_cobranca, quantidade, valor_carro, valor_moto, valor_outros, ativo FROM servicos";
+                String sql = "SELECT idservico, descricao, tipo_cobranca, quantidade, valor_carro, valor_moto, valor_outros, ativo FROM financeiro";
                 sql += " WHERE idservico = " + id;
 
                 var dados = con.RetDataReader(sql);
@@ -164,6 +173,6 @@ namespace RTPark.DAO
 
             con = null;
             return obj;
-        }
+        }*/
     }
 }

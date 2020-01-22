@@ -4,38 +4,50 @@ namespace RTPark.Entidades
 {
     public class Financeiro
     {
-        private int idfatura;
-        private int idcontrato;
-        private string referencia;
-        private string lancamento;
-        private string vencimento;
-        private string pagamento;
-        private string baixa;
+        private int idFinanceiro;
+        private int idEstabelecimento;
+        private int idFuncionario;
+        private string descricao;
+        private int idMovimento;
+        private int idFatura;
+        private string dhLancamento;
+        private char tipoLancamento;
+        private int idFormaPagamento;
+        private char fatExcedente;
+        private int numeroRecibo;
         private decimal subtotal;
-        private decimal juros;
-        private decimal multa;
+        private decimal excedente;
         private decimal desconto;
         private decimal total;
-        private char tipo_desconto;
-        private string texto;
-        private string cancelamento;
-        private decimal valor_cancelado;
+        private decimal dinheiro;
+        private decimal troco;
+        private decimal multa;
+        private decimal juros;
+        private string dhCancelamento;
+        private string motivoCancelamento;
+        private decimal valorCancelado;
 
-        public int Idfatura { get => idfatura; set => idfatura = value; }
-        public int Idcontrato { get => idcontrato; set => idcontrato = value; }
-        public string Referencia { get => referencia; set => referencia = value; }
-        public string Lancamento { get => lancamento; set => lancamento = value; }
-        public string Vencimento { get => vencimento; set => vencimento = value; }
-        public string Pagamento { get => pagamento; set => pagamento = value; }
-        public string Baixa { get => baixa; set => baixa = value; }
+        public int IdFinanceiro { get => idFinanceiro; set => idFinanceiro = value; }
+        public int IdEstabelecimento { get => idEstabelecimento; set => idEstabelecimento = value; }
+        public int IdFuncionario { get => idFuncionario; set => idFuncionario = value; }
+        public string Descricao { get => descricao; set => descricao = value; }
+        public int IdMovimento { get => idMovimento; set => idMovimento = value; }
+        public int IdFatura { get => idFatura; set => idFatura = value; }
+        public string DhLancamento { get => dhLancamento; set => dhLancamento = value; }
+        public char TipoLancamento { get => tipoLancamento; set => tipoLancamento = value; }
+        public int IdFormaPagamento { get => idFormaPagamento; set => idFormaPagamento = value; }
+        public char FatExcedente { get => fatExcedente; set => fatExcedente = value; }
+        public int NumeroRecibo { get => numeroRecibo; set => numeroRecibo = value; }
         public decimal Subtotal { get => subtotal; set => subtotal = value; }
-        public decimal Juros { get => juros; set => juros = value; }
-        public decimal Multa { get => multa; set => multa = value; }
+        public decimal Excedente { get => excedente; set => excedente = value; }
         public decimal Desconto { get => desconto; set => desconto = value; }
         public decimal Total { get => total; set => total = value; }
-        public char Tipo_desconto { get => tipo_desconto; set => tipo_desconto = value; }
-        public string Texto { get => texto; set => texto = value; }
-        public string Cancelamento { get => cancelamento; set => cancelamento = value; }
-        public decimal Valor_cancelado { get => valor_cancelado; set => valor_cancelado = value; }
+        public decimal Dinheiro { get => dinheiro; set => dinheiro = value; }
+        public decimal Troco { get => troco; set => troco = value; }
+        public decimal Multa { get => multa; set => multa = value; }
+        public decimal Juros { get => juros; set => juros = value; }
+        public string DhCancelamento { get => dhCancelamento; set => dhCancelamento = value; }
+        public string MotivoCancelamento { get => motivoCancelamento; set => motivoCancelamento = value; }
+        public decimal ValorCancelado { get => valorCancelado; set => valorCancelado = value; }
     }
 }

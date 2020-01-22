@@ -35,13 +35,13 @@
             this.txtVeiculo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPlaca = new System.Windows.Forms.MaskedTextBox();
-            this.cboTipo = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.chkAtivo = new System.Windows.Forms.CheckBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnVoltar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
+            this.cboTipo = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label2
@@ -116,26 +116,12 @@
             this.txtPlaca.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlaca.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.txtPlaca.Location = new System.Drawing.Point(111, 159);
-            this.txtPlaca.Mask = ">?>?>?-9999";
+            this.txtPlaca.Mask = ">?>?>?-9A99";
             this.txtPlaca.Name = "txtPlaca";
             this.txtPlaca.Size = new System.Drawing.Size(129, 29);
             this.txtPlaca.TabIndex = 1;
             this.txtPlaca.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // cboTipo
-            // 
-            this.cboTipo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboTipo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cboTipo.FormattingEnabled = true;
-            this.cboTipo.Items.AddRange(new object[] {
-            "Carro",
-            "Moto",
-            "Outros"});
-            this.cboTipo.Location = new System.Drawing.Point(389, 160);
-            this.cboTipo.Name = "cboTipo";
-            this.cboTipo.Size = new System.Drawing.Size(113, 28);
-            this.cboTipo.TabIndex = 2;
+            this.txtPlaca.Leave += new System.EventHandler(this.txtPlaca_Leave);
             // 
             // label10
             // 
@@ -204,17 +190,31 @@
             this.lblCliente.Text = "Nome do Cliente";
             this.lblCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // cboTipo
+            // 
+            this.cboTipo.FormattingEnabled = true;
+            this.cboTipo.ItemHeight = 20;
+            this.cboTipo.Items.AddRange(new object[] {
+            "Carro",
+            "Moto",
+            "Outros"});
+            this.cboTipo.Location = new System.Drawing.Point(396, 162);
+            this.cboTipo.Name = "cboTipo";
+            this.cboTipo.Size = new System.Drawing.Size(106, 28);
+            this.cboTipo.TabIndex = 2;
+            this.cboTipo.Text = "Carro";
+            // 
             // IUVeiculoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 320);
+            this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.chkAtivo);
-            this.Controls.Add(this.cboTipo);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtPlaca);
             this.Controls.Add(this.txtVeiculo);
@@ -232,8 +232,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Veiculo";
             this.Load += new System.EventHandler(this.IUVeiculoCliente_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IUVeiculoCliente_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.IUVeiculoCliente_KeyUp);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IUVeiculoCliente_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,12 +246,12 @@
         private System.Windows.Forms.TextBox txtVeiculo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox txtPlaca;
-        private System.Windows.Forms.ComboBox cboTipo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox chkAtivo;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnVoltar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblCliente;
+        private System.Windows.Forms.ComboBox cboTipo;
     }
 }

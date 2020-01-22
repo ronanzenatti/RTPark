@@ -6,7 +6,7 @@ using RTPark.Entidades;
 using System.Linq;
 using RTPark.DAO;
 using RTPark.Util;
-
+using System.Drawing;
 
 namespace RTPark
 {
@@ -20,7 +20,7 @@ namespace RTPark
         Contratos contr;
         Funcionarios fun;
         Movimentos obj;
-        Financeiro fin = new Financeiro();
+        Financeiro fin;
 
         TelaPrincipal telaMov;
 
@@ -32,12 +32,20 @@ namespace RTPark
         public SaidaMovimento(int id, Estabelecimentos est, ConfigMovimento config, Funcionarios fun, Form tela)
         {
             InitializeComponent();
+
+            groupBox4.TabStop = false;
+            rbInteiro.TabStop = false;
+            rbManual.TabStop = false;
+            rbProporcional.TabStop = false;
+            rbZero.TabStop = false;
+
             this.est = est; // Estabelecimento
             this.config = config; // Configuração de Movimento
             this.fun = fun; // Funcionário
             telaMov = (TelaPrincipal)tela; // Tela de Movimento
 
             CarregaServico();
+
             CarregaFormaPagamento();
 
             CarregaFaturaExcedentePadrao();
@@ -47,41 +55,7 @@ namespace RTPark
             {
                 obj = mDAO.GetById(id);
 
-                txtPlaca.ReadOnly = false;
-
-                lblDHEntrada.Text = obj.DhEntrada;
-                obj.DhSaida = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-                lblDHSaida.Text = obj.DhSaida;
-                txtPlaca.Text = obj.Placa;
-                txtVeiculo.Text = obj.Veiculo;
-                txtVaga.Value = obj.Vaga;
-
-                if (obj.TipoVeiculo == 'C')
-                    lblTipoVeiculo.Text = "Carro";
-                else if (obj.TipoVeiculo == 'M')
-                    lblTipoVeiculo.Text = "Moto";
-                else if (obj.TipoVeiculo == 'O')
-                    lblTipoVeiculo.Text = "Outro";
-
-                cboServico.SelectedValue = obj.Idservico;
-
-                if (obj.Idcontrato != 0)
-                    BuscaContrato(obj.Idcontrato);
-
-                if (obj.DocFed.Length == 14)
-                {
-                    cboTipoPessoa.SelectedIndex = 0;
-                    txtDocFed.Text = obj.DocFed;
-                }
-                else
-                {
-                    cboTipoPessoa.SelectedIndex = 1;
-                    txtDocFed.Text = obj.DocFed;
-                }
-
-                AtualizaValor();
-
-                CalcularPeriodo();
+                PreencheMovimento();
             } //ok
         }
 
@@ -104,8 +78,114 @@ namespace RTPark
             }
         } //OK
 
-        private void CalcularPeriodo()//OK
+        private void CarregaServico()
         {
+            ServicoDAO sDAO = new ServicoDAO();
+            cboServico.DataSource = sDAO.BuscaPorCampo("ativo", "1");
+            cboServico.ValueMember = "ID";
+            cboServico.DisplayMember = "Descrição";
+        } //OK
+
+        private void CarregaFormaPagamento()
+        {
+            FormaPagamentoDAO fDAO = new FormaPagamentoDAO();
+            cboFormaPagamento.DataSource = fDAO.BuscaPorCampo("ativo", "1");
+            cboFormaPagamento.ValueMember = "ID";
+            cboFormaPagamento.DisplayMember = "Descrição";
+        } //OK
+
+        private void txtPlaca_Leave(object sender, EventArgs e)
+        {
+            txtPlaca.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            txtPlaca.Text = txtPlaca.Text.Trim().Replace(" ", "");
+            if (txtPlaca.Text.Length < 7 && txtPlaca.Text.Length >= 0)
+            {
+                txtPlaca.Focus();
+                btnSalvar.Enabled = false;
+                txtPlaca.Clear();
+            }
+            else if (txtPlaca.Text.Length == 7)
+            {
+                txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
+                obj = mDAO.GetByCampo("placa = '", txtPlaca.Text + "' ", 'S');
+                if (obj != null)
+                {
+                    btnSalvar.Enabled = true;
+                    PreencheMovimento();
+                }
+                else
+                {
+                    MessageBox.Show("PLACA INVÁLIDA! \n" +
+                        "Veiculo não estacionado.", "ERRO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPlaca.Focus();
+                    btnSalvar.Enabled = false;
+                    txtPlaca.Clear();
+                }
+            }
+            else
+            {
+                MessageBox.Show("O campo [ PLACA ] está inválido!", "ERRO!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPlaca.Focus();
+                btnSalvar.Enabled = false;
+            }
+            txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
+        }
+
+        public void PreencheMovimento()
+        {
+            btnSalvar.Enabled = true;
+            txtPlaca.TabStop = false;
+            txtPlaca.ReadOnly = true;
+            txtPlaca.BackColor = Color.White;
+            txtPlaca.ForeColor = Color.Blue;
+
+            lblDHEntrada.Text = obj.DhEntrada;
+            obj.DhSaida = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            lblDHSaida.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            txtPlaca.Text = obj.Placa;
+            txtVeiculo.Text = obj.Veiculo;
+            txtVaga.Value = obj.Vaga;
+
+            if (obj.TipoVeiculo == 'C')
+                lblTipoVeiculo.Text = "CARRO";
+            else if (obj.TipoVeiculo == 'M')
+                lblTipoVeiculo.Text = "MOTO";
+            else if (obj.TipoVeiculo == 'O')
+                lblTipoVeiculo.Text = "OUTROS";
+
+            cboServico.SelectedValue = obj.Idservico;
+
+            if (obj.Idcontrato != 0)
+                BuscaContrato(obj.Idcontrato);
+
+            if (obj.DocFed.Length == 14 || obj.DocFed.Length < 14)
+            {
+                cboTipoPessoa.SelectedIndex = 0;
+                txtDocFed.Text = obj.DocFed;
+            }
+            else if (obj.DocFed.Length == 18)
+            {
+                cboTipoPessoa.SelectedIndex = 1;
+                txtDocFed.Text = obj.DocFed;
+            }
+
+            MontaCupom();
+
+            BuscaCLiente();
+
+            if (obj.Idcontrato > 0)
+            {
+                BuscaContrato(obj.Idcontrato);
+            }
+
+            AtualizaValor();
+
+            CalcularPeriodo();
+        }
+
+        private void CalcularPeriodo()//OK/;
+        {
+            fin = new Financeiro();
             obj.Periodos = 0;
             obj.Excedente = 0;
             exec = "";
@@ -167,70 +247,119 @@ namespace RTPark
 
             lblExcedente.Text = exec;
             lblPeriodo.Text = obj.Periodos.ToString();
-            CalcularPagamento(true);
+            CalcularPagamento();
         }
 
-        private void CalcularPagamento(bool leave)//ok
+        private void CalcularPagamento()//ok
         {
             if (obj != null)
             {
-                if (obj.TipoVeiculo == 'C')
+                if (sv.TipoCobranca == 'M')
                 {
-                    vSubtotal = obj.Periodos * sv.ValorCarro;
-                    txtSubTotal.Text = vSubtotal.ToString();
-                    vServico = sv.ValorCarro;
-                }
-                else if (obj.TipoVeiculo == 'M')
-                {
-                    vSubtotal = obj.Periodos * sv.ValorMoto;
-                    txtSubTotal.Text = vSubtotal.ToString();
-                    vServico = sv.ValorMoto;
-                }
-                else if (obj.TipoVeiculo == 'O')
-                {
-                    vSubtotal = obj.Periodos * sv.ValorOutros;
-                    txtSubTotal.Text = vSubtotal.ToString();
-                    vServico = sv.ValorOutros;
-                }
+                    vSubtotal = 0;
+                    txtSubTotal.Text = "0,00";
+                    txtSubTotal.Enabled = false;
 
-                if (rbInteiro.Checked)
-                {
-                    vExecedente = vServico;
-                    txtExcedente.Text = vExecedente.ToString();
-                }
-                else if (rbProporcional.Checked)
-                {
-                    if (sv.TipoCobranca != 'H')
-                    {
-                        vExecedente = (vServico * obj.Excedente) / sv.Quantidade;
-                    }
-                    else
-                    {
-                        vExecedente = (vServico * obj.Excedente) / (sv.Quantidade * 60);
-                    }
-                    txtExcedente.Text = vExecedente.ToString("N2");
-                }
-                else if (rbManual.Checked)
-                {
-                    vExecedente = Convert.ToDecimal(txtExcedente.Text);
-                }
-                else if (rbZero.Checked)
-                {
-                    if (vTotal > 0)
-                    {
-                        vDesconto = vTotal;
+                    vExecedente = 0;
+                    txtExcedente.Text = "0,00";
+                    txtExcedente.Enabled = false;
 
+                    vDesconto = 0;
+                    txtDesconto.Text = "0,00";
+                    txtDesconto.Enabled = false;
+
+                    vTotal = 0;
+                    txtTotalPagar.Text = "0,00";
+                    txtTotalPagar.Enabled = false;
+
+                    vDinheiro = 0;
+                    txtDinheiro.Text = "0,00";
+                    txtDinheiro.Enabled = false;
+
+                    vTroco = 0;
+                    txtTroco.Text = "0,00";
+                    txtTroco.Enabled = false;
+
+                    rbInteiro.Enabled = false;
+                    rbProporcional.Enabled = false;
+                    rbZero.Enabled = false;
+                    rbManual.Enabled = false;
+                }
+                else
+                {
+                    txtSubTotal.Enabled = true;
+                    txtExcedente.Enabled = true;
+                    txtDesconto.Enabled = true;
+                    txtTotalPagar.Enabled = true;
+                    txtDinheiro.Enabled = true;
+                    txtTroco.Enabled = true;
+
+                    rbInteiro.Enabled = true;
+                    rbProporcional.Enabled = true;
+                    rbZero.Enabled = true;
+                    rbManual.Enabled = true;
+
+                    if (obj.TipoVeiculo == 'C')
+                    {
+                        vSubtotal = obj.Periodos * sv.ValorCarro;
+                        txtSubTotal.Text = vSubtotal.ToString("N2");
+                        vServico = sv.ValorCarro;
+                    }
+                    else if (obj.TipoVeiculo == 'M')
+                    {
+                        vSubtotal = obj.Periodos * sv.ValorMoto;
+                        txtSubTotal.Text = vSubtotal.ToString("N2");
+                        vServico = sv.ValorMoto;
+                    }
+                    else if (obj.TipoVeiculo == 'O')
+                    {
+                        vSubtotal = obj.Periodos * sv.ValorOutros;
+                        txtSubTotal.Text = vSubtotal.ToString("N2");
+                        vServico = sv.ValorOutros;
+                    }
+
+                    if (rbInteiro.Checked)
+                    {
+                        fin.FatExcedente = 'I';
+                        vExecedente = vServico;
+                        txtExcedente.Text = vExecedente.ToString("N2");
+                        txtDesconto.Text = "0,00";
+                    }
+                    else if (rbProporcional.Checked)
+                    {
+                        fin.FatExcedente = 'P';
+                        if (sv.TipoCobranca != 'H')
+                        {
+                            vExecedente = (vServico * obj.Excedente) / sv.Quantidade;
+                        }
+                        else
+                        {
+                            vExecedente = (vServico * obj.Excedente) / (sv.Quantidade * 60);
+                        }
+                        txtExcedente.Text = vExecedente.ToString("N2");
+                        txtDesconto.Text = "0,00";
+                    }
+                    else if (rbManual.Checked)
+                    {
+                        fin.FatExcedente = 'M';
+                        vExecedente = Convert.ToDecimal(txtExcedente.Text);
+                        txtDesconto.Text = "0,00";
+                    }
+                    else if (rbZero.Checked)
+                    {
+                        fin.FatExcedente = 'Z';
+                        vDesconto = (vSubtotal + vExecedente);
                         txtDesconto.Text = vDesconto.ToString("N2");
+
+                        txtDinheiro.Text = "0,00";
+                        vDinheiro = 0;
                     }
+
+                    vTotal = (vSubtotal + vExecedente) - vDesconto;
+                    vDesconto = Convert.ToDecimal(txtDesconto.Text);
+
+                    txtTotalPagar.Text = vTotal.ToString("N2");
                 }
-
-                vDesconto = Convert.ToDecimal(txtDesconto.Text);
-
-                vTotal = (vSubtotal + vExecedente) - vDesconto;
-
-                txtTotalPagar.Text = vTotal.ToString("N2");
-                if (leave)
-                    txtDinheiro.Focus();
             }
         }
 
@@ -249,25 +378,7 @@ namespace RTPark
             txtTroco.Text = vTroco.ToString("N2");
         }
 
-        private void txtPlaca_Leave(object sender, EventArgs e)
-        {
-            /*
-            txtPlaca.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            if (txtPlaca.Text.Length == 7)
-            {
-                txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
-                BuscaPlaca();
-                btnSalvar.Enabled = true;
-            }
-            else if (txtPlaca.Text.Length < 7 && txtPlaca.Text.Length > 0)
-            {
-                MessageBox.Show("O campo [ PLACA ] está inválido!");
-                txtPlaca.Focus();
-                btnSalvar.Enabled = false;
-            }
-            txtPlaca.TextMaskFormat = MaskFormat.IncludeLiterals;
-            */
-        }
+
 
         private void cboTipoPessoa_SelectedIndexChanged(object sender, EventArgs e) // OK
         {
@@ -287,8 +398,12 @@ namespace RTPark
         {
             MontaCupom();
 
-            obj.Placa = txtPlaca.Text;
-            // obj.TipoVeiculo = gbTipoVeiculo.Controls.OfType<RadioButton>().SingleOrDefault(rad => rad.Checked == true).Text[0];
+            if (vDinheiro < vTotal)
+            {
+                vDinheiro = vTotal;
+                txtDinheiro.Text = vDinheiro.ToString("N2");
+            }
+
             obj.Veiculo = txtVeiculo.Text;
             obj.Vaga = (int)txtVaga.Value;
             obj.Idservico = Convert.ToInt32(cboServico.SelectedValue);
@@ -296,13 +411,28 @@ namespace RTPark
             obj.Idcontrato = (contr != null) ? contr.Idcontrato : 0;
             obj.DocFed = txtDocFed.Text;
 
-            obj.Idmovimento = mDAO.Inserir(obj);
+            mDAO.Alterar(obj);
 
-            MontaCupom();
+            fin.IdEstabelecimento = est.Idestabelecimento;
+            fin.IdFuncionario = fun.Idfuncionario;
+            fin.IdMovimento = obj.Idmovimento;
+            fin.DhLancamento = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            fin.TipoLancamento = 'M';
+            fin.IdFormaPagamento = Convert.ToInt32(cboFormaPagamento.SelectedValue);
+
+            fin.Subtotal = vSubtotal;
+            fin.Excedente = vExecedente;
+            fin.Desconto = vDesconto;
+            fin.Total = vTotal;
+            fin.Dinheiro = vDinheiro;
+            fin.Troco = vTroco;
+
+            FinanceiroDAO fDAO = new FinanceiroDAO();
+            fDAO.InserirMovimento(fin);
 
             if (config.ImprimeSaida == 'P')
             {
-                DialogResult dr = MessageBox.Show("Deseja Imprimir o Cupom de Entreda ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dr = MessageBox.Show("Deseja Imprimir o Cupom de Saída ?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dr == DialogResult.Yes)
                 {
@@ -316,6 +446,7 @@ namespace RTPark
 
             telaMov.CarregaGrid();
             this.Close();
+
         }
 
         private void btnVoltar_Click(object sender, EventArgs e)//ok
@@ -324,57 +455,14 @@ namespace RTPark
             this.Close();
         }
 
-        private void BuscaPlaca()
-        {
-            VeiculosClienteDAO vDAO = new VeiculosClienteDAO();
-            vc = vDAO.GetByPlaca(txtPlaca.Text);
 
-            if (vc != null)
-            {
-                txtVeiculo.Text = vc.Veiculo;
-                switch (vc.Tipo)
-                {
-                    case 'C':
-                        lblTipoVeiculo.Text = "CARRO";
-                        break;
-
-                    case 'M':
-                        lblTipoVeiculo.Text = "MOTO";
-                        break;
-
-                    case 'O':
-                        lblTipoVeiculo.Text = "OUTROS";
-                        break;
-                }
-                BuscaCLiente();
-            }
-            else
-            {
-                txtVeiculo.Text = null;
-                lblTipoVeiculo.Text = "CARRO";
-
-                txtIdContrato.Text = null;
-                txtNomeContrato.Text = null;
-                cboServico.SelectedValue = config.CobrancaPadrao;
-
-                lblCliente.Text = null;
-                txtDocFed.Text = null;
-                cboTipoPessoa.SelectedIndex = 0;
-
-                vc = null;
-                cli = null;
-                contr = null;
-
-            }
-            MontaCupom();
-        }
 
         private void BuscaCLiente()
         {
+            vc = new VeiculosClienteDAO().GetByPlaca(txtPlaca.Text);
             if (vc != null)
             {
-                ClienteDAO cDAO = new ClienteDAO();
-                cli = cDAO.GetById(vc.Idcliente);
+                cli = new ClienteDAO().GetById(vc.Idcliente);
                 if (cli != null)
                 {
                     lblCliente.Text = cli.Nome;
@@ -387,7 +475,6 @@ namespace RTPark
                         cboTipoPessoa.SelectedIndex = 1;
                     }
                     txtDocFed.Text = cli.Doc_fed;
-                    BuscaContrato(0);
                 }
                 else
                 {
@@ -415,21 +502,7 @@ namespace RTPark
             }
         }
 
-        private void CarregaServico()
-        {
-            ServicoDAO sDAO = new ServicoDAO();
-            cboServico.DataSource = sDAO.BuscaPorCampo("ativo", "1");
-            cboServico.ValueMember = "ID";
-            cboServico.DisplayMember = "Descrição";
-        } //OK
 
-        private void CarregaFormaPagamento()
-        {
-            FormaPagamentoDAO fDAO = new FormaPagamentoDAO();
-            cboFormaPagamento.DataSource = fDAO.BuscaPorCampo("ativo", "1");
-            cboFormaPagamento.ValueMember = "ID";
-            cboFormaPagamento.DisplayMember = "Descrição";
-        } //OK
 
         private void AtualizaValor()//ok
         {
@@ -469,6 +542,216 @@ namespace RTPark
             FormataMoeda(ref txtValor);
         } //OK
 
+
+
+        private void txtVaga_Leave(object sender, EventArgs e)
+        {
+            MontaCupom();
+        } //OK
+
+        private void cboServico_Leave(object sender, EventArgs e)
+        {
+            if (cboServico.SelectedIndex < 0)
+            {
+                cboServico.SelectedValue = sv.Idservico;
+
+            }
+            AtualizaValor();
+            MontaCupom();
+        } //OK
+
+        private void txtVeiculo_Leave(object sender, EventArgs e)
+        {
+            MontaCupom();
+        } //OK
+
+        private void txtDocFed_Leave(object sender, EventArgs e)
+        {
+            MontaCupom();
+        } //ok
+
+        private void btnRemContrato_Click(object sender, EventArgs e) //OK
+        {
+            contr = null;
+            txtIdContrato.Text = null;
+            txtNomeContrato.Text = null;
+
+            cboServico.SelectedValue = config.CobrancaPadrao;
+
+            AtualizaValor();
+        }
+
+        private void txtExcedente_TextChanged(object sender, EventArgs e)//ok
+        {
+            FormataMoeda(ref txtExcedente);
+            CalcularPagamento();
+            CalculaTroco();
+        }
+
+        private void txtDesconto_TextChanged(object sender, EventArgs e)//ok
+        {
+            FormataMoeda(ref txtDesconto);
+            CalcularPagamento();
+            CalculaTroco();
+        }
+
+        private void txtDinheiro_TextChanged(object sender, EventArgs e)//ok
+        {
+            FormataMoeda(ref txtDinheiro);
+            CalculaTroco();
+        }
+
+        private void cboTipoPessoa_Leave(object sender, EventArgs e)//OK
+        {
+            if (cboTipoPessoa.SelectedIndex < 0)
+            {
+                cboTipoPessoa.SelectedIndex = 0;
+            }
+        }
+
+        private void btnBuscaContrato_Click(object sender, EventArgs e)//OK
+        {
+            BuscaContratos tela = new BuscaContratos(null, this);
+            tela.ShowDialog();
+        }
+
+        private void txtExcedente_Leave(object sender, EventArgs e)
+        {
+            CalcularPagamento();
+        }
+
+        private void MontaCupom()
+        {
+            ArrayList cupom = new ArrayList();
+
+            // ------------------------------------------
+            cupom.Add(est.Nome);
+            if (Convert.ToBoolean(config.ImprimeEnd))
+                cupom.Add(est.Rua + ", " + est.Numero);
+
+            if (Convert.ToBoolean(config.ImprimeCnpj))
+                cupom.Add(est.Cnpj);
+
+            if (Convert.ToBoolean(config.ImprimeTelefones))
+                cupom.Add(est.Telefones);
+            // ------------------------------------------
+
+            cupom.Add("-----------------------------------------");
+            cupom.Add("  ******* COMPROVANTE DE SAIDA *******   ");
+            cupom.Add("-----------------------------------------");
+
+            cupom.Add("DOC.....: " + (obj != null ? obj.Idmovimento : 0));
+            cupom.Add("PLACA...: " + txtPlaca.Text);
+
+            if (cli != null)
+                cupom.Add("CLIENTE.: " + cli.Nome);
+
+            txtDocFed.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            if (cli != null || txtDocFed.Text.Length > 0)
+            {
+                txtDocFed.TextMaskFormat = MaskFormat.IncludeLiterals;
+                cupom.Add("CPF/CNPJ: " + txtDocFed.Text);
+            }
+
+            if (contr != null)
+                cupom.Add("CONTRATO: " + contr.Descricao);
+
+            if (txtVeiculo.Text.Length > 0)
+                cupom.Add("VEICULO.: " + txtVeiculo.Text);
+
+            if (txtVaga.Value > 0)
+                cupom.Add("VAGA....: " + txtVaga.Value.ToString().PadLeft(3, '0'));
+
+            cupom.Add(" ");
+            cupom.Add("ENTRADA....: " + lblDHEntrada.Text);
+            cupom.Add("SAIDA......: " + lblDHSaida.Text);
+            cupom.Add("Permanência: " + lblPermanencia.Text);
+            cupom.Add("Periodos...: " + lblPeriodo.Text);
+            cupom.Add("Excedente..: " + lblExcedente.Text);
+
+            if (fin != null && sv.TipoCobranca != 'M')
+            {
+                cupom.Add(" ");
+                cupom.Add("Sub-Total..: R$ " + txtSubTotal.Text.PadLeft(8, ' '));
+                cupom.Add("Excedente..: R$ " + txtExcedente.Text.PadLeft(8, ' '));
+                cupom.Add("Desconto...: R$ " + txtDesconto.Text.PadLeft(8, ' '));
+                cupom.Add("Total......: R$ " + txtTotalPagar.Text.PadLeft(8, ' '));
+                cupom.Add("Dinheiro...: R$ " + txtDinheiro.Text.PadLeft(8, ' '));
+                cupom.Add("Troco......: R$ " + txtTroco.Text.PadLeft(8, ' '));
+            }
+            else
+            {
+                cupom.Add(" ");
+                cupom.Add("   ******* PAGAMENTO MENSAL *******   ");
+            }
+
+            cupom.Add("");
+
+            cupom.Add("-----------------------------------------");
+            cupom.Add(" ");
+            cupom.Add(" ");
+            cupom.Add(" ");
+
+            txtCupom.Lines = (String[])cupom.ToArray(typeof(string));
+        }
+
+        private void SaidaMovimento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar.CompareTo((char)Keys.Return)) == 0)
+            {
+                e.Handled = true;
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void txtDinheiro_Leave(object sender, EventArgs e)
+        {
+
+            if (vDinheiro == 0)
+            {
+                vDinheiro = vTotal;
+                txtDinheiro.Text = vDinheiro.ToString("N2");
+            }
+
+            if (vDinheiro < vTotal)
+            {
+                MessageBox.Show("Valor do DINHEIRO menor que TOTAL!", "RTPark", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtDinheiro.Focus();
+            }
+
+        }
+
+        private void rbInteiro_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularPagamento();
+        }
+
+        private void rbProporcional_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularPagamento();
+        }
+
+        private void rbZero_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularPagamento();
+        }
+
+        private void rbManual_CheckedChanged(object sender, EventArgs e)
+        {
+            CalcularPagamento();
+        }
+
+        private void txtDesconto_Leave(object sender, EventArgs e)
+        {
+            CalcularPagamento();
+        }
+
+        private void Impressao()
+        {
+            ImprimeCupom print = new ImprimeCupom(txtCupom);
+            print.Print();
+        }
+
         public static void FormataMoeda(ref TextBox txt)
         {
             string n = string.Empty;
@@ -507,163 +790,5 @@ namespace RTPark
             }
 
         }//OK
-
-        private void txtVaga_Leave(object sender, EventArgs e)
-        {
-            MontaCupom();
-        } //OK
-
-        private void cboServico_Leave(object sender, EventArgs e)
-        {
-            if (cboServico.SelectedIndex < 0)
-            {
-                cboServico.SelectedValue = sv.Idservico;
-
-            }
-            AtualizaValor();
-            MontaCupom();
-        } //OK
-
-        private void txtVeiculo_Leave(object sender, EventArgs e)
-        {
-            MontaCupom();
-        } //OK
-
-        private void txtDocFed_Leave(object sender, EventArgs e)
-        {
-            MontaCupom();
-        } //ok
-
-        private void btnRemContrato_Click(object sender, EventArgs e) //OK
-        {
-            contr = null;
-            txtIdContrato.Text = null;
-            txtNomeContrato.Text = null;
-            AtualizaValor();
-        }
-
-        private void txtExcedente_TextChanged(object sender, EventArgs e)//ok
-        {
-            FormataMoeda(ref txtExcedente);
-            CalcularPagamento(false);
-            CalculaTroco();
-        }
-
-        private void txtDesconto_TextChanged(object sender, EventArgs e)//ok
-        {
-            FormataMoeda(ref txtDesconto);
-            CalcularPagamento(false);
-            CalculaTroco();
-        }
-
-        private void txtDinheiro_TextChanged(object sender, EventArgs e)//ok
-        {
-            FormataMoeda(ref txtDinheiro);
-            CalculaTroco();
-        }
-
-        private void cboTipoPessoa_Leave(object sender, EventArgs e)//OK
-        {
-            if (cboTipoPessoa.SelectedIndex < 0)
-            {
-                cboTipoPessoa.SelectedIndex = 0;
-            }
-        }
-
-        private void btnBuscaContrato_Click(object sender, EventArgs e)//OK
-        {
-            BuscaContratos tela = new BuscaContratos(null, this);
-            tela.ShowDialog();
-        }
-
-        private void txtExcedente_Leave(object sender, EventArgs e)
-        {
-            CalcularPagamento(true);
-        }
-
-        private void MontaCupom()
-        {
-            ArrayList cupom = new ArrayList();
-
-            // ------------------------------------------
-            cupom.Add(est.Nome);
-            if (Convert.ToBoolean(config.ImprimeEnd))
-                cupom.Add(est.Rua + ", " + est.Numero);
-
-            if (Convert.ToBoolean(config.ImprimeCnpj))
-                cupom.Add(est.Cnpj);
-
-            if (Convert.ToBoolean(config.ImprimeTelefones))
-                cupom.Add(est.Telefones);
-            // ------------------------------------------
-
-            cupom.Add("-----------------------------------------");
-            cupom.Add("  ****** COMPROVANTE DE ENTRADA ******   ");
-            cupom.Add("-----------------------------------------");
-
-            cupom.Add("DOC.....: ");
-            cupom.Add("PLACA...: " + txtPlaca.Text);
-
-            if (cli != null)
-                cupom.Add("CLIENTE.: " + cli.Nome);
-
-            txtDocFed.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            if (cli != null || txtDocFed.Text.Length > 0)
-            {
-                txtDocFed.TextMaskFormat = MaskFormat.IncludeLiterals;
-                cupom.Add("CPF/CNPJ: " + txtDocFed.Text);
-            }
-
-            if (contr != null)
-                cupom.Add("CONTRATO: " + contr.Descricao);
-
-            if (txtVeiculo.Text.Length > 0)
-                cupom.Add("VEICULO.: " + txtVeiculo.Text);
-
-            if (txtVaga.Value > 0)
-                cupom.Add("VAGA....: " + txtVaga.Value.ToString().PadLeft(3, '0'));
-
-            cupom.Add("ENTRADA.: " + lblDHEntrada.Text);
-            cupom.Add("SAIDA...: " + lblDHSaida.Text);
-
-            cupom.Add("-----------------------------------------");
-            cupom.Add(" ");
-            cupom.Add(" ");
-            cupom.Add(" ");
-
-            // txtCupom.Lines = (String[])cupom.ToArray(typeof(string));
-        }
-
-        private void rbInteiro_CheckedChanged(object sender, EventArgs e)
-        {
-            CalcularPagamento(true);
-        }
-
-        private void rbProporcional_CheckedChanged(object sender, EventArgs e)
-        {
-            CalcularPagamento(true);
-        }
-
-        private void rbZero_CheckedChanged(object sender, EventArgs e)
-        {
-            CalcularPagamento(true);
-        }
-
-        private void rbManual_CheckedChanged(object sender, EventArgs e)
-        {
-            CalcularPagamento(false);
-            txtExcedente.Focus();
-        }
-
-        private void txtDesconto_Leave(object sender, EventArgs e)
-        {
-            CalcularPagamento(true);
-        }
-
-        private void Impressao()
-        {
-            // ImprimeCupom print = new ImprimeCupom(txtCupom);
-            //print.Print();
-        }
     }
 }

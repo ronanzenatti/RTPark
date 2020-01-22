@@ -136,7 +136,7 @@ namespace RTPark
 
             if (validaCampos())
             {
-                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                DialogResult confirm = MessageBox.Show("Deseja Salvar o Registro?", "RTPark", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
                 if (validaCampos() && (confirm == DialogResult.Yes))
                 {
@@ -209,7 +209,11 @@ namespace RTPark
             }
             else
             {
-                lista.Show();
+                if (lista != null)
+                    lista.Show();
+
+                if (fmrBusca != null)
+                    fmrBusca.Show();
             }
 
         }

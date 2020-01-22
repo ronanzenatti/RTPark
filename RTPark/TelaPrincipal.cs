@@ -148,7 +148,7 @@ namespace RTPark
             vM = est.Vagas_moto;
             vO = est.Vagas_outros;
 
-            if (vagas.Read())
+            while (vagas.Read())
             {
                 if (vagas["tipo_veiculo"].ToString().Equals("C"))
                 {
@@ -223,7 +223,7 @@ namespace RTPark
 
         private void btnSaida_Click(object sender, EventArgs e)
         {
-            SaidaMovimento tela = new SaidaMovimento(2, est, config, usr, this);
+            SaidaMovimento tela = new SaidaMovimento(0, est, config, usr, this);
             tela.ShowDialog();
         }
 
@@ -235,10 +235,61 @@ namespace RTPark
 
         private void dgvDados_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int id = Convert.ToInt32(dgvDados.Rows[e.RowIndex].Cells[0].Value.ToString());
-            SaidaMovimento tela = new SaidaMovimento(id, est, config, usr, this);
-            tela.ShowDialog();
+            try
+            {
+                int id = Convert.ToInt32(dgvDados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                SaidaMovimento tela = new SaidaMovimento(id, est, config, usr, this);
+                tela.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Escolha um movimento válido.", "RTPark", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
+        private void TelaPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.F4)
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.F2:
+                        btnEntrada_Click(sender, e);
+                        break;
+
+                    case Keys.F3:
+                        btnSaida_Click(sender, e);
+                        break;
+
+                    case Keys.F4:
+                        btnClientes_Click(sender, e);
+                        break;
+                }
+            }
+        }
+
+        private void dgvDados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                int id = Convert.ToInt32(dgvDados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                SaidaMovimento tela = new SaidaMovimento(id, est, config, usr, this);
+                tela.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Escolha um movimento válido.", "RTPark", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void faturarContratosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaFaturas tela = new ListaFaturas();
+            tela.Show();
+        }
     }
 }

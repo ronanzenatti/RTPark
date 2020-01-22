@@ -169,7 +169,7 @@ namespace RTPark.DAO
             return obj;
         }
 
-        public VeiculosClientes GetByPlaca(String placa)
+        public VeiculosClientes GetByPlaca(String placa, int idCliente = 0)
         {
             VeiculosClientes obj = new VeiculosClientes();
             try
@@ -177,7 +177,15 @@ namespace RTPark.DAO
                 con = new Conexao();
                 con.Conectar();
                 String sql = "SELECT idvc, idcliente, placa, veiculo, tipo, ativo FROM veiculos_clientes";
-                sql += " WHERE placa = '" + placa + "';";
+                if (idCliente > 0)
+                {
+                    sql += " WHERE placa = '" + placa + "' AND idcliente <> " + idCliente + ";";
+                }
+                else
+                {
+                    sql += " WHERE placa = '" + placa + "';";
+                }
+
 
                 var dados = con.RetDataReader(sql);
 

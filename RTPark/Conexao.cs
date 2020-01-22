@@ -4,6 +4,8 @@ using System.Windows.Forms; // Namespace necessario para gerar uma Caixa de Mens
 
 using System.Data; //Namespace necessário para utilizar os recursos de manipulação de Banco de Dados do ADO.net framework
 
+using System.IO;
+
 //Namespace necessário para utilizar os recursos específicos de manipulação de Banco de Dados MySQL
 //NOTA: Deve-se importar a biblioteca do MySQL, obviamente ela precisa estar instalado no computador
 using MySql.Data.MySqlClient;
@@ -12,6 +14,9 @@ namespace RTPark
 {
     class Conexao
     {
+        string caminho = "/conexao.txt";
+        StreamReader reader;
+
         private MySqlConnection conn;
         private DataTable dataTable;
         private MySqlDataAdapter mysqlDA;
@@ -77,6 +82,18 @@ namespace RTPark
                 dt.Load(reader);
                 return dt.CreateDataReader();
             }
+        }
+
+        private void LeConexao()
+        {
+            reader = File.OpenText(caminho);
+
+            while (reader.EndOfStream != true)
+            {
+                string linha = reader.ReadLine();
+                Console.WriteLine(linha.Split('='));
+            }
+            reader.Close();
         }
     }
 }

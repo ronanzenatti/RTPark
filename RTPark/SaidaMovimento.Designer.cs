@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SaidaMovimento));
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblCliente = new System.Windows.Forms.Label();
             this.txtPlaca = new System.Windows.Forms.MaskedTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtCupom = new System.Windows.Forms.TextBox();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnVoltar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -60,6 +62,9 @@
             this.txtVaga = new System.Windows.Forms.NumericUpDown();
             this.txtVeiculo = new System.Windows.Forms.TextBox();
             this.gbFinanceiro = new System.Windows.Forms.GroupBox();
+            this.txtTroco = new System.Windows.Forms.Label();
+            this.txtTotalPagar = new System.Windows.Forms.Label();
+            this.txtSubTotal = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.txtDinheiro = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -79,9 +84,6 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtDocFed = new System.Windows.Forms.MaskedTextBox();
             this.cboTipoPessoa = new System.Windows.Forms.ComboBox();
-            this.txtSubTotal = new System.Windows.Forms.Label();
-            this.txtTotalPagar = new System.Windows.Forms.Label();
-            this.txtTroco = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -118,7 +120,7 @@
             this.txtPlaca.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlaca.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.txtPlaca.Location = new System.Drawing.Point(12, 12);
-            this.txtPlaca.Mask = ">?>?>?-9999";
+            this.txtPlaca.Mask = ">?>?>?-9A99";
             this.txtPlaca.Name = "txtPlaca";
             this.txtPlaca.Size = new System.Drawing.Size(249, 63);
             this.txtPlaca.TabIndex = 1;
@@ -128,12 +130,26 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.txtCupom);
             this.panel2.Controls.Add(this.btnSalvar);
             this.panel2.Controls.Add(this.btnVoltar);
             this.panel2.Location = new System.Drawing.Point(0, 499);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(784, 62);
-            this.panel2.TabIndex = 50;
+            this.panel2.TabIndex = 51;
+            // 
+            // txtCupom
+            // 
+            this.txtCupom.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtCupom.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCupom.Location = new System.Drawing.Point(244, 11);
+            this.txtCupom.Multiline = true;
+            this.txtCupom.Name = "txtCupom";
+            this.txtCupom.Size = new System.Drawing.Size(295, 38);
+            this.txtCupom.TabIndex = 1001;
+            this.txtCupom.TabStop = false;
+            this.txtCupom.Text = resources.GetString("txtCupom.Text");
+            this.txtCupom.Visible = false;
             // 
             // btnSalvar
             // 
@@ -144,7 +160,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(643, 11);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(129, 39);
-            this.btnSalvar.TabIndex = 4;
+            this.btnSalvar.TabIndex = 51;
             this.btnSalvar.Text = "&Salvar";
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
@@ -155,7 +171,8 @@
             this.btnVoltar.Location = new System.Drawing.Point(12, 11);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(129, 39);
-            this.btnVoltar.TabIndex = 41;
+            this.btnVoltar.TabIndex = 1000;
+            this.btnVoltar.TabStop = false;
             this.btnVoltar.Text = "&Cancelar";
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
@@ -169,7 +186,7 @@
             this.groupBox1.Location = new System.Drawing.Point(13, 226);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(401, 59);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 102;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Contrato:";
             // 
@@ -370,7 +387,7 @@
             this.groupBox3.Location = new System.Drawing.Point(13, 286);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(401, 59);
-            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabIndex = 101;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Serviço:";
             // 
@@ -407,7 +424,7 @@
             this.groupBox6.Location = new System.Drawing.Point(13, 346);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(401, 90);
-            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabIndex = 100;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Veiculo:";
             // 
@@ -479,9 +496,48 @@
             this.gbFinanceiro.Location = new System.Drawing.Point(420, 91);
             this.gbFinanceiro.Name = "gbFinanceiro";
             this.gbFinanceiro.Size = new System.Drawing.Size(353, 404);
-            this.gbFinanceiro.TabIndex = 52;
+            this.gbFinanceiro.TabIndex = 4;
             this.gbFinanceiro.TabStop = false;
             this.gbFinanceiro.Text = "Financeiro:";
+            // 
+            // txtTroco
+            // 
+            this.txtTroco.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTroco.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTroco.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTroco.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtTroco.Location = new System.Drawing.Point(207, 369);
+            this.txtTroco.Name = "txtTroco";
+            this.txtTroco.Size = new System.Drawing.Size(140, 25);
+            this.txtTroco.TabIndex = 22;
+            this.txtTroco.Text = "0,00";
+            this.txtTroco.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtTotalPagar
+            // 
+            this.txtTotalPagar.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTotalPagar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTotalPagar.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalPagar.ForeColor = System.Drawing.Color.Blue;
+            this.txtTotalPagar.Location = new System.Drawing.Point(207, 287);
+            this.txtTotalPagar.Name = "txtTotalPagar";
+            this.txtTotalPagar.Size = new System.Drawing.Size(140, 33);
+            this.txtTotalPagar.TabIndex = 21;
+            this.txtTotalPagar.Text = "0,00";
+            this.txtTotalPagar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtSubTotal
+            // 
+            this.txtSubTotal.BackColor = System.Drawing.SystemColors.Window;
+            this.txtSubTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSubTotal.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSubTotal.ForeColor = System.Drawing.Color.Blue;
+            this.txtSubTotal.Location = new System.Drawing.Point(207, 158);
+            this.txtSubTotal.Name = "txtSubTotal";
+            this.txtSubTotal.Size = new System.Drawing.Size(140, 33);
+            this.txtSubTotal.TabIndex = 20;
+            this.txtSubTotal.Text = "0,00";
+            this.txtSubTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label14
             // 
@@ -500,10 +556,11 @@
             this.txtDinheiro.Location = new System.Drawing.Point(207, 327);
             this.txtDinheiro.Name = "txtDinheiro";
             this.txtDinheiro.Size = new System.Drawing.Size(140, 32);
-            this.txtDinheiro.TabIndex = 17;
+            this.txtDinheiro.TabIndex = 2;
             this.txtDinheiro.Text = "0,00";
             this.txtDinheiro.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDinheiro.TextChanged += new System.EventHandler(this.txtDinheiro_TextChanged);
+            this.txtDinheiro.Leave += new System.EventHandler(this.txtDinheiro_Leave);
             // 
             // label13
             // 
@@ -533,7 +590,7 @@
             this.txtDesconto.Location = new System.Drawing.Point(207, 235);
             this.txtDesconto.Name = "txtDesconto";
             this.txtDesconto.Size = new System.Drawing.Size(140, 25);
-            this.txtDesconto.TabIndex = 13;
+            this.txtDesconto.TabIndex = 1;
             this.txtDesconto.Text = "0,00";
             this.txtDesconto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDesconto.TextChanged += new System.EventHandler(this.txtDesconto_TextChanged);
@@ -557,6 +614,7 @@
             this.txtExcedente.Name = "txtExcedente";
             this.txtExcedente.Size = new System.Drawing.Size(140, 25);
             this.txtExcedente.TabIndex = 11;
+            this.txtExcedente.TabStop = false;
             this.txtExcedente.Text = "0,00";
             this.txtExcedente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtExcedente.TextChanged += new System.EventHandler(this.txtExcedente_TextChanged);
@@ -589,7 +647,7 @@
             this.cboFormaPagamento.Location = new System.Drawing.Point(12, 106);
             this.cboFormaPagamento.Name = "cboFormaPagamento";
             this.cboFormaPagamento.Size = new System.Drawing.Size(335, 28);
-            this.cboFormaPagamento.TabIndex = 7;
+            this.cboFormaPagamento.TabIndex = 0;
             // 
             // label3
             // 
@@ -611,7 +669,7 @@
             this.groupBox4.Location = new System.Drawing.Point(6, 25);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(341, 54);
-            this.groupBox4.TabIndex = 5;
+            this.groupBox4.TabIndex = 5000;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fatura do Excedente:";
             // 
@@ -624,6 +682,7 @@
             this.rbManual.Name = "rbManual";
             this.rbManual.Size = new System.Drawing.Size(76, 20);
             this.rbManual.TabIndex = 3;
+            this.rbManual.TabStop = false;
             this.rbManual.Text = "Manual";
             this.rbManual.UseVisualStyleBackColor = true;
             this.rbManual.CheckedChanged += new System.EventHandler(this.rbManual_CheckedChanged);
@@ -644,12 +703,13 @@
             // rbProporcional
             // 
             this.rbProporcional.AutoSize = true;
+            this.rbProporcional.Checked = true;
             this.rbProporcional.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbProporcional.ForeColor = System.Drawing.SystemColors.WindowText;
             this.rbProporcional.Location = new System.Drawing.Point(81, 23);
             this.rbProporcional.Name = "rbProporcional";
             this.rbProporcional.Size = new System.Drawing.Size(115, 20);
-            this.rbProporcional.TabIndex = 1;
+            this.rbProporcional.TabIndex = 0;
             this.rbProporcional.Text = "Proporcional";
             this.rbProporcional.UseVisualStyleBackColor = true;
             this.rbProporcional.CheckedChanged += new System.EventHandler(this.rbProporcional_CheckedChanged);
@@ -657,14 +717,12 @@
             // rbInteiro
             // 
             this.rbInteiro.AutoSize = true;
-            this.rbInteiro.Checked = true;
             this.rbInteiro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbInteiro.ForeColor = System.Drawing.SystemColors.WindowText;
             this.rbInteiro.Location = new System.Drawing.Point(6, 23);
             this.rbInteiro.Name = "rbInteiro";
             this.rbInteiro.Size = new System.Drawing.Size(69, 20);
-            this.rbInteiro.TabIndex = 0;
-            this.rbInteiro.TabStop = true;
+            this.rbInteiro.TabIndex = 1;
             this.rbInteiro.Text = "Inteiro";
             this.rbInteiro.UseVisualStyleBackColor = true;
             this.rbInteiro.CheckedChanged += new System.EventHandler(this.rbInteiro_CheckedChanged);
@@ -676,7 +734,7 @@
             this.groupBox7.Location = new System.Drawing.Point(12, 436);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(402, 59);
-            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "CPF / CNPJ do Cliente:";
             // 
@@ -687,8 +745,9 @@
             this.txtDocFed.Mask = "999,999,999-99";
             this.txtDocFed.Name = "txtDocFed";
             this.txtDocFed.Size = new System.Drawing.Size(241, 26);
-            this.txtDocFed.TabIndex = 16;
+            this.txtDocFed.TabIndex = 1;
             this.txtDocFed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDocFed.Leave += new System.EventHandler(this.txtDocFed_Leave);
             // 
             // cboTipoPessoa
             // 
@@ -704,45 +763,6 @@
             this.cboTipoPessoa.Text = "Física";
             this.cboTipoPessoa.SelectedIndexChanged += new System.EventHandler(this.cboTipoPessoa_SelectedIndexChanged);
             this.cboTipoPessoa.Leave += new System.EventHandler(this.cboTipoPessoa_Leave);
-            // 
-            // txtSubTotal
-            // 
-            this.txtSubTotal.BackColor = System.Drawing.SystemColors.Window;
-            this.txtSubTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSubTotal.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSubTotal.ForeColor = System.Drawing.Color.Blue;
-            this.txtSubTotal.Location = new System.Drawing.Point(207, 158);
-            this.txtSubTotal.Name = "txtSubTotal";
-            this.txtSubTotal.Size = new System.Drawing.Size(140, 33);
-            this.txtSubTotal.TabIndex = 20;
-            this.txtSubTotal.Text = "0,00";
-            this.txtSubTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtTotalPagar
-            // 
-            this.txtTotalPagar.BackColor = System.Drawing.SystemColors.Window;
-            this.txtTotalPagar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTotalPagar.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalPagar.ForeColor = System.Drawing.Color.Blue;
-            this.txtTotalPagar.Location = new System.Drawing.Point(207, 287);
-            this.txtTotalPagar.Name = "txtTotalPagar";
-            this.txtTotalPagar.Size = new System.Drawing.Size(140, 33);
-            this.txtTotalPagar.TabIndex = 21;
-            this.txtTotalPagar.Text = "0,00";
-            this.txtTotalPagar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtTroco
-            // 
-            this.txtTroco.BackColor = System.Drawing.SystemColors.Window;
-            this.txtTroco.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTroco.Font = new System.Drawing.Font("Bitstream Vera Sans Mono", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTroco.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtTroco.Location = new System.Drawing.Point(207, 369);
-            this.txtTroco.Name = "txtTroco";
-            this.txtTroco.Size = new System.Drawing.Size(140, 25);
-            this.txtTroco.TabIndex = 22;
-            this.txtTroco.Text = "0,00";
-            this.txtTroco.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // SaidaMovimento
             // 
@@ -769,9 +789,11 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Saida de Veiculo";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SaidaMovimento_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -847,5 +869,6 @@
         private System.Windows.Forms.Label txtSubTotal;
         private System.Windows.Forms.Label txtTotalPagar;
         private System.Windows.Forms.Label txtTroco;
+        private System.Windows.Forms.TextBox txtCupom;
     }
 }
